@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMSv2_Contracts", "TMSv2_Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMSv2_Carriers", "TMSv2_Carriers\TMSv2_Carriers.csproj", "{7E53F3F0-CF38-4309-A762-33EF8C1EACFF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7044FDBB-6A71-4635-B044-2A95006FC4E0}"
+	ProjectSection(SolutionItems) = preProject
+		DOxygenMainProjectPage.cs = DOxygenMainProjectPage.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
