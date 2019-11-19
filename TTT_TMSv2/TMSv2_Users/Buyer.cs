@@ -20,11 +20,33 @@ namespace TMSv2_Users
     ///
     public class Buyer : User
     {
+        ///
+        /// \brief To instantiate a new Buyer
+        /// \details <b>Details</b>
+        ///
+        /// Instantiates the Buyer class by setting the permission level
+        ///
+        /// \param nothing <b>void</b> - Nothing is passed into this constructor
+        ///
+        /// \return As this is a <i>constructor</i> for the Buyer class, nothing is returned
+        ///
         public Buyer()
         {
             PermissionLevel = PERMISSION_BUYER;
         }
 
+        ///
+        /// \brief Creates a new <b>Order</b>
+        /// \details <b>Details</b>
+        ///
+        /// Creates a new <b>Order</b>
+        ///
+        /// \param nothing <b>void</b> - Nothing is passed into this method
+        ///
+        /// \return Returns an integer value indicating success or fail (along with what type of failure)
+        /// 
+        /// \see Order
+        ///
         public int CreateOrder()
         {
 
