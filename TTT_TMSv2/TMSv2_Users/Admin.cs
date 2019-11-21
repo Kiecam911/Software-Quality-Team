@@ -17,15 +17,17 @@ namespace TMSv2_Users
     /// Management Systems communications, etc. It is also able to alter the Rate/fee tables, carrier Data, Route Table, review log files
     /// within the application, and can initiate a file backup specifying the directory for the backup files.
     ///
-    /// \data member orderId <i>int</i> - <i>private<i> data member that holds the order's Identification number within the database
+    /// \var data member orderId <i>int</i> - <i>private<i> data member that holds the order's Identification number within the database
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
-    /// \see User
+    /// \sa User
     ///
     public class Admin : User
     {
         ///
+        /// \fn Admin()
+        /// 
         /// \brief To instantiate a new Admin
         /// \details <b>Details</b>
         ///

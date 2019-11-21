@@ -14,12 +14,12 @@ namespace TMSv2_Order
     ///
     /// This class represents the base order with all the characteristics that it should contain as well as data checking for private data members
     ///
-    /// \data member orderId <i>int</i> - <i>private<i> data member that holds the order's Identification number within the database
-    /// \data member cities <i>List string</i> - <i>private<i> data member that holds the order's cities
-    /// \data member totalCost <i>double</i> - <i>private<i> data member that holds the order's total cost
-    /// \data member usesFTL <i>bool</i> - <i>public<i> data member that 
-    /// \data member isCompleted <i>bool</i> - <i>public<i> data member that holds the order's completion state (completed or not)
-    /// \data member requiresReefer <i>bool</i> - <i>public<i> data member that
+    /// \var data member orderId <i>int</i> - <i>private<i> data member that holds the order's Identification number within the database
+    /// \var data member cities <i>List string</i> - <i>private<i> data member that holds the order's cities
+    /// \var data member totalCost <i>double</i> - <i>private<i> data member that holds the order's total cost
+    /// \var data member usesFTL <i>bool</i> - <i>public<i> data member that 
+    /// \var data member isCompleted <i>bool</i> - <i>public<i> data member that holds the order's completion state (completed or not)
+    /// \var data member requiresReefer <i>bool</i> - <i>public<i> data member that
     ///
     /// \author <i>TeamTeamTeam</i>
     ///

@@ -14,7 +14,7 @@ namespace TMSv2_Users
     ///
     /// This class represents the "Buyer" actor and is capable of 
     ///
-    /// \data member orderId <i>int</i> - <i>private<i> data member that holds the order's Identification number within the database
+    /// \var data member orderId <i>int</i> - <i>private<i> data member that holds the order's Identification number within the database
     ///
     /// \author <i>TeamTeamTeam</i>
     ///
