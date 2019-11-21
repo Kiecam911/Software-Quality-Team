@@ -13,6 +13,8 @@ namespace TMSv2_Contracts
     /// \details <b>Details</b>
     ///
     /// This class represents the 
+    /// 
+    /// \data member cargoVolume <i>double</i> - <i>private<i> data member that holds the volume of the cargo that is to be carried by the <b>Carrier</b>
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
@@ -21,5 +23,9 @@ namespace TMSv2_Contracts
     ///
     class RequestedCargo
     {
+        // Private Data members
+        private double cargoVolume;                 /// The volume of the cargo to be transported
+
+
     }
 }

@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DOxygenMainProjectPage.cs = DOxygenMainProjectPage.cs
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{A878B593-A3D8-4EF4-856A-6323C9DA685F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{7E53F3F0-CF38-4309-A762-33EF8C1EACFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E53F3F0-CF38-4309-A762-33EF8C1EACFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E53F3F0-CF38-4309-A762-33EF8C1EACFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A878B593-A3D8-4EF4-856A-6323C9DA685F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A878B593-A3D8-4EF4-856A-6323C9DA685F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A878B593-A3D8-4EF4-856A-6323C9DA685F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A878B593-A3D8-4EF4-856A-6323C9DA685F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
