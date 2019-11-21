@@ -18,22 +18,31 @@ namespace UnitTesting
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
-    /// \see Depot
-    /// \see Carrier
-    /// \see Contract
-    /// \see Customer
-    /// \see RequestedCargo
-    /// \see Order
-    /// \see Destination
-    /// \see Trip
-    /// \see Admin
-    /// \see Buyer
-    /// \see Planner
-    /// \see User
+    /// \sa Depot
+    /// \sa Carrier
+    /// \sa Contract
+    /// \sa Customer
+    /// \sa RequestedCargo
+    /// \sa Order
+    /// \sa Destination
+    /// \sa Trip
+    /// \sa Admin
+    /// \sa Buyer
+    /// \sa Planner
+    /// \sa User
     ///
     [TestClass]
     public class UnitTest
     {
+        ///
+        /// \test RequestedCargoUnitTest
+        /// 
+        /// \brief This test is designed to test the methods in the RequestedCargo class
+        /// \details <b>Details</b>
+        /// 
+        /// This test checks that the RequestedCargo class has proper input checking for the private data members. For example,
+        /// <b>cargoVolume</b> should be no less than or equal to 0.
+        ///
         [TestMethod]
         public void RequestedCargoUnitTest()
         {
