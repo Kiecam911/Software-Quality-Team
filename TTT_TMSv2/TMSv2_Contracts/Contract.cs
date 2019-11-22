@@ -16,6 +16,15 @@ namespace TMSv2_Contracts
     /// This class contains the attributes and methods necessary to perform transactions and utilize
     /// contracts within the system. A <b>Contract</b> is instantiated upon retrieving contract data from the
     /// contract marketplace, and the data members of the contract are filled in according to the data received.
+    /// 
+    /// \var data member ContractID <i>int</i> - <i>private<i> int containing unique identifier for the customer
+    /// \var data member associatedCustomerID <i>int</i> - <i>private<i> int containing a unique identifier for the contract
+    /// \var data member clientName <i>string</i> - <i>private<i> string to hold the client_name value from the contract marketplace
+    /// \var data member jobType <i>int</i> - <i>private<i> int to hold the job_type value from the contract marketplace
+    /// \var data member quantity <i>int</i> - <i>private<i> int to hold the Quantity value from the contract marketplace
+    /// \var data member origin <i>string</i> - <i>private<i> string to hold the Origin value from the contract marketplace
+    /// \var data member destination <i>string</i> - <i>private<i> string to hold the Destination value from the contract marketplace
+    /// \var data member vantype <i>int</i> - <i>private<i> integer to hold the van_type value from the contract marketplace
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
@@ -23,18 +32,18 @@ namespace TMSv2_Contracts
     public class Contract
     {
         // data members
-        int contractID                      /// integer containing a unique identifier for the contract
+        private int ContractID                      /// integer containing a unique identifier for the contract
         {
             get;
         }
-        int associatedCustomerID;           /// integer containing the ID of the customer who posted the contract
+        private int associatedCustomerID;           /// integer containing the ID of the customer who posted the contract
 
-        string clientName;                  /// string to hold the client_name value from the contract marketplace
-        int jobType;                        /// integer to hold the job_type value from the contract marketplace
-        int quantity;                       /// integer to hold the Quantity value from the contract marketplace
-        string origin;                      /// string to hold the Origin value from the contract marketplace
-        string destination;                 /// string to hold the Destination value from the contract marketplace
-        int vantype;                        /// integer to hold the van_type value from the contract marketplace
+        private string clientName;                  /// string to hold the client_name value from the contract marketplace
+        private int jobType;                        /// integer to hold the job_type value from the contract marketplace
+        private int quantity;                       /// integer to hold the Quantity value from the contract marketplace
+        private string origin;                      /// string to hold the Origin value from the contract marketplace
+        private string destination;                 /// string to hold the Destination value from the contract marketplace
+        private int vantype;                        /// integer to hold the van_type value from the contract marketplace
 
         // methods
         ///
@@ -111,7 +120,7 @@ namespace TMSv2_Contracts
         ///
         public void LinkToCustomer()
         {
-
+            throw new Exception("Invalid customer");
         }
     }
 }
