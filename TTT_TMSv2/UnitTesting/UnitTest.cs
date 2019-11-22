@@ -902,7 +902,7 @@ namespace UnitTesting
 
         /**
         * \test 
-        * CarrierExceptionTests
+        * CustomerExceptionTests
         * 
         * \test <b>Purpose:</b>
         * This test is designed to exception test the methods in the Customer class
