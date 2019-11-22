@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace TMSv2_Contracts
 {
@@ -64,9 +65,33 @@ namespace TMSv2_Contracts
         ///
         /// \return Nothing
         ///
-        public void InitializeContract()
+        public string InitializeContract()
         {
+            string cmQuery = @"SELECT * FROM Contract";
+            string connectionString = @"server=159.89.117.198;user id=DevOSHT;password=Snodgr4ss!;persistsecurityinfo=True;database=cmp";
 
+
+            try
+            {
+                SqlConnection cmConnection = new SqlConnection(connectionString);
+                SqlCommand cmCommand = new SqlCommand(cmQuery, cmConnection);
+
+                cmConnection.Open();
+                SqlDataReader cmData = cmCommand.ExecuteReader();
+
+                if(cmData.HasRows)
+                {
+                    return cmData.GetString(0);
+                }
+                else
+                {
+                    return "no data";
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
 
 

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using TMSv2_Users;
+using TMSv2_Contracts;
 
 namespace TMSv2_UI
 {
@@ -25,8 +25,8 @@ namespace TMSv2_UI
         public MainWindow()
         {
             InitializeComponent();
-            Planner test = new Planner();
-            testText.Text = test.PermissionLevel.ToString();
+            Contract test = new Contract();
+            testText.Text = test.InitializeContract();
         }
     }
 }
