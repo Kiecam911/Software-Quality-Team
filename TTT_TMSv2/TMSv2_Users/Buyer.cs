@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMSv2_Contracts;
+using TMSv2_Order;
 
 namespace TMSv2_Users
 {
@@ -35,22 +37,43 @@ namespace TMSv2_Users
             PermissionLevel = PERMISSION_BUYER;
         }
 
+
+
         ///
         /// \brief Creates a new <b>Order</b>
         /// \details <b>Details</b>
         ///
         /// Creates a new <b>Order</b>
         ///
-        /// \param nothing <b>void</b> - Nothing is passed into this method
+        /// \param Contract contract - The contract the order is based off of
         ///
-        /// \return Returns an integer value indicating success or fail (along with what type of failure)
+        /// \return Returns the completed order
         /// 
         /// \see Order
         ///
-        public int CreateOrder()
+        public Order CreateOrder(Contract contract)
         {
+            throw new Exception("Invalid contract");
+        }
 
-            return 1;
+
+
+        ///
+        /// \brief Creates an invoice based on an order
+        /// \details <b>Details</b>
+        ///
+        /// Generates an invoice based on the details contained within the order passed
+        /// as a parameter.
+        ///
+        /// \param Order order - The order the invoice is based off of
+        ///
+        /// \return None
+        /// 
+        /// \see Order
+        ///
+        public void GenerateInvoice(Order order)
+        {
+            throw new Exception("Invalid order");
         }
     }
 }

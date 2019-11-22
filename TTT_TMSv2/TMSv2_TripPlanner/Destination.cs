@@ -17,8 +17,8 @@ namespace TMSv2_TripPlanner
     /// \var data member city <i>string</i> - <i>private<i> data member that holds the final city the <b>Order</b> will reach
     /// \var data member distanceKm <i>float</i> - <i>private<i> data member that holds the distance in KM
     /// \var data member dsitanceHours <i>float</i> - <i>private<i> data member that holds the distance in hours
-    /// \var data member westDest <i>Destination</i> - <i>private<i> data member that holds the distance to the end destination
-    /// \var data member eastDest <i>Destination</i> - <i>private<i> data member that holds the distance to the end destination
+    /// \var data member westDest <i>Destination</i> - <i>private<i> data member that contains a reference to the destination to the west
+    /// \var data member eastDest <i>Destination</i> - <i>private<i> data member that contains a reference to the destination to the east
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
@@ -32,8 +32,8 @@ namespace TMSv2_TripPlanner
         private string city;                    /// 
         private float distanceKm;                 /// 
         private float distanceHours;
-        private Destination westDest;
-        private Destination eastDest;
+        private Destination westDest { get; }
+        private Destination eastDest { get; }
 
         public Destination()
         {
@@ -159,6 +159,5 @@ namespace TMSv2_TripPlanner
         {
             return distanceHours;
         }
-
     }
 }

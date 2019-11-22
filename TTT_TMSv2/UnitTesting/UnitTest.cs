@@ -271,5 +271,42 @@ namespace UnitTesting
                 Assert.AreEqual("Invalid Distance", e.Message);
             }
         }
+
+        [TestMethod]
+        public void CarrierFunctionTest()
+        {
+            Carrier carrier = new Carrier();
+
+            try
+            {
+                carrier.setCarrierID(989);
+
+                Assert.AreEqual(989, carrier.getCarrierID());
+            }
+            catch
+            {
+                Console.WriteLine("Setting the carrierID has failed");
+            }
+
+            try
+            {
+                carrier.setCarrierName("JohnDeer");
+                Assert.AreEqual("JohnDeer", carrier.getCarrierName());
+            }
+            catch
+            {
+                Console.WriteLine("Setting carrier name has failed");
+            }
+
+            try
+            {
+                carrier.setIsFTL(true);
+                Assert.AreEqual(true, carrier.getIsFTL());
+            }
+            catch
+            {
+                Console.WriteLine("Set FTL has failed");
+            }
+        }
     }
 }
