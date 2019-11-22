@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMSv2_Carriers;
+using TMSv2_Contracts;
+using TMSv2_Order;
+using TMSv2_TripPlanner;
 
 namespace TMSv2_Users
 {
@@ -38,6 +42,59 @@ namespace TMSv2_Users
         public Planner()
         {
             PermissionLevel = PERMISSION_PLANNER;
+        }
+
+
+
+
+        ///
+        /// \brief Plans a trip for an order 
+        /// \details <b>Details</b>
+        ///
+        /// This method plans a trip route based on the order and carrier provided as parameters 
+        ///
+        /// \param Order order - The order to base the trip on
+        /// \param Carrier carrier - The carrier that is carrying out the trip
+        ///
+        /// \return Trip - the final calculated trip
+        ///
+        public Trip PlanTrip(Order order, Carrier carrier)
+        {
+            throw new Exception("Invalid order");
+        }
+
+
+
+        ///
+        /// \brief Marks an order as completed
+        /// \details <b>Details</b>C:\Users\joelm\source\repos\Kiecam911\Software-Quality-Team\TTT_TMSv2\TMSv2_Users\Planner.cs
+        ///
+        /// This method evaluates an order and marks it as completed within the system
+        ///
+        /// \param Order order - The order to complete
+        ///
+        /// \return Trip - the final calculated trip
+        ///
+        public void CompleteOrder(Order order)
+        {
+            throw new Exception("Invalid order");
+        }
+
+
+
+        ///
+        /// \brief Generates a summary report of invoices
+        /// \details <b>Details</b>C:\Users\joelm\source\repos\Kiecam911\Software-Quality-Team\TTT_TMSv2\TMSv2_Users\Planner.cs
+        ///
+        /// This method generates a summary report of all invoice data of all time or the past 2 weeks.
+        ///
+        /// \param bool isAllTime - bool indicating whether to generate the report accounting for all time or not
+        ///
+        /// \return none
+        ///
+        public void GenerateSummaryReport(bool isAllTime)
+        {
+            throw new Exception("No data");
         }
     }
 }

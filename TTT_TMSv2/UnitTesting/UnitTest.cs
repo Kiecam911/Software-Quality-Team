@@ -318,11 +318,32 @@ namespace UnitTesting
             }
         }
 
+        /**
+        * \test 
+        * CarrierFunctionTest
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the methods in the Carrier class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Methods use expected values to check whether or not the datamembers have been set
+        * to the correct/expected values
+        * 
+        * \test <b>Type of Test:</b>
+        * Function
+        * 
+        * \test <b>Expected:</b>
+        * Values are equal
+        * 
+        * \test <b>Actual:</b>
+        * Values are equal
+        */
         [TestMethod]
         public void CarrierFunctionTest()
         {
             Carrier carrier = new Carrier();
 
+            //Testing for CarrierID
             try
             {
                 carrier.setCarrierID(989);
@@ -334,6 +355,7 @@ namespace UnitTesting
                 Console.WriteLine("Setting the carrierID has failed");
             }
 
+            //Test for Carrier Name
             try
             {
                 carrier.setCarrierName("JohnDeer");
@@ -344,6 +366,7 @@ namespace UnitTesting
                 Console.WriteLine("Setting carrier name has failed");
             }
 
+            //Test for setting isFTL
             try
             {
                 carrier.setIsFTL(true);
@@ -352,6 +375,39 @@ namespace UnitTesting
             catch
             {
                 Console.WriteLine("Set FTL has failed");
+            }
+
+            //Test for PalletLTLRate
+            try
+            {
+                carrier.setPerPalletLTLRate(12.41);
+                Assert.AreEqual(12.41, 12.41);
+            }
+            catch
+            {
+                Console.WriteLine("Set Pallet LTL Rate has failed");
+            }
+
+            //Test for setting IsReefer
+            try
+            {
+                carrier.setIsReefer(true);
+                Assert.AreEqual(true, carrier.getIsReefer());
+            }
+            catch
+            {
+                Console.WriteLine("Setting isReefer has failed");
+            }
+
+            //Test for setting carrier capacity
+            try
+            {
+                carrier.setCarrierCapacity(1200);
+                Assert.AreEqual(1200, carrier.getCarrierCapacity());
+            }
+            catch
+            {
+                Console.WriteLine("Set carrier capacity has failed");
             }
         }
     }
