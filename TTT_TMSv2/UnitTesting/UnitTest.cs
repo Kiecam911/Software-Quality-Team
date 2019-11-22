@@ -75,6 +75,52 @@ namespace UnitTesting
 
         /**
         * \test 
+        * RequestedCargo Boundary Test
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the boundaries and functionality of the Set Method in RequestedCargo
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends a value that is on the boundary of the accepted inputs (eg. 0.00001, 0.0001, -0.00001, -0.0001)
+        * 
+        * \test <b>Type of Test:</b>
+        * Boundary and Functional
+        * 
+        * \test <b>Expected:</b>
+        * For First Two: 0.00001, 0.0001
+        * For Second Two: Exception Catch
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void RequestedCargoBoundaryTest()
+        {
+            //Variables
+            var reqCargo = new RequestedCargo();
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Setting the cargoVolume to a 0.00001
+                reqCargo.SetCargoVolume(0.00001);
+                Assert.AreEqual(0.00001, reqCargo.GetCargoVolume());
+
+                // Setting the cargoVolume to a 0.00001
+                reqCargo.SetCargoVolume(0.0001);
+                Assert.AreEqual(0.0001, reqCargo.GetCargoVolume());
+
+
+            }
+            catch (Exception e)
+            {
+                // Asserting that Test Failed
+                Assert.AreNotEqual("Invalid Cargo Volume", e.Message);
+            }
+        }
+
+        /**
+        * \test 
         * Trip Exception Test
         * 
         * \test <b>Purpose:</b>
