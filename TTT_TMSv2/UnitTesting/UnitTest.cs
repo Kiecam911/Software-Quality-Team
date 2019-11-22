@@ -469,5 +469,53 @@ namespace UnitTesting
                 Console.WriteLine("Error handling failed for carrier capacity");
             }
         }
+
+        /**
+        * \test 
+        * CarrierExceptionTests
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to exception test the methods in the Customer class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Methods use expected values to check whether or not the datamembers have been set
+        * to the correct/expected values, and check data verification
+        * 
+        * \test <b>Type of Test:</b>
+        * Automated
+        * 
+        * \test <b>Expected:</b>
+        * Values are reset to defaulted values
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void CustomerExceptionTests()
+        {
+            Customer Cx = new Customer();
+
+            //Test for setting customer name
+            try
+            {
+                Cx.setCustomerName("");
+                Assert.AreEqual("none", Cx.getCxName());
+            }
+            catch
+            {
+                Console.WriteLine("Error handling for customer name failed");
+            }
+
+            //Test for customer ID
+            try
+            {
+                Cx.setCustomerID(-5);
+                Assert.AreEqual(0, Cx.getCxID());
+            }
+            catch
+            {
+                Console.WriteLine("Error handling for customerID failed");
+            }
+        }
     }
 }
