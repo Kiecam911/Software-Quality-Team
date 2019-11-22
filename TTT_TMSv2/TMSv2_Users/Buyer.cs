@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMSv2_Carriers;
 using TMSv2_Contracts;
 using TMSv2_Order;
+using TMSv2_TripPlanner;
 
 namespace TMSv2_Users
 {
