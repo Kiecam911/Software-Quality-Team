@@ -336,7 +336,7 @@ namespace UnitTesting
         * Values are equal
         * 
         * \test <b>Actual:</b>
-        * Values are equal
+        * 
         */
         [TestMethod]
         public void CarrierFunctionTest()
@@ -377,10 +377,10 @@ namespace UnitTesting
                 Console.WriteLine("Set FTL has failed");
             }
 
-            //Test for PalletLTLRate
+            //Test for PalletFTLRate
             try
             {
-                carrier.setPerPalletLTLRate(12.41);
+                carrier.setPerPalletFTLRate(12.41);
                 Assert.AreEqual(12.41, 12.41);
             }
             catch
@@ -408,6 +408,65 @@ namespace UnitTesting
             catch
             {
                 Console.WriteLine("Set carrier capacity has failed");
+            }
+        }
+
+        /**
+        * \test 
+        * CarrierExceptionTests
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to exception test the methods in the Carrier class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Methods use expected values to check whether or not the datamembers have been set
+        * to the correct/expected values
+        * 
+        * \test <b>Type of Test:</b>
+        * Exception
+        * 
+        * \test <b>Expected:</b>
+        * Values are equal
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void CarrierExceptionTests()
+        {
+            Carrier carrier = new Carrier();
+            
+            //Test for setting carrier name to blank
+            try
+            {
+                carrier.setCarrierName("");
+                Assert.AreEqual("none", carrier.getCarrierName());
+            }
+            catch
+            {
+                Console.WriteLine("Error handling failed for Carrier Name");
+            }
+
+            //Test error handling for PalletFTLRate
+            try
+            {
+                carrier.setPerPalletFTLRate(-5);
+                Assert.AreEqual(0, carrier.getPerPalletFTLRate());
+            }
+            catch
+            {
+                Console.WriteLine("Error handling failed for PalletLTLRate");
+            }
+
+            //Test for carrierCap
+            try
+            {
+                carrier.setCarrierCapacity(-100);
+                Assert.AreEqual(0, carrier.getCarrierCapacity());
+            }
+            catch
+            {
+                Console.WriteLine("Error handling failed for carrier capacity");
             }
         }
     }
