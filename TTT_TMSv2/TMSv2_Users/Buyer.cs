@@ -47,15 +47,15 @@ namespace TMSv2_Users
         ///
         /// Creates a new <b>Order</b>
         ///
-        /// \param Contract contract - The contract the order is based off of
+        /// \param contract <b>Contract</b> - The contract the order is based off of
         ///
         /// \return Returns the completed order
         /// 
-        /// \see Order
+        /// \see Contract
         ///
         public Order CreateOrder(Contract contract)
         {
-            throw new Exception("Invalid contract");
+            throw new Exception("Invalid Contract");
         }
 
 
@@ -75,7 +75,7 @@ namespace TMSv2_Users
         ///
         public void GenerateInvoice(Order order)
         {
-            throw new Exception("Invalid order");
+            throw new Exception("Invalid Order");
         }
     }
 }
