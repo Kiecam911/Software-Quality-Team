@@ -35,238 +35,241 @@ namespace UnitTesting
     [TestClass]
     public class UnitTest
     {
-        ///
-        /// \test RequestedCargoUnitTest
-        /// 
-        /// \brief This test is designed to test the methods in the RequestedCargo class
-        /// \details <b>Details</b>
-        /// 
-        /// This test checks that the RequestedCargo class has proper input checking for the private data members. For example,
-        /// <b>cargoVolume</b> should be no less than or equal to 0.
-        ///
+        /**
+        * \test 
+        * RequestedCargo Exception Test
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the methods in the RequestedCargo class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an invalid value to the function and tests for exception
+        * 
+        * \test <b>Type of Test:</b>
+        * Exception
+        * 
+        * \test <b>Expected:</b>
+        * Exception Catch
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
         [TestMethod]
-        public void RequestedCargoUnitTest()
+        public void RequestedCargoExceptionTest()
         {
             //Variables
             var reqCargo = new RequestedCargo();
-            double result = 0.0;
 
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Setting the cargoVolume to an invalid amount
+                // Setting the cargoVolume to an invalid amount
                 reqCargo.SetCargoVolume(-1.0);
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Invalid Cargo Volume", e.Message);
             }
-
-            /// Get the cargoVolume after a failed set call
-            result = reqCargo.GetCargoVolume();
-
-            /// Determining if the Get works
-            Assert.AreEqual(-1.0, result);
         }
 
-        ///
-        /// \test TripUnitTest
-        /// 
-        /// \brief This test is designed to test the methods in the Trip class
-        /// \details <b>Details</b>
-        /// 
-        /// This test checks that the Trip class has proper input checking for the private data members. For example,
-        /// <b>kmDistance</b> should be no less than or equal to 0.
-        ///
+        /**
+        * \test 
+        * Trip Exception Test
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the methods in the Trip class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an invalid value to the function and tests for exception
+        * 
+        * \test <b>Type of Test:</b>
+        * Exception
+        * 
+        * \test <b>Expected:</b>
+        * Exception Catch
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
         [TestMethod]
-        public void TripUnitTest()
+        public void TripExceptionTest()
         {
             //Variables
             var trip = new Trip();
 
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Setting the endDestination to an invalid amount
+                // Setting the endDestination to an invalid amount
                 trip.SetEndDestination("");
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Invalid City", e.Message);
             }
 
-            /// Get the endDestination after a failed set call
-            var result1 = trip.GetEndDestination();
-
-            /// Determining if the Get works
-            Assert.AreEqual("", result1);
-
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Setting the kmDistance to an invalid amount
+                // Setting the kmDistance to an invalid amount
                 trip.SetKmDistance(-1.0f);
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Invalid Distance", e.Message);
             }
-
-            /// Get the kmDistance after a failed set call
-            var result2 = trip.GetKmDistance();
-
-            /// Determining if the Get works
-            Assert.AreEqual(-1.0f, result2);
         }
 
-        ///
-        /// \test AdminUnitTest
-        /// 
-        /// \brief This test is designed to test the methods in the Admin class
-        /// \details <b>Details</b>
-        /// 
-        /// This test checks that the Admin class can access general configuration options, review log files in-app, alter database data, 
-        /// and initiate local TMS database while specifying the directory for the backup files.
-        ///
+        /**
+        * \test 
+        * Admin Exception Test
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the methods in the Admin class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an invalid value to the function and tests for exception
+        * 
+        * \test <b>Type of Test:</b>
+        * Exception
+        * 
+        * \test <b>Expected:</b>
+        * Exception Catch
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
         [TestMethod]
-        public void AdminUnitTest()
+        public void AdminExceptionTest()
         {
             //Variables
             var admin = new Admin();
 
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Calling the BackupData
+                // Calling the BackupData
                 admin.BackupData();
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Cannot Backup Data", e.Message);
             }
 
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Call ChooseLogDirectory
+                // Call ChooseLogDirectory
                 admin.ChooseLogDirectory();
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Invalid Directory", e.Message);
             }
 
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Call ModifyCarrierData
+                // Call ModifyCarrierData
                 admin.ModifyCarrierData();
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Cannot Modify Carrier Data", e.Message);
             }
 
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Call ModifyFeeTable
+                // Call ModifyFeeTable
                 admin.ModifyFeeTable();
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Cannot Modify Fee Table", e.Message);
             }
 
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Call ViewLogFiles
+                // Call ViewLogFiles
                 admin.ViewLogFile();
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Invalid Log Files", e.Message);
             }
 
         }
 
-        ///
-        /// \test DistanceUnitTest
-        /// 
-        /// \brief This test is designed to test the methods in the Distance class
-        /// \details <b>Details</b>
-        /// 
-        /// This test checks that the Trip class has proper input checking for the private data members. For example,
-        /// <b>distanceKm</b> should be no less than or equal to 0.
-        ///
+        /**
+        * \test 
+        * Destination Exception Test
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the methods in the Destination class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an invalid value to the function and tests for exception
+        * 
+        * \test <b>Type of Test:</b>
+        * Exception
+        * 
+        * \test <b>Expected:</b>
+        * Exception Catch
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
         [TestMethod]
-        public void DistanceUnitTest()
+        public void DestinationExceptionTest()
         {
             //Variables
             var destination = new Destination();
 
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Setting the endDestination to an invalid amount
+                // Setting the endDestination to an invalid amount
                 destination.SetDistanceHours(-1.0f);
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Invalid Time", e.Message);
             }
 
-            /// Get the endDestination after a failed set call
-            var result1 = destination.GetDistanceHours();
-
-            /// Determining if the Get works
-            Assert.AreEqual("", result1);
-
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Setting the kmDistance to an invalid amount
+                // Setting the kmDistance to an invalid amount
                 destination.SetDistanceKm(-1.0f);
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Invalid Distance", e.Message);
             }
 
-            /// Get the kmDistance after a failed set call
-            var result2 = destination.GetDistanceKm();
-
-            /// Determining if the Get works
-            Assert.AreEqual(-1.0f, result2);
-
-            /// Try Catch block to test the fail condition
+            // Try Catch block to test the fail condition
             try
             {
-                /// Setting the city to an invalid amount
+                // Setting the city to an invalid amount
                 destination.SetCity("");
             }
             catch (Exception e)
             {
-                /// Determining if the fail condition succeeded
+                // Determining if the fail condition succeeded
                 Assert.AreEqual("Invalid Distance", e.Message);
             }
-
-            /// Get the city after a failed set call
-            var result3 = destination.GetCity();
-
-            /// Determining if the Get works
-            Assert.AreEqual("", result3);
         }
     }
 }
