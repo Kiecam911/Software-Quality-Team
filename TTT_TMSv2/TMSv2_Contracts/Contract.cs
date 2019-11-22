@@ -43,7 +43,7 @@ namespace TMSv2_Contracts
         ///
         /// Instantiates a Contract object
         ///
-        /// \param nothing <b>void</b> - Nothing is passed into this constructor
+        /// \param <b>void</b> - Nothing is passed into this constructor
         ///
         /// \return As this is a <i>constructor</i> for the Contract class, nothing is returned
         ///
@@ -61,7 +61,7 @@ namespace TMSv2_Contracts
         /// This method interfaces with the contract marketplace database to populate the variables
         /// related to the contract marketplace. 
         ///
-        /// \param nothing <b>void</b> - None
+        /// \param <b>void</b> - None
         ///
         /// \return Nothing
         ///
@@ -105,7 +105,7 @@ namespace TMSv2_Contracts
         /// Contract's associatedCustomerID will reflect its owner. If the customer does not exist,
         /// a new one will be registered.
         ///
-        /// \param nothing <b>void</b> - None
+        /// \param <b>void</b> - None
         ///
         /// \return Nothing
         ///

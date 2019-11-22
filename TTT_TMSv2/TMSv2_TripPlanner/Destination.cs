@@ -32,8 +32,8 @@ namespace TMSv2_TripPlanner
         private string city;                    /// 
         private float distanceKm;                 /// 
         private float distanceHours;
-        private Destination westDest;
-        private Destination eastDest;
+        private Destination westDest { get; }
+        private Destination eastDest { get; }
 
         public Destination()
         {
@@ -159,6 +159,5 @@ namespace TMSv2_TripPlanner
         {
             return distanceHours;
         }
-
     }
 }
