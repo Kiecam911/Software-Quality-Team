@@ -15,6 +15,10 @@ namespace TMSv2_Contracts
     /// This class contains the attributes and methods related to a customer. Customers serve to be the owner of
     /// their respective contracts, and contain info related to each customer that has ever had orders taken from
     /// in the system. <b>Customer</b> contains methods to assign contracts as well as get all associated contracts.
+    /// 
+    /// \var data member associatedContacts <i>List<int></i> - <i>private<i> list containing ContractID of all associated contracts
+    /// \var data member CustomerID <i>int</i> - <i>private<i> int containing unique identifier for the customer
+    /// \var data member CustomerName <i>string</i> - <i>private<i> strnig containing the name of the customer
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
@@ -22,7 +26,7 @@ namespace TMSv2_Contracts
     class Customer
     {
         // data members
-        private List<int> associatedContracts;          /// list containing ContractID of all associated contracts
+        private List<int> associatedContracts;          
 
         private int CustomerID                          /// int containing unique identifier for the customer
         {
@@ -68,7 +72,7 @@ namespace TMSv2_Contracts
         ///
         public void AssignContract(int contractID, int customerID)
         {
-
+            throw new Exception("Invalid contract");
         }
     }
 }

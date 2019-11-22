@@ -47,7 +47,7 @@ namespace TMSv2_Carriers
         ///
         public List<int> GetAssociatedCarriers()
         {
-            return null;
+            throw new Exception("No carriers");
         }
 
 
@@ -66,7 +66,7 @@ namespace TMSv2_Carriers
         ///
         public void AssignCarrier(int carrerID, int depotID)
         {
-
+            throw new Exception("Invalid carrier");
         }
     }
 }
