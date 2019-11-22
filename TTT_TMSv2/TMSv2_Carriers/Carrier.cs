@@ -11,9 +11,19 @@ namespace TMSv2_Carriers
         private int carrierID;
         private string carrierName;
         private bool isFTL;
-        private float perPalletLTLRate;
+        private double perPalletLTLRate;
         private bool isReefer;
-        private float carrierCapacity;
+        private double carrierCapacity;
+
+        public Carrier()
+        {
+            carrierID = 000;
+            carrierName = "";
+            isFTL = false;
+            perPalletLTLRate = 0;
+            isReefer = false;
+            carrierCapacity = 0;
+        }
 
         public void setCarrierID(int newID)
         {
@@ -33,7 +43,7 @@ namespace TMSv2_Carriers
             isFTL = state;
         }
 
-        public void setPerPalletLTLRate(float newRate)
+        public void setPerPalletLTLRate(double newRate)
         {
             if (newRate >= 0)
             {
@@ -46,7 +56,7 @@ namespace TMSv2_Carriers
             isReefer = state;
         }
 
-        public void setCarrierCapacity(float newCap)
+        public void setCarrierCapacity(double newCap)
         {
             if (newCap >= 0)
             {
@@ -69,7 +79,7 @@ namespace TMSv2_Carriers
             return isFTL;
         }
 
-        public float getPerPalletFTLRate()
+        public double getPerPalletFTLRate()
         {
             return perPalletLTLRate;
         }
@@ -79,7 +89,7 @@ namespace TMSv2_Carriers
             return isReefer;
         }
 
-        public float getCarrierCapacity()
+        public double getCarrierCapacity()
         {
             return carrierCapacity;
         }
