@@ -23,20 +23,59 @@ namespace TMSv2_Contracts
     /// \author <i>TeamTeamTeam</i>
     /// 
     ///
-    class Customer
+    public class Customer
     {
         // data members
-        private List<int> associatedContracts;          
+        private List<int> associatedContracts;
+        private string customerName;
+        private int customerID;
 
-        private int CustomerID                          /// int containing unique identifier for the customer
+        ///
+        /// \brief Sets customer name
+        /// \details <b>Details</b>
+        ///
+        /// Sets customer name to new value
+        /// 
+        /// \param Customer
+        ///
+        /// \return Creates/edits customers
+        ///
+        public void setCustomerName(string newName)
         {
-            get;
+            if (newName != "")
+            {
+                customerName = newName;
+            }
+            else customerName = "none";
         }
 
-        private string CustomerName                     /// string containing the name of the customer
+        ///
+        /// \brief Sets customer ID
+        /// \details <b>Details</b>
+        ///
+        /// Sets customerID to new value
+        /// 
+        /// \param Customer
+        ///
+        /// \return Creates/edits customers
+        ///
+        public void setCustomerID(int newID)
         {
-            get;
-            set;
+            if (newID >= 0)
+            {
+                customerID = newID;
+            }
+            else customerID = 0;
+        }
+
+        public string getCxName()
+        {
+            return customerName;
+        }
+
+        public int getCxID()
+        {
+            return customerID;
         }
 
         ///
