@@ -102,20 +102,38 @@ namespace UnitTesting
             // Try Catch block to test the fail condition
             try
             {
-                // Setting the cargoVolume to a 0.00001
-                reqCargo.SetCargoVolume(0.00001);
-                Assert.AreEqual(0.00001, reqCargo.GetCargoVolume());
-
-                // Setting the cargoVolume to a 0.00001
+                // Setting the cargoVolume to a 0.0001
                 reqCargo.SetCargoVolume(0.0001);
                 Assert.AreEqual(0.0001, reqCargo.GetCargoVolume());
 
-
+                // Setting the cargoVolume to a 0.000001
+                reqCargo.SetCargoVolume(0.00001);
+                Assert.AreEqual(0.00001, reqCargo.GetCargoVolume());
             }
             catch (Exception e)
             {
                 // Asserting that Test Failed
                 Assert.AreNotEqual("Invalid Cargo Volume", e.Message);
+            }
+
+            try
+            {
+                //Testing Failed Boundary for -0.0001
+                reqCargo.SetCargoVolume(-0.0001);
+            }
+            catch(Exception e)
+            {
+                Assert.AreEqual("Invalid Cargo Volume", e.Message);
+            }
+
+            try
+            {
+                //Testing Failed Boundary for -0.00001
+                reqCargo.SetCargoVolume(-0.00001);
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual("Invalid Cargo Volume", e.Message);
             }
         }
 
@@ -165,6 +183,126 @@ namespace UnitTesting
             catch (Exception e)
             {
                 // Determining if the fail condition succeeded
+                Assert.AreEqual("Invalid Distance", e.Message);
+            }
+        }
+
+        /**
+        * \test 
+        * Trip SetEndDestination Functional Test
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the functionality of the SetEndDestination method
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends a valid destination to method
+        * 
+        * \test <b>Type of Test:</b>
+        * Functional
+        * 
+        * \test <b>Expected:</b>
+        * No Exception Catch (Expected Exception catch For now)
+        * 
+        * \test <b>Actual:</b>
+        * ****CANNOT TEST AS YET TO BE IMPLEMENTED****
+        */
+        [TestMethod]
+        public void TripEndDestinationFunctionalTest()
+        {
+            //Variables
+            var trip = new Trip();
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Setting the endDestination to an invalid amount
+                trip.SetEndDestination("");
+            }
+            catch (Exception e)
+            {
+                throw new AssertFailedException();
+            }
+        }
+
+        /**
+        * \test 
+        * Trip Boundary Test
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the boundary and functionality for the SetKmDistance of the Trip class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends a values on the boundary of success. Tests: 0.0001, 0.00001, 0.000001, -0.0001, -0.00001, -0.000001
+        * 
+        * \test <b>Type of Test:</b>
+        * Boundary and Functional
+        * 
+        * \test <b>Expected:</b>
+        * Respectively 0.0001, 0.00001, 0.000001, Exception, Exception, Exception
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void TripBoundaryTest()
+        {
+            //Variables
+            var trip = new Trip();
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Test for 0.0001 boundary
+                trip.SetKmDistance(0.0001f);
+                Assert.AreEqual(0.0001f, trip.GetKmDistance());
+
+                // Test for 0.00001 boundary
+                trip.SetKmDistance(0.00001f);
+                Assert.AreEqual(0.00001f, trip.GetKmDistance());
+
+                // Test for 0.000001 boundary
+                trip.SetKmDistance(0.000001f);
+                Assert.AreEqual(0.000001f, trip.GetKmDistance());
+            }
+            catch (Exception e)
+            {
+                // Assert that test failed
+                throw new AssertFailedException();
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Test for -0.0001 boundary
+                trip.SetKmDistance(-0.0001f);
+            }
+            catch (Exception e)
+            {
+                // Assert that test Succeeded
+                Assert.AreEqual("Invalid Distance", e.Message);
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Test for -0.00001 boundary
+                trip.SetKmDistance(-0.00001f);
+            }
+            catch (Exception e)
+            {
+                // Assert that test Succeeded
+                Assert.AreEqual("Invalid Distance", e.Message);
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Test for -0.000001 boundary
+                trip.SetKmDistance(-0.000001f);
+            }
+            catch (Exception e)
+            {
+                // Assert that test Succeeded
                 Assert.AreEqual("Invalid Distance", e.Message);
             }
         }
@@ -257,6 +395,94 @@ namespace UnitTesting
         }
 
         /**
+       * \test 
+       * Admin Functional Test
+       * 
+       * \test <b>Purpose:</b>
+       * This test is designed to test the functionality of the methods in the Admin class
+       * 
+       * \test <b>How Test Is Conducted:</b>
+       * Calls the methods and runs them until there is an exception thrown or the method completes successfully (Cannot Test Now As Functionality 
+       * has yet to be implemented for the tested methods)
+       * 
+       * \test <b>Type of Test:</b>
+       * Functional
+       * 
+       * \test <b>Expected:</b>
+       * No Exception Thrown (Exception expected for now)
+       * 
+       * \test <b>Actual:</b>
+       * ****CANNOT TEST AS YET TO IMPLEMENT****
+       */
+        [TestMethod]
+        public void AdminFunctionalTest()
+        {
+            //Variables
+            var admin = new Admin();
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Calling the BackupData
+                admin.BackupData();
+            }
+            catch (Exception e)
+            {
+                // Assert that method has failed test
+                throw new AssertFailedException();
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Call ChooseLogDirectory
+                admin.ChooseLogDirectory();
+            }
+            catch (Exception e)
+            {
+                // Assert that method has failed test
+                throw new AssertFailedException();
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Call ModifyCarrierData
+                admin.ModifyCarrierData();
+            }
+            catch (Exception e)
+            {
+                // Assert that method has failed test
+                throw new AssertFailedException();
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Call ModifyFeeTable
+                admin.ModifyFeeTable();
+            }
+            catch (Exception e)
+            {
+                // Assert that method has failed test
+                throw new AssertFailedException();
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Call ViewLogFiles
+                admin.ViewLogFile();
+            }
+            catch (Exception e)
+            {
+                // Assert that method has failed test
+                throw new AssertFailedException();
+            }
+
+        }
+
+        /**
         * \test 
         * Destination Exception Test
         * 
@@ -290,7 +516,7 @@ namespace UnitTesting
             catch (Exception e)
             {
                 // Determining if the fail condition succeeded
-                Assert.AreEqual("Invalid Time", e.Message);
+                Assert.AreEqual("Invalid Distance", e.Message);
             }
 
             // Try Catch block to test the fail condition
@@ -314,6 +540,210 @@ namespace UnitTesting
             catch (Exception e)
             {
                 // Determining if the fail condition succeeded
+                Assert.AreEqual("Invalid City", e.Message);
+            }
+        }
+
+        /**
+        * \test 
+        * Destination.SetCity Functional Test
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test functionality of the SetCity method in the Destination class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends a valid value to the SetCity method
+        * 
+        * \test <b>Type of Test:</b>
+        * Functional
+        * 
+        * \test <b>Expected:</b>
+        * No Exception catch (Cannot test as proper functionality has yet to be implemented)
+        * 
+        * \test <b>Actual:</b>
+        * ****CANNOT TEST AS YET TO IMPLEMENT****
+        */
+        [TestMethod]
+        public void DestinationCityFunctionalTest()
+        {
+            //Variables
+            var destination = new Destination();
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Setting the city to an invalid amount
+                destination.SetCity("");
+            }
+            catch (Exception e)
+            {
+                // Assert that test failed
+                throw new AssertFailedException();
+            }
+        }
+
+        /**
+        * \test 
+        * Destination.SetDistanceHours Boundary and Functional Test
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the boundary and functionality of the SetDistanceHours Setter method in the Destination class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends a value on the boundary of a successful input to the methods. Sending (in order): 0.0001f, 0.00001f, 0.000001f, -0.0001f, -0.00001f, -0.000001f 
+        * 
+        * \test <b>Type of Test:</b>
+        * Boundary and Functional
+        * 
+        * \test <b>Expected:</b>
+        * Respectively (0.0001f, 0.00001f, 0.000001f, Exception, Exception, Exception)
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void DestinationHoursBoundaryTest()
+        {
+            //Variables
+            var destination = new Destination();
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Testing for 0.0001f
+                destination.SetDistanceHours(0.0001f);
+                Assert.AreEqual(0.0001f, destination.GetDistanceHours());
+
+                // Testing for 0.00001f
+                destination.SetDistanceHours(0.00001f);
+                Assert.AreEqual(0.00001f, destination.GetDistanceHours());
+
+                // Testing for 0.000001f
+                destination.SetDistanceHours(0.000001f);
+                Assert.AreEqual(0.000001f, destination.GetDistanceHours());
+            }
+            catch (Exception e)
+            {
+                // Assert that test failed
+                throw new AssertFailedException();
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Testing for -0.0001f
+                destination.SetDistanceHours(-0.0001f);
+            }
+            catch (Exception e)
+            {
+                // Assert that test succeeded
+                Assert.AreEqual("Invalid Distance", e.Message);
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Testing for -0.00001f
+                destination.SetDistanceHours(-0.00001f);
+            }
+            catch (Exception e)
+            {
+                // Assert that test succeeded
+                Assert.AreEqual("Invalid Distance", e.Message);
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Testing for -0.000001f
+                destination.SetDistanceHours(-0.000001f);
+            }
+            catch (Exception e)
+            {
+                // Assert that test succeeded
+                Assert.AreEqual("Invalid Distance", e.Message);
+            }
+        }
+
+        /**
+       * \test 
+       * Destination.SetDistanceKm Boundary and Functional Test
+       * 
+       * \test <b>Purpose:</b>
+       * This test is designed to test the boundary and functionality of the SetDistanceKm Setter method in the Destination class
+       * 
+       * \test <b>How Test Is Conducted:</b>
+       * Sends a value on the boundary of a successful input to the methods. Sending (in order): 0.0001f, 0.00001f, 0.000001f, -0.0001f, -0.00001f, -0.000001f 
+       * 
+       * \test <b>Type of Test:</b>
+       * Boundary and Functional
+       * 
+       * \test <b>Expected:</b>
+       * Respectively (0.0001f, 0.00001f, 0.000001f, Exception, Exception, Exception)
+       * 
+       * \test <b>Actual:</b>
+       * 
+       */
+        [TestMethod]
+        public void DestinationKmBoundaryTest()
+        {
+            //Variables
+            var destination = new Destination();
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Testing for 0.0001f
+                destination.SetDistanceKm(0.0001f);
+                Assert.AreEqual(0.0001f, destination.GetDistanceHours());
+
+                // Testing for 0.00001f
+                destination.SetDistanceKm(0.00001f);
+                Assert.AreEqual(0.00001f, destination.GetDistanceHours());
+
+                // Testing for 0.000001f
+                destination.SetDistanceKm(0.000001f);
+                Assert.AreEqual(0.000001f, destination.GetDistanceHours());
+            }
+            catch (Exception e)
+            {
+                // Assert that test failed
+                throw new AssertFailedException();
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Testing for -0.0001f
+                destination.SetDistanceKm(-0.0001f);
+            }
+            catch (Exception e)
+            {
+                // Assert that test succeeded
+                Assert.AreEqual("Invalid Distance", e.Message);
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Testing for -0.00001f
+                destination.SetDistanceKm(-0.00001f);
+            }
+            catch (Exception e)
+            {
+                // Assert that test succeeded
+                Assert.AreEqual("Invalid Distance", e.Message);
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Testing for -0.000001f
+                destination.SetDistanceKm(-0.000001f);
+            }
+            catch (Exception e)
+            {
+                // Assert that test succeeded
                 Assert.AreEqual("Invalid Distance", e.Message);
             }
         }
