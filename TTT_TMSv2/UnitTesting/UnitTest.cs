@@ -46,7 +46,7 @@ namespace UnitTesting
         * Sends an invalid value to the function and tests for exception
         * 
         * \test <b>Type of Test:</b>
-        * Exception
+        * Automated
         * 
         * \test <b>Expected:</b>
         * Exception Catch
@@ -84,7 +84,7 @@ namespace UnitTesting
         * Sends a value that is on the boundary of the accepted inputs (eg. 0.00001, 0.0001, -0.00001, -0.0001)
         * 
         * \test <b>Type of Test:</b>
-        * Boundary and Functional
+        * Automated
         * 
         * \test <b>Expected:</b>
         * For First Two: 0.00001, 0.0001
@@ -148,7 +148,7 @@ namespace UnitTesting
         * Sends an invalid value to the function and tests for exception
         * 
         * \test <b>Type of Test:</b>
-        * Exception
+        * Automated
         * 
         * \test <b>Expected:</b>
         * Exception Catch
@@ -198,7 +198,7 @@ namespace UnitTesting
         * Sends a valid destination to method
         * 
         * \test <b>Type of Test:</b>
-        * Functional
+        * Automated
         * 
         * \test <b>Expected:</b>
         * No Exception Catch (Expected Exception catch For now)
@@ -235,7 +235,7 @@ namespace UnitTesting
         * Sends a values on the boundary of success. Tests: 0.0001, 0.00001, 0.000001, -0.0001, -0.00001, -0.000001
         * 
         * \test <b>Type of Test:</b>
-        * Boundary and Functional
+        * Automated
         * 
         * \test <b>Expected:</b>
         * Respectively 0.0001, 0.00001, 0.000001, Exception, Exception, Exception
@@ -318,7 +318,7 @@ namespace UnitTesting
         * Sends an invalid value to the function and tests for exception
         * 
         * \test <b>Type of Test:</b>
-        * Exception
+        * Manual With Tester Input
         * 
         * \test <b>Expected:</b>
         * Exception Catch
@@ -406,7 +406,7 @@ namespace UnitTesting
        * has yet to be implemented for the tested methods)
        * 
        * \test <b>Type of Test:</b>
-       * Functional
+       * Manual With Tester Input
        * 
        * \test <b>Expected:</b>
        * No Exception Thrown (Exception expected for now)
@@ -493,7 +493,7 @@ namespace UnitTesting
         * Sends an invalid value to the function and tests for exception
         * 
         * \test <b>Type of Test:</b>
-        * Exception
+        * automated
         * 
         * \test <b>Expected:</b>
         * Exception Catch
@@ -555,7 +555,7 @@ namespace UnitTesting
         * Sends a valid value to the SetCity method
         * 
         * \test <b>Type of Test:</b>
-        * Functional
+        * Automated
         * 
         * \test <b>Expected:</b>
         * No Exception catch (Cannot test as proper functionality has yet to be implemented)
@@ -593,7 +593,7 @@ namespace UnitTesting
         * Sends a value on the boundary of a successful input to the methods. Sending (in order): 0.0001f, 0.00001f, 0.000001f, -0.0001f, -0.00001f, -0.000001f 
         * 
         * \test <b>Type of Test:</b>
-        * Boundary and Functional
+        * Automated
         * 
         * \test <b>Expected:</b>
         * Respectively (0.0001f, 0.00001f, 0.000001f, Exception, Exception, Exception)
@@ -745,6 +745,106 @@ namespace UnitTesting
             {
                 // Assert that test succeeded
                 Assert.AreEqual("Invalid Distance", e.Message);
+            }
+        }
+
+        /**
+        * \test 
+        * Buyer Exception Tests
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test Exceptions of the methods in the Buyer class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Calls the methods for execution and waits for them to throw an exception
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual With User Input
+        * 
+        * \test <b>Expected:</b>
+        * Exception Catch
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void BuyerExceptionTest()
+        {
+            //Variables
+            var buyer = new Buyer();
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Call CreateOrder method
+                buyer.CreateOrder(new Contract());
+            }
+            catch (Exception e)
+            {
+                // Assert that test threw exception and succeeded
+                Assert.AreEqual("Invalid Contract", e.Message);
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Call GenerateInvoice method
+                buyer.GenerateInvoice(new Order());
+            }
+            catch (Exception e)
+            {
+                // Assert that test threw exception and succeeded
+                Assert.AreEqual("Invalid Order", e.Message);
+            }
+        }
+
+        /**
+        * \test 
+        * Buyer Functional Tests
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test functionality of the methods in the Buyer class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Calls the methods for execution and waits for them to either throw an exception or complete without exception
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual With User input
+        * 
+        * \test <b>Expected:</b>
+        * No Exception catch (Expected Exception for now )
+        * 
+        * \test <b>Actual:</b>
+        * ****CANNOT TEST AS YET TO IMPLEMENT****
+        */
+        [TestMethod]
+        public void BuyerFunctionalTest()
+        {
+            //Variables
+            var buyer = new Buyer();
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Call CreateOrder method
+                buyer.CreateOrder(new Contract());
+            }
+            catch (Exception e)
+            {
+                // Assert that test failed
+                throw new AssertFailedException();
+            }
+
+            // Try Catch block to test the fail condition
+            try
+            {
+                // Call GenerateInvoice method
+                buyer.GenerateInvoice(new Order());
+            }
+            catch (Exception e)
+            {
+                // Assert that test failed
+                throw new AssertFailedException();
             }
         }
 
