@@ -36,6 +36,8 @@ namespace TMSv2_Order
         public bool requiresReefer { get; set; }            /// 
 
         ///
+        /// \fn Order()
+        /// 
         /// \brief To instantiate a new Order object
         /// \details <b>Details</b>
         ///
@@ -44,8 +46,6 @@ namespace TMSv2_Order
         /// \param nothing <b>void</b> - Nothing is passed into this constructor
         ///
         /// \return As this is a <i>constructor</i> for the Order class, nothing is returned
-        ///
-        /// \see Order(int ordID, string city, double cost)
         ///
         public Order()
         {
@@ -58,6 +58,18 @@ namespace TMSv2_Order
         }
 
         //Setters & Getters///////////////////////////
+        ///
+        /// \fn setOrderID(int newID)
+        /// 
+        /// \brief Sets the OrderID
+        /// \details <b>Details</b>
+        ///
+        /// Checks if newID is greater than or equal to 0 and sets OrderID to newID
+        ///
+        /// \param newID <b>int</b> - The new OrderID
+        ///
+        /// \return Nothing is returned
+        ///
         public void setOrderID(int newID)
         {
             if (newID >= 0)
@@ -67,6 +79,18 @@ namespace TMSv2_Order
             else orderID = 0;
         }
 
+        ///
+        /// \fn setTotalCost(double newCost)
+        /// 
+        /// \brief Sets the totalCost
+        /// \details <b>Details</b>
+        ///
+        /// Checks if newCost is greater than or equal to 0 and sets totalCost to newCost
+        ///
+        /// \param newCost <b>double</b> - The new totalCost
+        ///
+        /// \return Nothing is returned
+        ///
         public void setTotalCost(double newCost)
         {
             if (totalCost >= 0)
@@ -75,12 +99,36 @@ namespace TMSv2_Order
             }
             else totalCost = 0;
         }
-        
+
+        ///
+        /// \fn getOrderID()
+        /// 
+        /// \brief Gets OrderID
+        /// \details <b>Details</b>
+        ///
+        /// Returns the OrderID
+        ///
+        /// \param nothing <b>void</b> - Nothing is passed into this method
+        ///
+        /// \return Returns an int (the OrderID)
+        ///
         public int getOrderID()
         {
             return orderID;
         }
 
+        ///
+        /// \fn getTotalCost()
+        /// 
+        /// \brief Gets totalCost
+        /// \details <b>Details</b>
+        ///
+        /// Returns the totalCost
+        ///
+        /// \param nothing <b>void</b> - Nothing is passed into this method
+        ///
+        /// \return Returns an int (the totalCost)
+        ///
         public double getTotalCost()
         {
             return totalCost;
