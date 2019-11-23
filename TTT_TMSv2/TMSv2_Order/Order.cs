@@ -27,8 +27,9 @@ namespace TMSv2_Order
     {
         // Private Data members
         private int orderID;                                /// Order's Identification number
+        private double totalCost;
         private List<string> cities;                        /// Order's Cities
-        private double totalCost;                           /// Total cost for the order
+                                  /// Total cost for the order
         // Public Data members
         public bool usesFTL { get; set; }                   /// 
         public bool isCompleted { get; set; }               /// Completion state of the order
@@ -48,18 +49,42 @@ namespace TMSv2_Order
         ///
         public Order()
         {
-            orderID = -1;
+            orderID = 0;
             cities = null;
-            totalCost = -1.0;
+            totalCost = 0;
             usesFTL = false;
             isCompleted = false;
             requiresReefer = false;
         }
 
-        public Order(int ordID, string city, double cost)
+        //Setters & Getters///////////////////////////
+        public void setOrderID(int newID)
         {
-            
+            if (newID >= 0)
+            {
+                orderID = newID;
+            }
+            else orderID = 0;
         }
 
+        public void setTotalCost(double newCost)
+        {
+            if (totalCost >= 0)
+            {
+                totalCost = newCost;
+            }
+            else totalCost = 0;
+        }
+        
+        public int getOrderID()
+        {
+            return orderID;
+        }
+
+        public double getTotalCost()
+        {
+            return totalCost;
+        }
+        //////////////////////////////////////////////
     }
 }

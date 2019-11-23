@@ -947,5 +947,53 @@ namespace UnitTesting
                 Console.WriteLine("Error handling for customerID failed");
             }
         }
+
+        /**
+        * \test 
+        * OrderExceptionTests
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to exception test the methods in the Order class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Methods use expected values to check whether or not the datamembers have been set
+        * to the correct/expected values, and check data verification
+        * 
+        * \test <b>Type of Test:</b>
+        * Automated
+        * 
+        * \test <b>Expected:</b>
+        * Values are reset to defaulted values (0)
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void OrderExceptionTests()
+        {
+            Order orders = new Order();
+
+            //Test to check data handling on setOrderID
+            try
+            {
+                orders.setOrderID(-5);
+                Assert.AreEqual(0, orders.getOrderID());
+            }
+            catch
+            {
+                Console.WriteLine("Data handling on orderID failed");
+            }
+
+            //Test to check data handling on totalCost
+            try
+            {
+                orders.setTotalCost(-500);
+                Assert.AreEqual(0, orders.getTotalCost());
+            }
+            catch
+            {
+                Console.WriteLine("Data handling on totalCost has failed");
+            }
+        }
     }
 }
