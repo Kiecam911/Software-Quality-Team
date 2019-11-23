@@ -35,7 +35,7 @@ namespace TMSv2_Users
         protected const char PERMISSION_BUYER = 'b';
         protected const char PERMISSION_ADMIN = 'a';
 
-        protected char PermissionLevel { get; set; }
+        public char PermissionLevel { get; set; }
         protected string userID;
         protected string password;
 
@@ -54,6 +54,35 @@ namespace TMSv2_Users
         public User()
         {
             PermissionLevel = PERMISSION_NONE;
+        }
+
+
+
+        ///
+        /// \brief To set a users permission level
+        /// \details <b>Details</b>
+        ///
+        /// Called my a child class upon instantiation to set the permission level. Must be valid,
+        /// or false is returned and the permission does not change.
+        ///
+        /// \param char level - the permission level 
+        ///
+        /// \return bool - true or false depending if the permission level changed or not.
+        ///
+        public bool SetPermissionLevel(char level)
+        {
+            if (level == PERMISSION_NONE
+                || level == PERMISSION_PLANNER
+                || level == PERMISSION_BUYER
+                || level == PERMISSION_ADMIN)
+            {
+                PermissionLevel = level;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

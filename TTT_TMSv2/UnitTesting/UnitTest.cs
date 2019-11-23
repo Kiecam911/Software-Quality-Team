@@ -1095,5 +1095,393 @@ namespace UnitTesting
                 Console.WriteLine("Data handling on totalCost has failed");
             }
         }
+
+
+
+        /**
+        * \test 
+        * DepotFunctionalTest
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the methods in the Depot class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an valid value to the methods to ensure basic functionality is in place
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual With Tester Input
+        * 
+        * \test <b>Expected:</b>
+        * Correct values/responses returned from methods (no exceptions)
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void DepotFunctionalTests()
+        {
+            // create depot object
+            Depot testDepot = new Depot();
+
+            // call methods to test
+            try
+            {
+                testDepot.AssignCarrier(0, 0);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("AssignCarrier() exception");
+            }
+
+            try
+            {
+                testDepot.GetAssociatedCarriers();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetAssociatedCarriers() exception");
+            }
+        }
+
+        /**
+        * \test 
+        * DepotExceptionTests
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to exception test the methods in the Depot class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Invalid data is sent to the methods to ensure proper error handling and/or input validation
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual
+        * 
+        * \test <b>Expected:</b>
+        * Exception thrown
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void DepotExceptionTests()
+        {
+            /// stub for future testing
+        }
+
+        /**
+        * \test 
+        * DepotBoundaryTest
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the boundaries for input values for methods in the Depot class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an value close to maximum/minimum boundaries of expected values to each method
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual
+        * 
+        * \test <b>Expected:</b>
+        * Correct behaviour of methods just outside/just inside boundaries
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void DepotBoundaryTests()
+        {
+            /// stub for future testing
+        }
+
+
+
+        /**
+        * \test 
+        * ContractFunctionalTest
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the methods in the Contract class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an valid value to the methods to ensure basic functionality is in place
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual With Tester Input
+        * 
+        * \test <b>Expected:</b>
+        * Correct values/responses returned from methods (no exceptions)
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void ContractFunctionalTests()
+        {
+            // create contract object
+            Contract testContract = new Contract();
+
+            // call methods to test
+            try
+            {
+                testContract.InitializeContract();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("InitializeContract() exception");
+            }
+        }
+
+        /**
+        * \test 
+        * ContractExceptionTests
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to exception test the methods in the Contract class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Invalid data is sent to the methods to ensure proper error handling and/or input validation
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual
+        * 
+        * \test <b>Expected:</b>
+        * Exception thrown, or value not changed in the case of a setter
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void ContractExceptionTests()
+        {
+            /// stub for future tests
+        }
+
+        /**
+        * \test 
+        * ContractBoundaryTest
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the boundaries for input values for methods in the Contract class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an value close to maximum/minimum boundaries of expected values to each method
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual
+        * 
+        * \test <b>Expected:</b>
+        * Correct behaviour of methods just outside/just inside boundaries
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void ContractBoundaryTests()
+        {
+            /// stub for future tests
+        }
+
+
+
+        /**
+        * \test 
+        * PlannerFunctionalTest
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the methods in the Planner class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an valid value to each methods to ensure basic functionality is in place
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual With Tester Input
+        * 
+        * \test <b>Expected:</b>
+        * Correct values/responses returned from methods (no exceptions)
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void PlannerFunctionalTests()
+        {
+            // create planner object
+            Planner testPlanner = new Planner();
+
+            //call methods to test
+            try
+            {
+                testPlanner.CompleteOrder(new Order());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("CompleteOrder() exception");
+            }
+
+            try
+            {
+                testPlanner.GenerateSummaryReport(true);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GenerateSummaryReport() exception");
+            }
+
+            try
+            {
+                testPlanner.PlanTrip(new Order(), new Carrier());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("PlanTrip() exception");
+            }
+        }
+
+        /**
+        * \test 
+        * PlannerExceptionTests
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to exception test the methods in the Planner class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Invalid data is sent to the methods to ensure proper error handling and/or input validation
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual
+        * 
+        * \test <b>Expected:</b>
+        * Exception thrown
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void PlannerExceptionTests()
+        {
+            /// stub for future tests
+        }
+
+        /**
+        * \test 
+        * PlannerBoundaryTest
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the boundaries for input values for methods in the Planner class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an value close to maximum/minimum boundaries of expected values to each method
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual
+        * 
+        * \test <b>Expected:</b>
+        * Correct behaviour of methods just outside/just inside boundaries
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void PlannerBoundaryTests()
+        {
+            /// stub for future tests
+        }
+
+
+
+        /**
+        * \test 
+        * UserFunctionalTest
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the methods in the User class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an valid value to the methods to ensure basic functionality is in place
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual With Tester Input
+        * 
+        * \test <b>Expected:</b>
+        * Correct values/responses returned from methods (no exceptions)
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void UserFunctionalTests()
+        {
+            // create user object
+            User testUser = new User();
+
+            // call methods to test
+            Assert.IsTrue(testUser.SetPermissionLevel('b'));
+
+            Assert.IsTrue(testUser.SetPermissionLevel('p'));
+
+            Assert.IsTrue(testUser.SetPermissionLevel('a'));
+
+            Assert.IsTrue(testUser.SetPermissionLevel('n'));
+        }
+
+        /**
+        * \test 
+        * UserExceptionTests
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to exception test the methods in the User class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Invalid data is sent to the methods to ensure proper error handling and/or input validation
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual
+        * 
+        * \test <b>Expected:</b>
+        * Exception thrown
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void UserExceptionTests()
+        {
+            // create user object
+            User testUser = new User();
+
+            // call methods to test
+            Assert.IsFalse(testUser.SetPermissionLevel('\n'));
+
+            Assert.IsFalse(testUser.SetPermissionLevel('z'));
+
+            Assert.IsFalse(testUser.SetPermissionLevel('a'));
+
+            Assert.IsFalse(testUser.SetPermissionLevel('9'));
+        }
+
+        /**
+        * \test 
+        * UserBoundaryTest
+        * 
+        * \test <b>Purpose:</b>
+        * This test is designed to test the boundaries for input values for methods in the User class
+        * 
+        * \test <b>How Test Is Conducted:</b>
+        * Sends an value close to maximum/minimum boundaries of expected values to each method
+        * 
+        * \test <b>Type of Test:</b>
+        * Manual
+        * 
+        * \test <b>Expected:</b>
+        * Correct behaviour of methods just outside/just inside boundaries
+        * 
+        * \test <b>Actual:</b>
+        * 
+        */
+        [TestMethod]
+        public void UserBoundaryTests()
+        {
+            /// stub for future tests
+        }
     }
 }

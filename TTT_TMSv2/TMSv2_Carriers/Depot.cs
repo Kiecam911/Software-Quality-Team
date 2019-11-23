@@ -19,7 +19,7 @@ namespace TMSv2_Carriers
     /// \author <i>TeamTeamTeam</i>
     /// 
     ///
-    class Depot
+    public class Depot
     {
         private int depotID
         {
