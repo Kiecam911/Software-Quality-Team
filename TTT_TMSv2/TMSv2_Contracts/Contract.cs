@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
 
 namespace TMSv2_Contracts
 {
@@ -77,30 +79,48 @@ namespace TMSv2_Contracts
         public string InitializeContract()
         {
             string cmQuery = @"SELECT * FROM Contract";
-            string connectionString = @"server=159.89.117.198;user id=DevOSHT;password=Snodgr4ss!;persistsecurityinfo=True;database=cmp";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["contractMarketplace"].ConnectionString;
 
 
-            try
+            SqlDataAdapter customerDA = new SqlDataAdapter();
+            DataSet customerDS = new DataSet();
+
+            using (SqlConnection nwindConn = new SqlConnection(connectionString))
             {
-                SqlConnection cmConnection = new SqlConnection(connectionString);
-                SqlCommand cmCommand = new SqlCommand(cmQuery, cmConnection);
-
-                cmConnection.Open();
-                SqlDataReader cmData = cmCommand.ExecuteReader();
-
-                if(cmData.HasRows)
+                if (nwindConn.State != ConnectionState.Open)
                 {
-                    return cmData.GetString(0);
+                    nwindConn.Open();
                 }
-                else
-                {
-                    return "no data";
-                }
+                SqlCommand selectCMD = new SqlCommand(cmQuery, nwindConn);
+                customerDA.SelectCommand = selectCMD;
+
+                customerDA.Fill(customerDS, "Customers");
+                nwindConn.Close();
             }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
+
+            //try
+            //{
+            //    SqlConnection cmConnection = new SqlConnection(connectionString);
+            //    SqlCommand cmCommand = new SqlCommand(cmQuery, cmConnection);
+
+            //    cmConnection.Open();
+            //    SqlDataReader cmData = cmCommand.ExecuteReader();
+
+            //    if(cmData.HasRows)
+            //    {
+            //        return cmData.GetString(0);
+            //    }
+            //    else
+            //    {
+            //        return "no data";
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return ex.Message;
+            //}
+
+            return "";
         }
 
 
