@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 namespace TMSv2_Contracts
 {
@@ -82,16 +84,17 @@ namespace TMSv2_Contracts
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["contractMarketplace"].ConnectionString;
 
 
-            SqlDataAdapter customerDA = new SqlDataAdapter();
+            MySqlDataAdapter customerDA = new MySqlDataAdapter();
             DataSet customerDS = new DataSet();
 
-            using (SqlConnection nwindConn = new SqlConnection(connectionString))
+
+            using (MySql.Data.MySqlClient.MySqlConnection nwindConn = new MySql.Data.MySqlClient.MySqlConnection("Data Source=159.89.117.198;Port=3306;Initial Catalog=cmp;User ID=DevOSHT;Password=Snodgr4ss!"))
             {
                 if (nwindConn.State != ConnectionState.Open)
                 {
                     nwindConn.Open();
                 }
-                SqlCommand selectCMD = new SqlCommand(cmQuery, nwindConn);
+                MySqlCommand selectCMD = new MySqlCommand(cmQuery, nwindConn);
                 customerDA.SelectCommand = selectCMD;
 
                 customerDA.Fill(customerDS, "Customers");
