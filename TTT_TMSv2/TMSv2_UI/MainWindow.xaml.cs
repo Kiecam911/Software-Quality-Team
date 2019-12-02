@@ -25,8 +25,8 @@ namespace TMSv2_UI
         public MainWindow()
         {
             InitializeComponent();
-            Contract test = new Contract();
-            testText.Text = test.InitializeContract();
+            List<Contract> testContracts = ContractManager.CreateNewContracts();
+            testText.Text = testContracts[0].clientName;
         }
     }
 }

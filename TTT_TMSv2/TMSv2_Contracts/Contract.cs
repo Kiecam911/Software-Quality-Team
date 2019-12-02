@@ -8,6 +8,7 @@ using System.Data;
 using System.Configuration;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using TMSv2_DAL;
 
 namespace TMSv2_Contracts
 {
@@ -42,12 +43,12 @@ namespace TMSv2_Contracts
         }
         private int associatedCustomerID;           /// integer containing the ID of the customer who posted the contract
 
-        private string clientName;                  /// string to hold the client_name value from the contract marketplace
-        private int jobType;                        /// integer to hold the job_type value from the contract marketplace
-        private int quantity;                       /// integer to hold the Quantity value from the contract marketplace
-        private string origin;                      /// string to hold the Origin value from the contract marketplace
-        private string destination;                 /// string to hold the Destination value from the contract marketplace
-        private int vantype;                        /// integer to hold the van_type value from the contract marketplace
+        public string clientName;                 /// string to hold the client_name value from the contract marketplace
+        public int jobType { get; set; }                         /// integer to hold the job_type value from the contract marketplace
+        public int quantity { get; set; }                       /// integer to hold the Quantity value from the contract marketplace
+        public string origin { get; set; }                       /// string to hold the Origin value from the contract marketplace
+        public string destination { get; set; }                  /// string to hold the Destination value from the contract marketplace
+        public int vanType { get; set; }                         /// integer to hold the van_type value from the contract marketplace
 
         // methods
         ///
@@ -62,68 +63,6 @@ namespace TMSv2_Contracts
         ///
         public Contract()
         {
-
-        }
-
-
-
-        ///
-        /// \brief To retrieve details for the new contract from the contract marketplace
-        /// \details <b>Details</b>
-        ///
-        /// This method interfaces with the contract marketplace database to populate the variables
-        /// related to the contract marketplace. 
-        ///
-        /// \param <b>void</b> - None
-        ///
-        /// \return Nothing
-        ///
-        public string InitializeContract()
-        {
-            string cmQuery = @"SELECT * FROM Contract";
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["contractMarketplace"].ConnectionString;
-
-
-            MySqlDataAdapter customerDA = new MySqlDataAdapter();
-            DataSet customerDS = new DataSet();
-
-
-            using (MySql.Data.MySqlClient.MySqlConnection nwindConn = new MySql.Data.MySqlClient.MySqlConnection("Data Source=159.89.117.198;Port=3306;Initial Catalog=cmp;User ID=DevOSHT;Password=Snodgr4ss!"))
-            {
-                if (nwindConn.State != ConnectionState.Open)
-                {
-                    nwindConn.Open();
-                }
-                MySqlCommand selectCMD = new MySqlCommand(cmQuery, nwindConn);
-                customerDA.SelectCommand = selectCMD;
-
-                customerDA.Fill(customerDS, "Customers");
-                nwindConn.Close();
-            }
-
-            //try
-            //{
-            //    SqlConnection cmConnection = new SqlConnection(connectionString);
-            //    SqlCommand cmCommand = new SqlCommand(cmQuery, cmConnection);
-
-            //    cmConnection.Open();
-            //    SqlDataReader cmData = cmCommand.ExecuteReader();
-
-            //    if(cmData.HasRows)
-            //    {
-            //        return cmData.GetString(0);
-            //    }
-            //    else
-            //    {
-            //        return "no data";
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    return ex.Message;
-            //}
-
-            return "";
         }
 
 
