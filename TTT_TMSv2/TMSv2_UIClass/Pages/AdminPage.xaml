@@ -1,0 +1,93 @@
+﻿<Page x:Class="TMSv2_UIClass.Pages.AdminPage"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TMSv2_UIClass.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="390" d:DesignWidth="785"
+      Title="AdminPage">
+
+
+    <Grid Background="LightGray">
+        <Grid x:Name="panelHeader" VerticalAlignment="Top" Height="52" Background="#FF047FD4">
+
+            <TextBlock Text="Admin Settings" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic" FontSize="20" FontWeight="Bold" Foreground="White"/>
+
+        </Grid>
+
+        <Grid x:Name="sidePanel" Background="#FF047FD4"  HorizontalAlignment="Left" Width="160" Margin="0,50,0,0">
+            <StackPanel>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold" Height="160">
+                    <ListViewItem Height="30" Foreground="{x:Null}" Focusable="False">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="HomeButton" Content="Home" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="HomeButton_Click" Width="145" Height="30"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="29">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="configButton" Content="TMS Configuration" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="configButton_Click" Height="27" Width="146"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="LogButton" Content="View Logs" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="145" Height="26" Click="LogButton_Click"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="TableButton" Content="Alter Table Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="BackupButton" Content="Backup Jobs" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="144" Height="27"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+
+
+        <Grid x:Name="ConfigGrid" Visibility="Hidden">
+            <Rectangle Fill="LightGray" HorizontalAlignment="Left" Height="340" Margin="160,50,0,0" Stroke="Black" VerticalAlignment="Top" Width="625"/>
+            <Button x:Name="setLogButton" Content="Set Logfile Directory" HorizontalAlignment="Left" Height="39" Margin="171,67,0,0" VerticalAlignment="Top" Width="123" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" Click="setLogButton_Click"/>
+            <Button x:Name="setDBMSInfoButton" Content="Set DBMS Info" HorizontalAlignment="Left" Height="39" Margin="307,67,0,0" VerticalAlignment="Top" Width="122" FontFamily="Century Gothic" Foreground="White" Background="{x:Null}" BorderBrush="White" Click="setDBMSInfoButton_Click"/>
+
+            <Grid x:Name="LogFileGrid" Visibility="Hidden">
+                <Label Content="Logfile Current Path:" HorizontalAlignment="Left" Margin="171,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currPathBox" HorizontalAlignment="Left" Height="25" Margin="317,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="449" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Label Content="Logfile New Path:" HorizontalAlignment="Left" Margin="171,202,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newPathBox" HorizontalAlignment="Left" Height="25" Margin="317,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="451" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Button x:Name="newPathButton" Content="Set New Path" HorizontalAlignment="Left" Height="39" Margin="440,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561"/>
+                <Button x:Name="copyPathButton" Content="Copy Path to Clipboard" HorizontalAlignment="Left" Height="39" Margin="612,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic"/>
+            </Grid>
+
+            <Grid x:Name="DBMSInfoScreen" Visibility="Hidden">
+                <Label Content="Current IP:" HorizontalAlignment="Left" Margin="171,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currIp" HorizontalAlignment="Left" Height="25" Margin="279,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Label Content="Enter New IP:" HorizontalAlignment="Left" Margin="171,202,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newIPBox" HorizontalAlignment="Left" Height="25" Margin="279,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Button x:Name="newIPButton" Content="Set New Path" HorizontalAlignment="Left" Height="39" Margin="619,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561"/>
+
+                <Label Content="Current Port:" HorizontalAlignment="Left" Margin="480,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newIP" HorizontalAlignment="Left" Height="25" Margin="594,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Label Content="Enter New Port:" HorizontalAlignment="Left" Margin="480,202,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="nnewPort" HorizontalAlignment="Left" Height="25" Margin="594,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="ViewLogGrid" Visibility="Hidden">
+            <Rectangle Fill="LightGray" HorizontalAlignment="Left" Height="338" Margin="160,52,0,0" VerticalAlignment="Top" Width="625"/>
+            <Label Content="Click view to select a log and display it in the window: " HorizontalAlignment="Left" Margin="177,354,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+            <TextBox x:Name="LogDisplay" HorizontalAlignment="Left" Height="268" Margin="176,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="591" Background="{x:Null}" BorderBrush="Black" Foreground="White" Focusable="False"/>
+            <Button x:Name="viewLogsButton" Content="View" HorizontalAlignment="Left" Height="31" Margin="600,354,0,0" VerticalAlignment="Top" Width="137" Background="#FF047FD4" BorderBrush="{x:Null}" Foreground="White" FontSize="14"/>
+
+        </Grid>
+
+        <Grid x:Name="AlterTableGrid" Visibility="Visible">
+            
+        </Grid>
+    </Grid>
+</Page>

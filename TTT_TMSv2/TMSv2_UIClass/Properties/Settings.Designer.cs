@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TMSv2_UI.Properties
+namespace TMSv2_UIClass.Properties
 {
 
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace TMSv2_UI
+namespace TMSv2_UIClass
 {
     /// <summary>
     /// Interaction logic for App.xaml
