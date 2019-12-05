@@ -22,33 +22,40 @@ namespace TMSv2_Contracts
     /// contracts within the system. A <b>Contract</b> is instantiated upon retrieving contract data from the
     /// contract marketplace, and the data members of the contract are filled in according to the data received.
     /// 
-    /// \var data member ContractID <i>int</i> - <i>private<i> int containing unique identifier for the customer
-    /// \var data member associatedCustomerID <i>int</i> - <i>private<i> int containing a unique identifier for the contract
-    /// \var data member clientName <i>string</i> - <i>private<i> string to hold the client_name value from the contract marketplace
-    /// \var data member jobType <i>int</i> - <i>private<i> int to hold the job_type value from the contract marketplace
-    /// \var data member quantity <i>int</i> - <i>private<i> int to hold the Quantity value from the contract marketplace
-    /// \var data member origin <i>string</i> - <i>private<i> string to hold the Origin value from the contract marketplace
-    /// \var data member destination <i>string</i> - <i>private<i> string to hold the Destination value from the contract marketplace
-    /// \var data member vantype <i>int</i> - <i>private<i> integer to hold the van_type value from the contract marketplace
+    /// \var data member _ContractID <i>int</i> - <i>private<i> int containing unique identifier for the customer
+    /// \var data member ClientName <i>string</i> - <i>public<i> string to hold the client_name value from the contract marketplace
+    /// \var data member JobType <i>int</i> - <i>public<i> int to hold the job_type value from the contract marketplace
+    /// \var data member Quantity <i>int</i> - <i>public<i> int to hold the Quantity value from the contract marketplace
+    /// \var data member Origin <i>string</i> - <i>public<i> string to hold the Origin value from the contract marketplace
+    /// \var data member Destination <i>string</i> - <i>public<i> string to hold the Destination value from the contract marketplace
+    /// \var data member Vantype <i>int</i> - <i>public<i> integer to hold the van_type value from the contract marketplace
     ///
     /// \author <i>TeamTeamTeam</i>
+    /// 
+    /// \sa Order
     /// 
     ///
     public class Contract
     {
         // data members
-        private int ContractID                      /// integer containing a unique identifier for the contract
+        private int _ContractID;                                /// The identification number for the contract
+        public int ContractID                                   /// The public accessor for the _ContractID
         {
-            get;
+            get { return _ContractID; }
+            set
+            {
+                if(value >= 0)
+                {
+                    _ContractID = value;
+                }
+            }
         }
-        private int associatedCustomerID;           /// integer containing the ID of the customer who posted the contract
-
-        public string clientName;                 /// string to hold the client_name value from the contract marketplace
-        public int jobType { get; set; }                         /// integer to hold the job_type value from the contract marketplace
-        public int quantity { get; set; }                       /// integer to hold the Quantity value from the contract marketplace
-        public string origin { get; set; }                       /// string to hold the Origin value from the contract marketplace
-        public string destination { get; set; }                  /// string to hold the Destination value from the contract marketplace
-        public int vanType { get; set; }                         /// integer to hold the van_type value from the contract marketplace
+        public string ClientName;                               /// string to hold the client_name value from the contract marketplace
+        public int JobType { get; set; }                        /// integer to hold the job_type value from the contract marketplace
+        public int Quantity { get; set; }                       /// integer to hold the Quantity value from the contract marketplace
+        public string Origin { get; set; }                      /// string to hold the Origin value from the contract marketplace
+        public string Destination { get; set; }                 /// string to hold the Destination value from the contract marketplace
+        public int VanType { get; set; }                        /// integer to hold the van_type value from the contract marketplace
 
         // methods
         ///

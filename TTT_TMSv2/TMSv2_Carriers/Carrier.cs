@@ -15,102 +15,118 @@ namespace TMSv2_Carriers
     /// their respective contracts, and contain info related to each customer that has ever had orders taken from
     /// in the system. <b>Customer</b> contains methods to assign contracts as well as get all associated contracts.
     /// 
-    /// \var data member associatedContacts <i>List<int></i> - <i>private<i> list containing ContractID of all associated contracts
-    /// \var data member CustomerID <i>int</i> - <i>private<i> int containing unique identifier for the customer
-    /// \var data member CustomerName <i>string</i> - <i>private<i> strnig containing the name of the customer
+    /// \var data member _CarrierID <i>int</i> - <i>private<i> The identification number for the <b>Carrier</b>
+    /// \var data member CarrierName <i>string</i> - <i>public<i> The <b>Carrier's</b> company/personal name (can be null if no name is provided)
+    /// \var data member DestinationCity <i>string</i> - <i>public<i> The destination city of the <b>Carrier</b>
+    /// \var data member _FTLAvailability <i>int</i> - <i>private<i> The availability for Full Truck Load transportation provided by the <b>Carrier</b>
+    /// \var data member _LTLAvailability <i>int</i> - <i>private<i> The availability for Less Than Load transportation provided by the <b>Carrier</b>
+    /// \var data member _FTLRate <i>double</i> - <i>private<i> The rate for Full Truck Load transportation provided by the <b>Carrier</b>
+    /// \var data member _LTLRate <i>double</i> - <i>private<i> The rate for Less Than Load transportation provided by the <b>Carrier</b>
+    /// \var data member _ReefCharge <i>double</i> - <i>private<i> The charge rate for using a refrigerated Contained provided by the <b>Carrier</b>
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
     ///
     public class Carrier
     {
-        private int carrierID;
-        private string carrierName;
-        private bool isFTL;
-        private double perPalletFTLRate;
-        private bool isReefer;
-        private double carrierCapacity;
+        private int _CarrierID;                         /// The identification number for the carrier
+        public int CarrierID                            /// The public accessor for the _CarrierID
+        {
+            get { return _CarrierID; }
+            set
+            {
+                if(value >= 0)
+                {
+                    _CarrierID = value;
+                }
+            }
+        }
+        public string CarrierName { get; set; }         /// The carrier's company/personal name
+        public string DestinationCity { get; set; }     /// The destination city of the <b>Carrier</b>
+        private int _FTLAvailability;                   /// The availability of Full Truck Load for the <b>Carrier</b>
+        public int FTLAvailability                      /// The public accessor for the _FTLAvailability
+        {
+            get { return _FTLAvailability; }
+            set
+            {
+                if(value >= 0)
+                {
+                    _FTLAvailability = value;
+                }
+            }
+        }
+        private int _LTLAvailability;                   /// The availability of the Less Than Load for the <b>Carrier</b>
+        public int LTLAvailability                      /// The public accessor for the _LTLAvailability
+        {
+            get { return _LTLAvailability; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _LTLAvailability = value;
+                }
+            }
+        }
+        private double _FTLRate;                        /// The <b>Carrier's</b> rates for Full Truck Load transportation
+        public double FTLRate                           /// The public accessor for the _FTLRate
+        {
+            get { return _FTLRate; }
+            set
+            {
+                if(value >= 0.0000)
+                {
+                    _FTLRate = value;
+                }
+            }
+        }
+        private double _LTLRate;                        /// The <b>Carrier's</b> rates for Less Than Load transportation
+        public double LTLRate                           /// The public accessor for the _LTLRate
+        {
+            get { return _LTLRate; }
+            set
+            {
+                if (value >= 0.0000)
+                {
+                    _LTLRate = value;
+                }
+            }
+        }
+        private double _ReefCharge;                     /// The rate to use a refrigerated Container from the <b>Carrier</b>
+        public double ReefCharge                        /// The public accessor for the _ReefCharge
+        {
+            get { return _ReefCharge; }
+            set
+            {
+                if (value >= 0.0000)
+                {
+                    _ReefCharge = value;
+                }
+            }
+        }
 
+        ///
+        /// \fn Carrier()
+        /// 
+        /// \brief To instantiate a new Carrier object
+        /// \details <b>Details</b>
+        ///
+        /// Instantiates the Carrier's data members to 0, null, or false as default placeholders for data
+        ///
+        /// \param nothing <b>void</b> - Nothing is passed into this constructor
+        ///
+        /// \return As this is a <i>constructor</i> for the Carrier class, nothing is returned
+        ///
         public Carrier()
         {
-            carrierID = 000;
-            carrierName = "none";
-            isFTL = false;
-            perPalletFTLRate = 0;
-            isReefer = false;
-            carrierCapacity = 0;
+            _CarrierID = 0;
+            CarrierName = "";
+            DestinationCity = "";
+            _FTLAvailability = 0;
+            _LTLAvailability = 0;
+            _FTLRate = 0.000;
+            _LTLRate = 0.000;
+            _ReefCharge = 0.000;
         }
 
-        public void setCarrierID(int newID)
-        {
-            carrierID = newID;
-        }
-
-        public void setCarrierName(string newName)
-        {
-            if (newName != "")
-            {
-                carrierName = newName;
-            }
-            else carrierName = "none";
-        }
-
-        public void setIsFTL(bool state)
-        {
-            isFTL = state;
-        }
-
-        public void setPerPalletFTLRate(double newRate)
-        {
-            if (newRate >= 0)
-            {
-                perPalletFTLRate = newRate;
-            }
-            else perPalletFTLRate = 0;
-        }
-
-        public void setIsReefer(bool state)
-        {
-            isReefer = state;
-        }
-
-        public void setCarrierCapacity(double newCap)
-        {
-            if (newCap >= 0)
-            {
-                carrierCapacity = newCap;
-            }
-            else carrierCapacity = 0;
-        }
-
-        public int getCarrierID()
-        {
-            return carrierID;
-        }
-
-        public string getCarrierName()
-        {
-            return carrierName; 
-        }
-
-        public bool getIsFTL()
-        {
-            return isFTL;
-        }
-
-        public double getPerPalletFTLRate()
-        {
-            return perPalletFTLRate;
-        }
-
-        public bool getIsReefer()
-        {
-            return isReefer;
-        }
-
-        public double getCarrierCapacity()
-        {
-            return carrierCapacity;
-        }
     }
 }

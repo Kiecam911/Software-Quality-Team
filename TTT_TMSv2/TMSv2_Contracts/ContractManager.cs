@@ -42,12 +42,12 @@ namespace TMSv2_Contracts
             foreach (DataRow currentRow in contractRows)
             {
                 Contract tempContract = new Contract();
-                tempContract.clientName = currentRow.Field<string>(kClientNameField);
-                tempContract.jobType = currentRow.Field<int>(kJobTypeField);
-                tempContract.quantity = currentRow.Field<int>(kQuantityField);
-                tempContract.origin = currentRow.Field<string>(kOriginField);
-                tempContract.destination = currentRow.Field<string>(kDestinationField);
-                tempContract.vanType = currentRow.Field<int>(kVanTypeField);
+                tempContract.ClientName = currentRow.Field<string>(kClientNameField);
+                tempContract.JobType = currentRow.Field<int>(kJobTypeField);
+                tempContract.Quantity = currentRow.Field<int>(kQuantityField);
+                tempContract.Origin = currentRow.Field<string>(kOriginField);
+                tempContract.Destination = currentRow.Field<string>(kDestinationField);
+                tempContract.VanType = currentRow.Field<int>(kVanTypeField);
                 newContracts.Add(tempContract);
             }
             return newContracts;

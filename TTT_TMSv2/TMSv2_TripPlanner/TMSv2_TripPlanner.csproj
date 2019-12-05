@@ -68,5 +68,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TMSv2_Carriers\TMSv2_Carriers.csproj">
+      <Project>{7e53f3f0-cf38-4309-a762-33ef8c1eacff}</Project>
+      <Name>TMSv2_Carriers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
