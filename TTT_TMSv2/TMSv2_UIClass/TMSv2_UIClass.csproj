@@ -112,6 +112,10 @@
     <Resource Include="Images\mainMenuArt.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TMSv2_Logging\TMSv2_Logging.csproj">
+      <Project>{d9303871-7260-4224-8078-35961f100ebd}</Project>
+      <Name>TMSv2_Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TMSv2_Order\TMSv2_Order.csproj">
       <Project>{63f37c7a-dd2c-42e1-b380-b04f98de6df0}</Project>
       <Name>TMSv2_Order</Name>

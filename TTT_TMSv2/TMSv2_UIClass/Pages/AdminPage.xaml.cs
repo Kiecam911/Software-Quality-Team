@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using TMSv2_Users;
 using TMSv2_TripPlanner;
 using TMSv2_Order;
+using TMSv2_Logging;
 
 namespace TMSv2_UIClass.Pages
 {
@@ -122,6 +123,7 @@ namespace TMSv2_UIClass.Pages
         {
             resetView();
             LogFileGrid.Visibility = Visibility.Visible;
+            Logger.ChangeLogDirectory();
         }
 
         ///
