@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using Microsoft.Win32;
+using System.Windows.Forms;
 using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using TMSv2_Carriers;
 using TMSv2_Contracts;
 using TMSv2_Order;
@@ -29,6 +32,13 @@ namespace TMSv2_Users
     ///
     public class Admin : User
     {
+        // Data members
+        private static string _LogFileDirectory { get; set; }
+        public string LogFileDirectory
+        {
+            get { return _LogFileDirectory; }
+            set { _LogFileDirectory = value; }
+        }
         ///
         /// \fn Admin()
         /// 
@@ -44,6 +54,10 @@ namespace TMSv2_Users
         public Admin()
         {
             PermissionLevel = PERMISSION_ADMIN;
+
+            //Sets the LogFileDirectory path to a relative path based on the current directory
+            if (_LogFileDirectory == null)
+                _LogFileDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\..\\"));
         }
 
         ///
@@ -58,9 +72,46 @@ namespace TMSv2_Users
         ///
         /// \return Nothing is returned
         ///
-        public void ChooseLogDirectory()
+        public string ChooseLogDirectory()
         {
-            throw new Exception("Invalid Directory");
+            //Variables
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            string path = null;
+
+            //Sets the starting directory to the directory of the log files
+            dialog.SelectedPath = _LogFileDirectory;
+            dialog.Description = "Select the Directory for the Log Files";
+
+            //Checks if the dialogResult returned OK; if so then set logDirectory path to the new selected path
+            if(dialog.ShowDialog() == DialogResult.OK)
+            {
+                path = dialog.SelectedPath;
+            }
+
+            return path;
+        }
+
+        public bool ChooseLogDirectory(string path)
+        {
+            try
+            {
+                if (false == Path.IsPathRooted(path))
+                {
+                    LogFileDirectory = Path.GetFullPath(Path.Combine(_LogFileDirectory, path));
+                }
+                else
+                {
+                    Path.GetDirectoryName(path);
+                    LogFileDirectory = path;
+                }
+
+            }
+            catch(ArgumentException e)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         ///
@@ -75,9 +126,28 @@ namespace TMSv2_Users
         ///
         /// \return Nothing is returned
         ///
-        public void ViewLogFile()
+        public string ViewLogFile()
         {
-            throw new Exception("Invalid Log Files");
+            //Variables
+            OpenFileDialog openDialog = new OpenFileDialog();
+            string retString = null;
+
+            //Setsup the Dialog box
+            openDialog.InitialDirectory = _LogFileDirectory;
+            openDialog.Title = "Select Log File";
+            openDialog.AddExtension = true;
+            openDialog.Filter = "Text Document (*.txt)|*.txt";
+            openDialog.DefaultExt = ".txt";
+            openDialog.RestoreDirectory = false;
+
+            //If the dialog boxes is open then
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                //Set the text filename to the return string
+                retString = openDialog.FileName;
+            }
+
+            return retString;
         }
 
         ///

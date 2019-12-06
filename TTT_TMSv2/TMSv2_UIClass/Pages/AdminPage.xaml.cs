@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.IO;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -40,9 +41,11 @@ namespace TMSv2_UIClass.Pages
     ///
     public partial class AdminPage : Page
     {
+        private Admin admin;
         public AdminPage()
         {
             InitializeComponent();
+            admin = new Admin();
         }
 
         ///
@@ -121,7 +124,12 @@ namespace TMSv2_UIClass.Pages
         private void setLogButton_Click(object sender, RoutedEventArgs e)
         {
             resetView();
+
+            ConfigGrid.Visibility = Visibility.Visible;
             LogFileGrid.Visibility = Visibility.Visible;
+
+            currPathBox.Text = admin.LogFileDirectory;
+            newPathBox.Text = "";
         }
 
         ///
@@ -145,6 +153,8 @@ namespace TMSv2_UIClass.Pages
         private void setDBMSInfoButton_Click(object sender, RoutedEventArgs e)
         {
             resetView();
+
+            ConfigGrid.Visibility = Visibility.Visible;
             DBMSInfoScreen.Visibility = Visibility.Visible;
         }
 
@@ -194,6 +204,49 @@ namespace TMSv2_UIClass.Pages
         {
             resetView();
             ViewLogGrid.Visibility = Visibility.Visible;
+        }
+
+        private void viewLogsButton_Click(object sender, RoutedEventArgs e)
+        {
+            string fileName;
+
+            if((fileName = admin.ViewLogFile()) != null )
+            {
+                LogDisplay.Text = File.ReadAllText(fileName);
+            }
+        }
+
+        private void browseNewPath_Click(object sender, RoutedEventArgs e)
+        {
+            newPathBox.Text = admin.ChooseLogDirectory();
+        }
+
+        ///
+        /// \fn newPathButton_Click(object sender, RoutedEventArgs e)
+        /// 
+        /// \brief The Button Event Handler for the SetNewPath Button
+        /// \details <b>Details</b>
+        ///
+        /// Clicking the SetNewPath button will trigger this event handler and cause the text path
+        /// in the newPathBox to update the LogFileDirectory string.
+        ///
+        /// \param sender <b>object</b> - The Object that is triggering the event
+        /// \param e <b>RoutedEventArgs</b> - The Event that is being triggered
+        ///
+        /// \return Nothing is returned
+        /// 
+        /// \sa resetView()
+        ///
+        private void newPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!admin.ChooseLogDirectory(newPathBox.Text))
+            {
+                MessageBox.Show("The Selected Path is Invalid.", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            else
+            {
+                resetView();
+            }
         }
     }
 }
