@@ -5,6 +5,7 @@ using System.Windows;
 using Microsoft.Win32;
 using System.Windows.Forms;
 using System.Text;
+using System.Configuration;
 using System.IO;
 using TMSv2_Carriers;
 using TMSv2_Contracts;
@@ -53,11 +54,29 @@ namespace TMSv2_Users
         ///
         public Admin()
         {
+            string value = ConfigurationManager.AppSettings["LogFileDirectory"];
             PermissionLevel = PERMISSION_ADMIN;
 
             //Sets the LogFileDirectory path to a relative path based on the current directory
             if (_LogFileDirectory == null)
-                _LogFileDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\..\\"));
+            {
+                try
+                {
+                    if (false == Path.IsPathRooted(value))
+                    {
+                        LogFileDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), value));
+                    }
+                    else
+                    {
+                        Path.GetDirectoryName(value);
+                        LogFileDirectory = value;
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    LogFileDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\..\\"));
+                }
+            }
         }
 
         ///

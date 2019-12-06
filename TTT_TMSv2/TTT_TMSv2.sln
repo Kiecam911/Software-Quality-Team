@@ -16,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7044FDBB-6A71-4635-B044-2A95006FC4E0}"
 	ProjectSection(SolutionItems) = preProject
 		DOxygenMainProjectPage.cs = DOxygenMainProjectPage.cs
+		TMSv2_Users\General.config = TMSv2_Users\General.config
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{A878B593-A3D8-4EF4-856A-6323C9DA685F}"
