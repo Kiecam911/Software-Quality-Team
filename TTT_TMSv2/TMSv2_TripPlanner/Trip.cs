@@ -47,15 +47,27 @@ namespace TMSv2_TripPlanner
         public Carrier TripCarrier { get; set; }            /// The Carrier that will carryout the trip
         public string Origin { get; set; }                  /// The city of origin of the Contract
         public string Destination { get; set; }             /// The destination city of the Contract
-        private int _DaysTaken;                             /// The elapsed time for the trip to complete
-        public int DaysTaken                                /// The public accessor for the _DaysTaken variable for safety
+        private int _DistanceKm;                            /// The calculated total distance that must be traveled
+        public int DistanceKm                               /// Public accessor to the private _TotalKm for safety
         {
-            get { return _DaysTaken; }
+            get { return _DistanceKm; }
             set
             {
-                if(value >= 0)
+                if (value >= 0)
                 {
-                    _DaysTaken = value;
+                    _DistanceKm = value;
+                }
+            }
+        }
+        private TimeSpan _HoursTaken;                       /// The elapsed time for the order
+        public TimeSpan HoursTaken                          /// Public accessor to the private _HoursTaken for safety
+        {
+            get { return _HoursTaken; }
+            set
+            {
+                if (value >= TimeSpan.FromHours(0.0))
+                {
+                    _HoursTaken = value;
                 }
             }
         }
@@ -79,7 +91,8 @@ namespace TMSv2_TripPlanner
             TripCarrier = null;
             Origin = "";
             Destination = "";
-            _DaysTaken = 0;
+            _DistanceKm = 0;
+            _HoursTaken = TimeSpan.FromHours(0.0);
             IsCompleted = false;
         }
 

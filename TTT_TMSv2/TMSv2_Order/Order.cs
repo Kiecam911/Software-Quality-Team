@@ -20,7 +20,8 @@ namespace TMSv2_Order
     /// \var data member Cities <i>List string</i> - <i>public<i> data member that holds the cities that the order is associated with
     /// \var data member Trips <i>List Trip</i> - <i>public<i> data member that holds the trips that the Order has, must, or will undertake
     /// \var data member OrderContract <i>Contract</i> - <i>public<i> data member that holds the order's contract
-    /// \var data member _DaysTaken <i>int</i> - <i>private<i> data member that records the elapsed time for the order
+    /// \var data member _TotalKm <i>int</i> - <i>private<i> data member that records the calculated total distance that must be traveled
+    /// \var data member _HoursTaken <i>TimeSpan</i> - <i>private<i> data member that records the elapsed time for the order
     /// \var data member IsCompleted <i>bool</i> - <i>public<i> data member that holds the order's completion state (completed or not)
     ///
     /// \author <i>TeamTeamTeam</i>
@@ -46,15 +47,27 @@ namespace TMSv2_Order
         public Contract OrderContract { get; set; }
         public List<string> Cities { get; set; }            /// List of Cities the Order is associated with
         public List<Trip> Trips { get; set; }               /// The list of trips the order has, must, or will undertake
-        private int _DaysTaken;                             /// The elapsed time for the order
-        public int DaysTaken                                /// Public accessor to the private _DaysTaken for safety
+        private int _TotalKm;                               /// The calculated total distance that must be traveled
+        public int TotalKm                                  /// Public accessor to the private _TotalKm for safety
         {
-            get { return _DaysTaken; }
+            get { return _TotalKm; }
             set
             {
-                if(value >= 0)
+                if (value >= 0)
                 {
-                    _DaysTaken = value;
+                    _TotalKm = value;
+                }
+            }
+        }
+        private TimeSpan _HoursTaken;                       /// The elapsed time for the order
+        public TimeSpan HoursTaken                          /// Public accessor to the private _HoursTaken for safety
+        {
+            get { return _HoursTaken; }
+            set
+            {
+                if(value >= TimeSpan.FromHours(0.0))
+                {
+                    _HoursTaken = value;
                 }
             }
         }
@@ -78,7 +91,8 @@ namespace TMSv2_Order
             OrderContract = null;
             Cities = null;
             Trips = null;
-            _DaysTaken = 0;
+            _TotalKm = 0;
+            _HoursTaken = TimeSpan.FromHours(0.0);
             IsCompleted = false;
         }
         
