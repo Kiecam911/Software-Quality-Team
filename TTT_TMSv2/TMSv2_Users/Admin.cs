@@ -112,6 +112,7 @@ namespace TMSv2_Users
 
         public bool ChooseLogDirectory(string path)
         {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             try
             {
                 if (false == Path.IsPathRooted(path))
@@ -129,6 +130,9 @@ namespace TMSv2_Users
             {
                 return false;
             }
+
+            config.AppSettings.Settings["LogFileDirectory"].Value = LogFileDirectory;
+            config.Save();
 
             return true;
         }

@@ -131,7 +131,7 @@ namespace TMSv2_UIClass.Pages
 
             currPathBox.Text = admin.LogFileDirectory;
             newPathBox.Text = "";
-            Logger.ChangeLogDirectory();
+            //Logger.ChangeLogDirectory();
         }
 
         ///
