@@ -54,12 +54,14 @@ namespace TMSv2_UIClass.Pages
         private void setLogButton_Click(object sender, RoutedEventArgs e)
         {
             resetView();
+            ConfigGrid.Visibility = Visibility.Visible;
             LogFileGrid.Visibility = Visibility.Visible;
         }
 
         private void setDBMSInfoButton_Click(object sender, RoutedEventArgs e)
         {
             resetView();
+            ConfigGrid.Visibility = Visibility.Visible;
             DBMSInfoScreen.Visibility = Visibility.Visible;
         }
 
