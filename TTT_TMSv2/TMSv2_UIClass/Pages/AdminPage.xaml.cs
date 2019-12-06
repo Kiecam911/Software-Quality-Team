@@ -196,6 +196,9 @@ namespace TMSv2_UIClass.Pages
 
             //Reset logGrid
             ViewLogGrid.Visibility = Visibility.Hidden;
+
+            //Reset Alter Table Grid
+            AlterTableGrid.Visibility = Visibility.Hidden;
         }
 
         ///
@@ -317,6 +320,32 @@ namespace TMSv2_UIClass.Pages
 
                 //Reset the view
                 resetView();
+            }
+        }
+
+        private void AlterTable_Click(object sender, RoutedEventArgs e)
+        {
+            resetView();
+            AlterTableGrid.Visibility = Visibility.Visible;
+
+            TableSelect.Items.Add("Carriers");
+            TableSelect.Items.Add("Routes");
+        }
+
+        private void copyPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(admin.LogFileDirectory);
+        }
+
+        private void TableSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TableSelect.Text == "Carriers")
+            {
+
+            }
+            else if (TableSelect.Text == "Routes")
+            {
+
             }
         }
     }
