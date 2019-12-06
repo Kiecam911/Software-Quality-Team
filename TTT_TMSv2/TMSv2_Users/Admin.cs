@@ -25,7 +25,7 @@ namespace TMSv2_Users
     /// Management Systems communications, etc. It is also able to alter the Rate/fee tables, carrier Data, Route Table, review log files
     /// within the application, and can initiate a file backup specifying the directory for the backup files.
     ///
-    /// \var data member orderId <i>int</i> - <i>private<i> data member that holds the order's Identification number within the database
+    /// \var data member _LogFileDirectory <i>string</i> - <i>private<i> data member that holds the path to the log file location
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
@@ -34,7 +34,7 @@ namespace TMSv2_Users
     public class Admin : User
     {
         // Data members
-        private static string _LogFileDirectory { get; set; }
+        private static string _LogFileDirectory;
         public string LogFileDirectory
         {
             get { return _LogFileDirectory; }

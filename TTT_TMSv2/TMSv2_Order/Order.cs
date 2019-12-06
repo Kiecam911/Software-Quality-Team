@@ -95,6 +95,13 @@ namespace TMSv2_Order
             _HoursTaken = TimeSpan.FromHours(0.0);
             IsCompleted = false;
         }
+
+        public void CalculateTotalCost()
+        {
+
+        }
+
+
         
     }
 }

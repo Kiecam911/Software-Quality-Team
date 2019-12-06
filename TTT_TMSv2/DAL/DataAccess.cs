@@ -21,6 +21,8 @@ namespace TMSv2_DAL
     ///
     /// This class contains the methods to connect to the databases that are used in this project
     /// 
+    /// \var data member _Connection <i>MySqlConnection</i> - <i>private<i> Holds the connection to the variabled database
+    /// \var data member _instance <i>DataAccess</i> - <i>private<i> Holds the static instance of the DataAccess class to prevent multiple Connections to the same database
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
@@ -80,6 +82,20 @@ namespace TMSv2_DAL
             }
         }
 
+        ///
+        /// \brief Open a Connection to the variabled database
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database and uses variabled data from the config file
+        /// that can be altered by the <b>Admin</b>
+        ///
+        /// \param <b>void</b> - None
+        ///
+        /// \return Bool Returns A success or failure to connect boolean (success=true;failure=false)
+        /// 
+        /// \sa AdminPage
+        /// \sa Admin
+        ///
         public bool ConnectToDatabase()
         {
             //Create connection from compound connection string with config data
@@ -101,9 +117,22 @@ namespace TMSv2_DAL
             return true;
         }
 
+        ///
+        /// \brief Closes an open Connection to the variabled database
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database and closes the open connection
+        ///
+        /// \param <b>void</b> - None
+        ///
+        /// \return nothing
+        /// 
+        ///
         public void CloseConnection()
         {
             _Connection.Close();
         }
+
+
     }
 }
