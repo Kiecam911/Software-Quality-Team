@@ -57,24 +57,34 @@
 
             <Grid x:Name="LogFileGrid" Visibility="Hidden">
                 <Label Content="Logfile Current Path:" HorizontalAlignment="Left" Margin="171,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="currPathBox" HorizontalAlignment="Left" Height="25" Margin="317,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="449" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <TextBox x:Name="currPathBox" HorizontalAlignment="Left" Height="25" Margin="317,157,0,0" TextWrapping="Wrap" Text="" Focusable="False" VerticalAlignment="Top" Width="449" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
                 <Label Content="Logfile New Path:" HorizontalAlignment="Left" Margin="171,202,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
                 <TextBox x:Name="newPathBox" HorizontalAlignment="Left" Height="25" Margin="317,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="451" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Button x:Name="newPathButton" Content="Set New Path" HorizontalAlignment="Left" Height="39" Margin="440,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561"/>
+                <Button x:Name="browseNewPath" Content="Browse" HorizontalAlignment="Left" Height="24" Margin="171,240,0,0" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561" Click="browseNewPath_Click"/>
+                <Button x:Name="newPathButton" Content="Set New Path" HorizontalAlignment="Left" Height="39" Margin="440,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561" Click="newPathButton_Click"/>
                 <Button x:Name="copyPathButton" Content="Copy Path to Clipboard" HorizontalAlignment="Left" Height="39" Margin="612,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic"/>
             </Grid>
 
             <Grid x:Name="DBMSInfoScreen" Visibility="Hidden">
-                <Label Content="Current IP:" HorizontalAlignment="Left" Margin="171,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="currIp" HorizontalAlignment="Left" Height="25" Margin="279,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Label Content="Enter New IP:" HorizontalAlignment="Left" Margin="171,202,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="newIPBox" HorizontalAlignment="Left" Height="25" Margin="279,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Button x:Name="newIPButton" Content="Set New Path" HorizontalAlignment="Left" Height="39" Margin="619,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561"/>
+                <Label Content="Current IP:" HorizontalAlignment="Left" Margin="171,120,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currIP" HorizontalAlignment="Left" Height="25" Margin="288,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
+                <Label Content="Current DB Name:" HorizontalAlignment="Left" Margin="171,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currDBName" HorizontalAlignment="Left" Height="25" Margin="288,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
+                <Label Content="Current Username:" HorizontalAlignment="Left" Margin="171,194,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currUsername" HorizontalAlignment="Left" Height="25" Margin="288,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
+                <Label Content="Current Password:" HorizontalAlignment="Left" Margin="171,231,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currPassword" HorizontalAlignment="Left" Height="25" Margin="288,231,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
+                
+                <Label Content="New IP:" HorizontalAlignment="Left" Margin="480,120,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newIP" HorizontalAlignment="Left" Height="25" Margin="594,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Label Content="New DB Name:" HorizontalAlignment="Left" Margin="480,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newDBName" HorizontalAlignment="Left" Height="25" Margin="594,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Label Content="New Username:" HorizontalAlignment="Left" Margin="480,194,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newUsername" HorizontalAlignment="Left" Height="25" Margin="594,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Label Content="New Password:" HorizontalAlignment="Left" Margin="480,231,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newPassword" HorizontalAlignment="Left" Height="25" Margin="594,231,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
 
-                <Label Content="Current Port:" HorizontalAlignment="Left" Margin="480,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="newIP" HorizontalAlignment="Left" Height="25" Margin="594,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Label Content="Enter New Port:" HorizontalAlignment="Left" Margin="480,202,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="nnewPort" HorizontalAlignment="Left" Height="25" Margin="594,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Button x:Name="newDBSettings" Content="Save Settings" HorizontalAlignment="Left" Height="39" Margin="619,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561" Click="newDBSettings_Click"/>
             </Grid>
         </Grid>
 
@@ -82,7 +92,7 @@
             <Rectangle Fill="LightGray" HorizontalAlignment="Left" Height="338" Margin="160,52,0,0" VerticalAlignment="Top" Width="625"/>
             <Label Content="Click view to select a log and display it in the window: " HorizontalAlignment="Left" Margin="177,354,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
             <TextBox x:Name="LogDisplay" HorizontalAlignment="Left" Height="268" Margin="176,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="591" Background="{x:Null}" BorderBrush="Black" Foreground="White" Focusable="False"/>
-            <Button x:Name="viewLogsButton" Content="View" HorizontalAlignment="Left" Height="31" Margin="600,354,0,0" VerticalAlignment="Top" Width="137" Background="#FF047FD4" BorderBrush="{x:Null}" Foreground="White" FontSize="14"/>
+            <Button x:Name="viewLogsButton" Content="View" HorizontalAlignment="Left" Height="31" Margin="600,354,0,0" VerticalAlignment="Top" Width="137" Background="#FF047FD4" BorderBrush="{x:Null}" Foreground="White" FontSize="14" Click="viewLogsButton_Click"/>
 
         </Grid>
 

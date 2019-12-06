@@ -22,9 +22,9 @@ namespace TMSv2_Users
     /// \var data member PERMISSION_PLANNER <i>const char</i> - <i>protected<i> data member that holds the char representing the permission level
     /// \var data member PERMISSION_BUYER <i>const char</i> - <i>protected<i> data member that holds the char representing the permission level
     /// \var data member PERMISSION_ADMIN <i>const char</i> - <i>protected<i> data member that holds the char representing the permission level
-    /// \var data member PermissionLevel <i>char</i> - <i>protected<i> data member that holds which permission level the user possesses
-    /// \var data member userID <i>string</i> - <i>protected<i> data member that holds the userID login credential
-    /// \var data member password <i>string</i> - <i>protected<i> data member that holds the password login credential
+    /// \var data member PermissionLevel <i>char</i> - <i>public<i> data member that holds which permission level the user possesses
+    /// \var data member UserID <i>string</i> - <i>protected<i> data member that holds the userID login credential
+    /// \var data member Password <i>string</i> - <i>protected<i> data member that holds the password login credential
     ///
     /// \author <i>TeamTeamTeam</i>
     ///
@@ -36,8 +36,8 @@ namespace TMSv2_Users
         protected const char PERMISSION_ADMIN = 'a';
 
         public char PermissionLevel { get; set; }
-        protected string userID;
-        protected string password;
+        protected string UserID;
+        protected string Password;
 
 
 

@@ -4,7 +4,7 @@ using TMSv2_TripPlanner;
 using TMSv2_Carriers;
 using TMSv2_Contracts;
 using TMSv2_Order;
-using TMSv2_UI;
+using TMSv2_UIClass;
 using TMSv2_Users;
 
 namespace UnitTesting
@@ -162,29 +162,29 @@ namespace UnitTesting
             //Variables
             var trip = new Trip();
 
-            // Try Catch block to test the fail condition
-            try
-            {
-                // Setting the endDestination to an invalid amount
-                trip.SetEndDestination("");
-            }
-            catch (Exception e)
-            {
-                // Determining if the fail condition succeeded
-                Assert.AreEqual("Invalid City", e.Message);
-            }
+            //// Try Catch block to test the fail condition
+            //try
+            //{
+            //    // Setting the endDestination to an invalid amount
+            //    trip.Destination = "";
+            //}
+            //catch (Exception e)
+            //{
+            //    // Determining if the fail condition succeeded
+            //    Assert.AreEqual("Invalid City", e.Message);
+            //}
 
-            // Try Catch block to test the fail condition
-            try
-            {
-                // Setting the kmDistance to an invalid amount
-                trip.SetKmDistance(-1.0f);
-            }
-            catch (Exception e)
-            {
-                // Determining if the fail condition succeeded
-                Assert.AreEqual("Invalid Distance", e.Message);
-            }
+            //// Try Catch block to test the fail condition
+            //try
+            //{
+            //    // Setting the kmDistance to an invalid amount
+            //    trip.SetKmDistance(-1.0f);
+            //}
+            //catch (Exception e)
+            //{
+            //    // Determining if the fail condition succeeded
+            //    Assert.AreEqual("Invalid Distance", e.Message);
+            //}
         }
 
         /**
@@ -212,16 +212,16 @@ namespace UnitTesting
             //Variables
             var trip = new Trip();
 
-            // Try Catch block to test the fail condition
-            try
-            {
-                // Setting the endDestination to an invalid amount
-                trip.SetEndDestination("");
-            }
-            catch (Exception e)
-            {
-                throw new AssertFailedException();
-            }
+            //// Try Catch block to test the fail condition
+            //try
+            //{
+            //    // Setting the endDestination to an invalid amount
+            //    trip.SetEndDestination("");
+            //}
+            //catch (Exception e)
+            //{
+            //    throw new AssertFailedException();
+            //}
         }
 
         /**
@@ -249,62 +249,62 @@ namespace UnitTesting
             //Variables
             var trip = new Trip();
 
-            // Try Catch block to test the fail condition
-            try
-            {
-                // Test for 0.0001 boundary
-                trip.SetKmDistance(0.0001f);
-                Assert.AreEqual(0.0001f, trip.GetKmDistance());
+            //// Try Catch block to test the fail condition
+            //try
+            //{
+            //    // Test for 0.0001 boundary
+            //    trip.SetKmDistance(0.0001f);
+            //    Assert.AreEqual(0.0001f, trip.GetKmDistance());
 
-                // Test for 0.00001 boundary
-                trip.SetKmDistance(0.00001f);
-                Assert.AreEqual(0.00001f, trip.GetKmDistance());
+            //    // Test for 0.00001 boundary
+            //    trip.SetKmDistance(0.00001f);
+            //    Assert.AreEqual(0.00001f, trip.GetKmDistance());
 
-                // Test for 0.000001 boundary
-                trip.SetKmDistance(0.000001f);
-                Assert.AreEqual(0.000001f, trip.GetKmDistance());
-            }
-            catch (Exception e)
-            {
-                // Assert that test failed
-                throw new AssertFailedException();
-            }
+            //    // Test for 0.000001 boundary
+            //    trip.SetKmDistance(0.000001f);
+            //    Assert.AreEqual(0.000001f, trip.GetKmDistance());
+            //}
+            //catch (Exception e)
+            //{
+            //    // Assert that test failed
+            //    throw new AssertFailedException();
+            //}
 
-            // Try Catch block to test the fail condition
-            try
-            {
-                // Test for -0.0001 boundary
-                trip.SetKmDistance(-0.0001f);
-            }
-            catch (Exception e)
-            {
-                // Assert that test Succeeded
-                Assert.AreEqual("Invalid Distance", e.Message);
-            }
+            //// Try Catch block to test the fail condition
+            //try
+            //{
+            //    // Test for -0.0001 boundary
+            //    trip.SetKmDistance(-0.0001f);
+            //}
+            //catch (Exception e)
+            //{
+            //    // Assert that test Succeeded
+            //    Assert.AreEqual("Invalid Distance", e.Message);
+            //}
 
-            // Try Catch block to test the fail condition
-            try
-            {
-                // Test for -0.00001 boundary
-                trip.SetKmDistance(-0.00001f);
-            }
-            catch (Exception e)
-            {
-                // Assert that test Succeeded
-                Assert.AreEqual("Invalid Distance", e.Message);
-            }
+            //// Try Catch block to test the fail condition
+            //try
+            //{
+            //    // Test for -0.00001 boundary
+            //    trip.SetKmDistance(-0.00001f);
+            //}
+            //catch (Exception e)
+            //{
+            //    // Assert that test Succeeded
+            //    Assert.AreEqual("Invalid Distance", e.Message);
+            //}
 
-            // Try Catch block to test the fail condition
-            try
-            {
-                // Test for -0.000001 boundary
-                trip.SetKmDistance(-0.000001f);
-            }
-            catch (Exception e)
-            {
-                // Assert that test Succeeded
-                Assert.AreEqual("Invalid Distance", e.Message);
-            }
+            //// Try Catch block to test the fail condition
+            //try
+            //{
+            //    // Test for -0.000001 boundary
+            //    trip.SetKmDistance(-0.000001f);
+            //}
+            //catch (Exception e)
+            //{
+            //    // Assert that test Succeeded
+            //    Assert.AreEqual("Invalid Distance", e.Message);
+            //}
         }
 
         /**
@@ -873,72 +873,72 @@ namespace UnitTesting
         {
             Carrier carrier = new Carrier();
 
-            //Testing for CarrierID
-            try
-            {
-                carrier.setCarrierID(989);
+            ////Testing for CarrierID
+            //try
+            //{
+            //    carrier.setCarrierID(989);
 
-                Assert.AreEqual(989, carrier.getCarrierID());
-            }
-            catch
-            {
-                Console.WriteLine("Setting the carrierID has failed");
-            }
+            //    Assert.AreEqual(989, carrier.getCarrierID());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Setting the carrierID has failed");
+            //}
 
-            //Test for Carrier Name
-            try
-            {
-                carrier.setCarrierName("JohnDeer");
-                Assert.AreEqual("JohnDeer", carrier.getCarrierName());
-            }
-            catch
-            {
-                Console.WriteLine("Setting carrier name has failed");
-            }
+            ////Test for Carrier Name
+            //try
+            //{
+            //    carrier.setCarrierName("JohnDeer");
+            //    Assert.AreEqual("JohnDeer", carrier.getCarrierName());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Setting carrier name has failed");
+            //}
 
-            //Test for setting isFTL
-            try
-            {
-                carrier.setIsFTL(true);
-                Assert.AreEqual(true, carrier.getIsFTL());
-            }
-            catch
-            {
-                Console.WriteLine("Set FTL has failed");
-            }
+            ////Test for setting isFTL
+            //try
+            //{
+            //    carrier.setIsFTL(true);
+            //    Assert.AreEqual(true, carrier.getIsFTL());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Set FTL has failed");
+            //}
 
-            //Test for PalletFTLRate
-            try
-            {
-                carrier.setPerPalletFTLRate(12.41);
-                Assert.AreEqual(12.41, 12.41);
-            }
-            catch
-            {
-                Console.WriteLine("Set Pallet LTL Rate has failed");
-            }
+            ////Test for PalletFTLRate
+            //try
+            //{
+            //    carrier.setPerPalletFTLRate(12.41);
+            //    Assert.AreEqual(12.41, 12.41);
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Set Pallet LTL Rate has failed");
+            //}
 
-            //Test for setting IsReefer
-            try
-            {
-                carrier.setIsReefer(true);
-                Assert.AreEqual(true, carrier.getIsReefer());
-            }
-            catch
-            {
-                Console.WriteLine("Setting isReefer has failed");
-            }
+            ////Test for setting IsReefer
+            //try
+            //{
+            //    carrier.setIsReefer(true);
+            //    Assert.AreEqual(true, carrier.getIsReefer());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Setting isReefer has failed");
+            //}
 
-            //Test for setting carrier capacity
-            try
-            {
-                carrier.setCarrierCapacity(1200);
-                Assert.AreEqual(1200, carrier.getCarrierCapacity());
-            }
-            catch
-            {
-                Console.WriteLine("Set carrier capacity has failed");
-            }
+            ////Test for setting carrier capacity
+            //try
+            //{
+            //    carrier.setCarrierCapacity(1200);
+            //    Assert.AreEqual(1200, carrier.getCarrierCapacity());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Set carrier capacity has failed");
+            //}
         }
 
         /**
@@ -966,38 +966,38 @@ namespace UnitTesting
         {
             Carrier carrier = new Carrier();
             
-            //Test for setting carrier name to blank
-            try
-            {
-                carrier.setCarrierName("");
-                Assert.AreEqual("none", carrier.getCarrierName());
-            }
-            catch
-            {
-                Console.WriteLine("Error handling failed for Carrier Name");
-            }
+            ////Test for setting carrier name to blank
+            //try
+            //{
+            //    carrier.setCarrierName("");
+            //    Assert.AreEqual("none", carrier.getCarrierName());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Error handling failed for Carrier Name");
+            //}
 
-            //Test error handling for PalletFTLRate
-            try
-            {
-                carrier.setPerPalletFTLRate(-5);
-                Assert.AreEqual(0, carrier.getPerPalletFTLRate());
-            }
-            catch
-            {
-                Console.WriteLine("Error handling failed for PalletLTLRate");
-            }
+            ////Test error handling for PalletFTLRate
+            //try
+            //{
+            //    carrier.setPerPalletFTLRate(-5);
+            //    Assert.AreEqual(0, carrier.getPerPalletFTLRate());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Error handling failed for PalletLTLRate");
+            //}
 
-            //Test for carrierCap
-            try
-            {
-                carrier.setCarrierCapacity(-100);
-                Assert.AreEqual(0, carrier.getCarrierCapacity());
-            }
-            catch
-            {
-                Console.WriteLine("Error handling failed for carrier capacity");
-            }
+            ////Test for carrierCap
+            //try
+            //{
+            //    carrier.setCarrierCapacity(-100);
+            //    Assert.AreEqual(0, carrier.getCarrierCapacity());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Error handling failed for carrier capacity");
+            //}
         }
 
         /**
@@ -1073,27 +1073,27 @@ namespace UnitTesting
         {
             Order orders = new Order();
 
-            //Test to check data handling on setOrderID
-            try
-            {
-                orders.setOrderID(-5);
-                Assert.AreEqual(0, orders.getOrderID());
-            }
-            catch
-            {
-                Console.WriteLine("Data handling on orderID failed");
-            }
+            ////Test to check data handling on setOrderID
+            //try
+            //{
+            //    orders.setOrderID(-5);
+            //    Assert.AreEqual(0, orders.getOrderID());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Data handling on orderID failed");
+            //}
 
-            //Test to check data handling on totalCost
-            try
-            {
-                orders.setTotalCost(-500);
-                Assert.AreEqual(0, orders.getTotalCost());
-            }
-            catch
-            {
-                Console.WriteLine("Data handling on totalCost has failed");
-            }
+            ////Test to check data handling on totalCost
+            //try
+            //{
+            //    orders.setTotalCost(-500);
+            //    Assert.AreEqual(0, orders.getTotalCost());
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Data handling on totalCost has failed");
+            //}
         }
 
 
@@ -1220,15 +1220,15 @@ namespace UnitTesting
             // create contract object
             Contract testContract = new Contract();
 
-            // call methods to test
-            try
-            {
-                testContract.InitializeContract();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("InitializeContract() exception");
-            }
+            //// call methods to test
+            //try
+            //{
+            //    testContract.InitializeContract();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("InitializeContract() exception");
+            //}
         }
 
         /**
