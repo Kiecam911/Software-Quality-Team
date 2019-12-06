@@ -37,7 +37,7 @@
                     </ListViewItem>
                     <ListViewItem Height="30">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="TableButton" Content="Alter Table Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28"/>
+                            <Button x:Name="AlterTableButton" Content="Alter Table Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="AlterTable_Click"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="30">
@@ -62,7 +62,7 @@
                 <TextBox x:Name="newPathBox" HorizontalAlignment="Left" Height="25" Margin="317,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="451" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
                 <Button x:Name="browseNewPath" Content="Browse" HorizontalAlignment="Left" Height="24" Margin="171,240,0,0" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561" Click="browseNewPath_Click"/>
                 <Button x:Name="newPathButton" Content="Set New Path" HorizontalAlignment="Left" Height="39" Margin="440,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561" Click="newPathButton_Click"/>
-                <Button x:Name="copyPathButton" Content="Copy Path to Clipboard" HorizontalAlignment="Left" Height="39" Margin="612,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic"/>
+                <Button x:Name="copyPathButton" Content="Copy Path to Clipboard" HorizontalAlignment="Left" Height="39" Margin="612,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" Click="copyPathButton_Click"/>
             </Grid>
 
             <Grid x:Name="DBMSInfoScreen" Visibility="Hidden">
@@ -74,7 +74,7 @@
                 <TextBox x:Name="currUsername" HorizontalAlignment="Left" Height="25" Margin="288,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
                 <Label Content="Current Password:" HorizontalAlignment="Left" Margin="171,231,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
                 <TextBox x:Name="currPassword" HorizontalAlignment="Left" Height="25" Margin="288,231,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
-                
+
                 <Label Content="New IP:" HorizontalAlignment="Left" Margin="480,120,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
                 <TextBox x:Name="newIP" HorizontalAlignment="Left" Height="25" Margin="594,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
                 <Label Content="New DB Name:" HorizontalAlignment="Left" Margin="480,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
@@ -97,7 +97,11 @@
         </Grid>
 
         <Grid x:Name="AlterTableGrid" Visibility="Visible">
-            
+            <Label Content="Please choose a table to edit from the list:" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}"/>
+            <ComboBox x:Name="TableSelect" HorizontalAlignment="Left" Margin="417,60,0,0" VerticalAlignment="Top" Width="120" Height="26" SelectionChanged="TableSelect_SelectionChanged"/>
+            <DataGrid x:Name="tableView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" HeadersVisibility="None" AlternatingRowBackground="#FF047FD4" GridLinesVisibility="Horizontal"/>
+            <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White"/>
+
         </Grid>
     </Grid>
 </Page>
