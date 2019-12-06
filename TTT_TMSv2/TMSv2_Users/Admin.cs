@@ -89,7 +89,7 @@ namespace TMSv2_Users
         ///
         /// \param nothing <b>void</b> - Nothing is passed into this function
         ///
-        /// \return Nothing is returned
+        /// \return string Returns the string path
         ///
         public string ChooseLogDirectory()
         {
@@ -110,6 +110,18 @@ namespace TMSv2_Users
             return path;
         }
 
+        ///
+        /// \fn ChooseLogDirectory(string path)
+        /// 
+        /// \brief Choose the directory to save the log files
+        /// \details <b>Details</b>
+        ///
+        /// Chooses the directory in which to save the log files
+        ///
+        /// \param path <b>string</b> - The new path
+        ///
+        /// \return bool Returns true if successfull, false otherwise
+        ///
         public bool ChooseLogDirectory(string path)
         {
             //Open config file

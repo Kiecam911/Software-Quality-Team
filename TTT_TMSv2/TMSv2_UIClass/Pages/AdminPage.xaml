@@ -66,16 +66,25 @@
             </Grid>
 
             <Grid x:Name="DBMSInfoScreen" Visibility="Hidden">
-                <Label Content="Current IP:" HorizontalAlignment="Left" Margin="171,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="currIp" HorizontalAlignment="Left" Height="25" Margin="279,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Label Content="Enter New IP:" HorizontalAlignment="Left" Margin="171,202,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="newIPBox" HorizontalAlignment="Left" Height="25" Margin="279,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Button x:Name="newIPButton" Content="Set New Path" HorizontalAlignment="Left" Height="39" Margin="619,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561"/>
+                <Label Content="Current IP:" HorizontalAlignment="Left" Margin="171,120,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currIP" HorizontalAlignment="Left" Height="25" Margin="288,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
+                <Label Content="Current DB Name:" HorizontalAlignment="Left" Margin="171,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currDBName" HorizontalAlignment="Left" Height="25" Margin="288,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
+                <Label Content="Current Username:" HorizontalAlignment="Left" Margin="171,194,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currUsername" HorizontalAlignment="Left" Height="25" Margin="288,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
+                <Label Content="Current Password:" HorizontalAlignment="Left" Margin="171,231,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="currPassword" HorizontalAlignment="Left" Height="25" Margin="288,231,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
+                
+                <Label Content="New IP:" HorizontalAlignment="Left" Margin="480,120,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newIP" HorizontalAlignment="Left" Height="25" Margin="594,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Label Content="New DB Name:" HorizontalAlignment="Left" Margin="480,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newDBName" HorizontalAlignment="Left" Height="25" Margin="594,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Label Content="New Username:" HorizontalAlignment="Left" Margin="480,194,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newUsername" HorizontalAlignment="Left" Height="25" Margin="594,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Label Content="New Password:" HorizontalAlignment="Left" Margin="480,231,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
+                <TextBox x:Name="newPassword" HorizontalAlignment="Left" Height="25" Margin="594,231,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
 
-                <Label Content="Current Port:" HorizontalAlignment="Left" Margin="480,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="newIP" HorizontalAlignment="Left" Height="25" Margin="594,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Label Content="Enter New Port:" HorizontalAlignment="Left" Margin="480,202,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="nnewPort" HorizontalAlignment="Left" Height="25" Margin="594,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
+                <Button x:Name="newDBSettings" Content="Save Settings" HorizontalAlignment="Left" Height="39" Margin="619,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561" Click="newDBSettings_Click"/>
             </Grid>
         </Grid>
 

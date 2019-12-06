@@ -25,8 +25,25 @@ namespace TMSv2_DAL
     /// \author <i>TeamTeamTeam</i>
     /// 
     ///
-    public static class DataAccess
+    public class DataAccess
     {
+        //Data member
+        private MySqlConnection _Connection = null;
+        public MySqlConnection Connection
+        {
+            //Return connection stream to database
+            get { return _Connection; }
+        }
+
+        private static DataAccess _instance = null;
+        public static DataAccess Instance()
+        {
+            //If this instance is null then create a new one and return it
+            if (_instance == null)
+                _instance = new DataAccess();
+            return _instance;
+        }
+
         ///
         /// \brief To retrieve the contracts from the Contract Marketplace
         /// \details <b>Details</b>
@@ -61,6 +78,32 @@ namespace TMSv2_DAL
                 cmConnection.Close();
                 return customerDS;
             }
+        }
+
+        public bool ConnectToDatabase()
+        {
+            //Create connection from compound connection string with config data
+            _Connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
+
+            try
+            {
+                _Connection.Open();
+            }
+            catch (MySqlException sqlE)
+            {
+                return false;
+            }
+            catch (InvalidOperationException opE)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void CloseConnection()
+        {
+            _Connection.Close();
         }
     }
 }

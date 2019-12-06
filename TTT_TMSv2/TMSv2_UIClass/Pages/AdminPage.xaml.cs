@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.IO;
+using System.Configuration;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -17,6 +18,7 @@ using TMSv2_Users;
 using TMSv2_TripPlanner;
 using TMSv2_Order;
 using TMSv2_Logging;
+using TMSv2_DAL;
 
 namespace TMSv2_UIClass.Pages
 {
@@ -158,6 +160,18 @@ namespace TMSv2_UIClass.Pages
 
             ConfigGrid.Visibility = Visibility.Visible;
             DBMSInfoScreen.Visibility = Visibility.Visible;
+
+            //Load the current database access information into the text boxes
+            currIP.Text = ConfigurationManager.AppSettings["DatabaseIP"];
+            currDBName.Text = ConfigurationManager.AppSettings["DatabaseName"];
+            currUsername.Text = ConfigurationManager.AppSettings["DatabaseUsername"];
+            currPassword.Text = ConfigurationManager.AppSettings["DatabasePassword"];
+
+            //Clear previous data from the boxes
+            newIP.Text = "";
+            newDBName.Text = "";
+            newUsername.Text = "";
+            newPassword.Text = "";
         }
 
         ///
@@ -247,6 +261,61 @@ namespace TMSv2_UIClass.Pages
             }
             else
             {
+                resetView();
+            }
+        }
+
+        ///
+        /// \fn newDBSettings_Click(object sender, RoutedEventArgs e)
+        /// 
+        /// \brief The Button Event Handler for the Save Settings Button
+        /// \details <b>Details</b>
+        ///
+        /// Clicking the Save Settings button will trigger this event handler and cause the text in the
+        /// new database settings to be saved to the config file before checking and reporting a success
+        /// or failure result (and reverting back to the old settings upon failure)
+        ///
+        /// \param sender <b>object</b> - The Object that is triggering the event
+        /// \param e <b>RoutedEventArgs</b> - The Event that is being triggered
+        ///
+        /// \return Nothing is returned
+        /// 
+        /// \sa resetView()
+        ///
+        private void newDBSettings_Click(object sender, RoutedEventArgs e)
+        {
+            //Get the instance of the database access class
+            DataAccess temp = DataAccess.Instance();
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            //Save the new Database settings to the config file
+            config.AppSettings.Settings["DatabaseIP"].Value = newIP.Text;
+            config.AppSettings.Settings["DatabaseName"].Value = newDBName.Text;
+            config.AppSettings.Settings["DatabaseUsername"].Value = newUsername.Text;
+            config.AppSettings.Settings["DatabasePassword"].Value = newPassword.Text;
+            config.Save();
+
+            if(temp.ConnectToDatabase() == false)
+            {
+                //Display failure result
+                MessageBox.Show("New Settings are invalid and does not connect to the database. Changing back to previous settings", "Alert!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+                //Save old settings back to config file
+                config.AppSettings.Settings["DatabaseIP"].Value = currIP.Text;
+                config.AppSettings.Settings["DatabaseName"].Value = currDBName.Text;
+                config.AppSettings.Settings["DatabaseUsername"].Value = currUsername.Text;
+                config.AppSettings.Settings["DatabasePassword"].Value = currPassword.Text;
+                config.Save();
+            }
+            else
+            {
+                //Display success result
+                MessageBox.Show("Database Connected!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                //Close open Database connection
+                temp.CloseConnection();
+
+                //Reset the view
                 resetView();
             }
         }
