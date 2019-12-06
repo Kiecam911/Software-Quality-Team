@@ -37,7 +37,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -113,13 +112,9 @@
     <Resource Include="Images\mainMenuArt.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TMSv2_Carriers\TMSv2_Carriers.csproj">
-      <Project>{7e53f3f0-cf38-4309-a762-33ef8c1eacff}</Project>
-      <Name>TMSv2_Carriers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TMSv2_Contracts\TMSv2_Contracts.csproj">
-      <Project>{8fbe4a1c-35de-41ca-9cd3-9bfd3e6c053d}</Project>
-      <Name>TMSv2_Contracts</Name>
+    <ProjectReference Include="..\TMSv2_Logging\TMSv2_Logging.csproj">
+      <Project>{d9303871-7260-4224-8078-35961f100ebd}</Project>
+      <Name>TMSv2_Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\TMSv2_Order\TMSv2_Order.csproj">
       <Project>{63f37c7a-dd2c-42e1-b380-b04f98de6df0}</Project>
