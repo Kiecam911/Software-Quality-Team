@@ -63,15 +63,15 @@ namespace TMSv2_Carriers
         }
 
         ///
-        /// \brief To retrieve details for the new contract from the contract marketplace
+        /// \brief To retrieve details all carriers from the database
         /// \details <b>Details</b>
         ///
-        /// This method interfaces with the contract marketplace database to populate the variables
-        /// related to the contract marketplace. 
+        /// This method interfaces with the variabled database to get all carriers and their respective depots
+        /// and return them in a list
         ///
         /// \param <b>void</b> - None
         ///
-        /// \return Nothing
+        /// \return List Carrier Returns a list of all the carriers and their respective depots
         ///
         public List<Carrier> GetCarriers()
         {
@@ -114,12 +114,13 @@ namespace TMSv2_Carriers
                 tempCarrier.CarrierName = name;
 
                 //Get Depot data
-                depots.DestinationCity = currentRow.Field<string>(2);
-                depots.FTLAvailability = currentRow.Field<int>(3);
-                depots.LTLAvailability = currentRow.Field<int>(4);
-                depots.FTLRate = currentRow.Field<double>(5);
-                depots.LTLRate = currentRow.Field<double>(6);
-                depots.ReefCharge = currentRow.Field<double>(7);
+                depots.CarrierInfoID = currentRow.Field<int>(2);
+                depots.DestinationCity = currentRow.Field<string>(3);
+                depots.FTLAvailability = currentRow.Field<int>(4);
+                depots.LTLAvailability = currentRow.Field<int>(5);
+                depots.FTLRate = currentRow.Field<double>(6);
+                depots.LTLRate = currentRow.Field<double>(7);
+                depots.ReefCharge = currentRow.Field<double>(8);
 
                 //Add Depots to the carrier
                 tempCarrier.CarrierDepots.Add(depots);
@@ -139,6 +140,44 @@ namespace TMSv2_Carriers
             }
             return carrierList;
         }
+
+        public bool UpdateCarriers(List<Carrier> carrierList)
+        {
+            //Variables
+            List<Carrier> carriers = GetCarriers();
+            DataAccess da = DataAccess.Instance();
+
+            //For each carrier in the list get each depot in that carrier and update the carriers in the database
+            foreach(Carrier c in carrierList)
+            {
+                foreach (Depot d in c.CarrierDepots)
+                {
+                    //if(carriers[carrierList.FindIndex(])
+                    if (d.CarrierInfoID != 0)
+                    {
+                        //If the update failed return false
+                        if (!da.UpdateCarriers(c.CarrierID, c.CarrierName, d.CarrierInfoID, d.DestinationCity, d.FTLAvailability, d.LTLAvailability, d.FTLRate, d.LTLRate, d.ReefCharge))
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if(!da.AddDepotToCarriers(c.CarrierID, d.DestinationCity, d.FTLAvailability, d.LTLAvailability, d.FTLRate, d.LTLRate, d.ReefCharge))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            //Return true on success
+            return true;
+        }
+
+
+
+
 
     }
 }

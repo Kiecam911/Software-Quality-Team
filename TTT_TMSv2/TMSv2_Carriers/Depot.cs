@@ -28,6 +28,18 @@ namespace TMSv2_Carriers
     ///
     public class Depot
     {
+        private int _CarrierInfoID;                   /// The identification number of the carrierInfo table
+        public int CarrierInfoID                      /// The public accessor for the _CarrierInfoID
+        {
+            get { return _CarrierInfoID; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _CarrierInfoID = value;
+                }
+            }
+        }
         public string DestinationCity { get; set; }     /// The destination city of the <b>Carrier</b>
         private int _FTLAvailability;                   /// The availability of Full Truck Load for the <b>Carrier</b>
         public int FTLAvailability                      /// The public accessor for the _FTLAvailability

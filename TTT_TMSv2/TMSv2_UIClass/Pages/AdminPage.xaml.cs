@@ -201,6 +201,8 @@ namespace TMSv2_UIClass.Pages
 
             //Reset Alter Table Grid
             AlterTableGrid.Visibility = Visibility.Hidden;
+
+            AlterRoutesGrid.Visibility = Visibility.Hidden;
         }
 
         ///
@@ -365,6 +367,55 @@ namespace TMSv2_UIClass.Pages
             tableView.HeadersVisibility = DataGridHeadersVisibility.All;
 
             tableView.Items.Refresh();
+        }
+
+        private void AlterRoutesButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Variables
+            Destination destination = new Destination();
+            List<Destination> routeTable = destination.GetRoutes();
+
+            //Reset view
+            resetView();
+
+            //Set datagrid itemssource to routeTable
+            tableRouteView.ItemsSource = routeTable;
+
+            //Set Grid to visible
+            AlterRoutesGrid.Visibility = Visibility.Visible;
+
+            //Set headers to visible
+            tableRouteView.HeadersVisibility = DataGridHeadersVisibility.All;
+
+            //Refresh items
+            tableRouteView.Items.Refresh();
+        }
+
+        private void SaveCarrierData_Click(object sender, RoutedEventArgs e)
+        {
+            //Variables
+            Carrier tempCarrier = new Carrier();
+            List<Carrier> carriers = tempCarrier.GetCarriers();
+
+            if (tableSelect.SelectedItem != null)
+            {
+                foreach (Carrier c in carriers)
+                {
+                    if ((string)tableSelect.SelectedItem == c.CarrierName)
+                    {
+                        c.CarrierDepots = tableView.ItemsSource as List<Depot>;
+                    }
+                }
+            }
+
+            if(!tempCarrier.UpdateCarriers(carriers))
+            {
+                MessageBox.Show("Could Not Update the Database.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBox.Show("Changes Saved!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

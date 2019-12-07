@@ -51,5 +51,11 @@
       <Link>App.config</Link>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TMSv2_Logging\TMSv2_Logging.csproj">
+      <Project>{d9303871-7260-4224-8078-35961f100ebd}</Project>
+      <Name>TMSv2_Logging</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

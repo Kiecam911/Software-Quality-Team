@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMSv2_DAL;
 
 namespace TMSv2_TripPlanner
 {
@@ -29,9 +31,9 @@ namespace TMSv2_TripPlanner
     public class Destination
     {
         // Data members
-        private string City { get; set; }
-        private double _DistanceKm;
-        public double DistanceKm
+        public string City { get; set; }
+        private int _DistanceKm;
+        public int DistanceKm
         { 
             get { return _DistanceKm; }
             set
@@ -42,66 +44,73 @@ namespace TMSv2_TripPlanner
                 }
             }
         }
-        private float _DistanceHours;
-        public float DistanceHours
+        private TimeSpan _DistanceHours;
+        public TimeSpan DistanceHours
         {
             get { return _DistanceHours; }
             set
             {
-                if (value >= 0.0)
+                if (value >= TimeSpan.FromHours(0.0))
                 {
                     _DistanceHours = value;
                 }
             }
         }
-        private Destination _WestDestination;
-        public Destination WestDest { get { return _WestDestination; } }
-        private Destination _EastDestination;
-        public Destination EastDest { get { return _EastDestination; } }
+        public string WestDestination { get; set; }
+        public string EastDestination { get; set; }
+
 
         public Destination()
         {
             City = "";
-            _DistanceHours = -1.0f;
-            _DistanceKm = -1.0f;
-            _WestDestination = null;
-            _EastDestination = null;
+            _DistanceHours = TimeSpan.FromHours(0.0);
+            _DistanceKm = 0;
+            WestDestination = "";
+            EastDestination = "";
         }
 
-        ///
-        /// \fn SetWestDestination(Destination d)
-        /// 
-        /// \brief Sets d to the WestDestination
-        /// \details <b>Details</b>
-        ///
-        /// Sets Destination d to the West destination so that getting the West Destination does not
-        /// allow for possible accidental overwritting of the WestDestination
-        ///
-        /// \param d <b>Destination</b> - The Destination that will be set
-        ///
-        /// \return Nothing is returned
-        ///
-        public void SetWestDestination(Destination d)
-        {
-            _WestDestination = d;
-        }
 
         ///
-        /// \fn SetWestDestination(Destination d)
-        /// 
-        /// \brief Sets d to the WestDestination
+        /// \brief To retrieve details for the new contract from the contract marketplace
         /// \details <b>Details</b>
         ///
-        /// Sets Destination d to the West destination so that getting the West Destination does not
-        /// allow for possible accidental overwritting of the WestDestination
+        /// This method interfaces with the contract marketplace database to populate the variables
+        /// related to the contract marketplace. 
         ///
-        /// \param d <b>Destination</b> - The Destination that will be set
+        /// \param <b>void</b> - None
         ///
-        /// \return Nothing is returned
+        /// \return Nothing
         ///
-        public void SetEastDestination(Destination d)
+        public List<Destination> GetRoutes()
         {
-            _EastDestination = d;
+            // create objects to hold information from DAL
+            DataAccess tempDA = new DataAccess();
+            DataTable routesTable = tempDA.GetRouteTable().Tables[0];
+            List<Destination> routesList = new List<Destination>();
+            Destination tempDestination = null;
+
+            DataRowCollection routeRows = routesTable.Rows;
+
+            // loop through each row of data, creating contract and assigning values to it
+            foreach (DataRow currentRow in routeRows)
+            {
+                //Instantiate a new Destination
+                tempDestination = new Destination();
+
+                //Fill destination
+                tempDestination.City = currentRow.Field<string>(0);
+                tempDestination.DistanceKm = currentRow.Field<int>(1);
+                tempDestination.DistanceHours = currentRow.Field<TimeSpan>(2);
+                tempDestination.WestDestination = currentRow.Field<string>(3);
+                tempDestination.EastDestination = currentRow.Field<string>(4);
+
+                //Add to list
+                routesList.Add(tempDestination);
+            }
+            return routesList;
         }
+
+
+
     }
 }
