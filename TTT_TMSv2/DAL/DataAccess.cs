@@ -300,13 +300,53 @@ namespace TMSv2_DAL
         }
 
 
+        public bool DeleteFromCarriers(int ciID)
+        {
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create query string
+            string query = @"DELETE FROM CarrierLine WHERE CarrierInfoID = @CarrierInfoID; ";
+
+            //Create command
+            var command = new MySqlCommand(query, _Connection);
+
+            //Load command with parameters
+            command.Parameters.AddWithValue("@CarrierInfoID", ciID);
+
+            //Check if the command executed Properly; close and return failure if not
+            if (0 == command.ExecuteNonQuery())
+            {
+                CloseConnection();
+                return false;
+            }
+
+            //Load the new command
+            command.CommandText = @"DELETE FROM CarrierInfo WHERE CarrierInfoID = @ciID; ";
+
+            //Load command with parameters
+            command.Parameters.AddWithValue("@ciID", ciID);
+
+            //Check if the command executed Properly; close and return false if not
+            if (0 == command.ExecuteNonQuery())
+            {
+                CloseConnection();
+                return false;
+            }
+
+            //Close and return success
+            CloseConnection();
+            return true;
+        }
+
+
         public DataSet GetRouteTable()
         {
             //Variables
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             DataSet data = new DataSet();
 
-            string query = @"SELECT City, DistanceKm, DistanceHours, WestDestination, EastDestination FROM Routes; ";
+            string query = @"SELECT ID, City, DistanceKm, DistanceHours, WestDestination, EastDestination FROM Routes; ";
 
             //Connect to variabled database
             ConnectToDatabase();
@@ -323,6 +363,45 @@ namespace TMSv2_DAL
 
             //Return dataset
             return data;
+        }
+
+        public bool UpdateRoutes(int ID, string city, int KM, TimeSpan hrs, string westDest, string eastDest)
+        {
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create query string
+            string query = @"UPDATE Routes
+                            SET 
+                                ID = @ID,
+                                City = @City,
+                                DistanceKm = @km,
+                                DistanceHours = @Hours,
+                                WestDestination = @wDest,
+                                EastDestination = @eDest WHERE ID = @routeID; ";
+
+            //Create command
+            var command = new MySqlCommand(query, _Connection);
+
+            //Load command with parameters
+            command.Parameters.AddWithValue("@ID", ID);
+            command.Parameters.AddWithValue("@City", city);
+            command.Parameters.AddWithValue("@km", KM);
+            command.Parameters.AddWithValue("@Hours", hrs);
+            command.Parameters.AddWithValue("@wDest", westDest);
+            command.Parameters.AddWithValue("@eDest", eastDest);
+            command.Parameters.AddWithValue("@routeID", ID);
+
+            //Check if the command executed Properly; close and return failure if not
+            if (0 == command.ExecuteNonQuery())
+            {
+                CloseConnection();
+                return false;
+            }
+
+            //Close and return success
+            CloseConnection();
+            return true;
         }
 
     }

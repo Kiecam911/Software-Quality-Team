@@ -26,7 +26,7 @@ namespace TMSv2_Carriers
     /// \author <i>TeamTeamTeam</i>
     /// 
     ///
-    public class Depot
+    public class Depot : IEquatable<Depot>
     {
         private int _CarrierInfoID;                   /// The identification number of the carrierInfo table
         public int CarrierInfoID                      /// The public accessor for the _CarrierInfoID
@@ -110,6 +110,27 @@ namespace TMSv2_Carriers
             _FTLRate = 0.0;
             _LTLRate = 0.0;
             _ReefCharge = 0.0;
+        }
+
+
+        ///
+        /// \fn Equals(Depot other)
+        /// 
+        /// \brief Overrides the IEquatable Equals
+        /// \details <b>Details</b>
+        ///
+        /// Checks if the two objects are the same and returns a boolean based on that
+        ///
+        /// \param other <b>Depot</b> - The other object that will be compared to
+        ///
+        /// \return bool Returns true if all data members are equal, false otherwise
+        ///
+        public bool Equals(Depot other)
+        {
+            return this._CarrierInfoID == other._CarrierInfoID && this.DestinationCity == other.DestinationCity 
+                && this._FTLAvailability == other._FTLAvailability && this._FTLRate == other._FTLRate 
+                && this._LTLAvailability == other._LTLAvailability && this._LTLRate == other._LTLRate 
+                && this._ReefCharge == other._ReefCharge;
         }
 
     }

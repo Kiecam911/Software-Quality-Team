@@ -414,6 +414,29 @@ namespace TMSv2_UIClass.Pages
             {
                 MessageBox.Show("Changes Saved!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
+            //Refresh view of items in datagrid
+            tableView.Items.Refresh();
+        }
+
+        private void RouteSave_Click(object sender, RoutedEventArgs e)
+        {
+            //Variables
+            Destination destination = new Destination();
+            List<Destination> routeTable = tableRouteView.ItemsSource as List<Destination>;
+
+            if (!destination.UpdateRoutesTable(routeTable))
+            {
+                MessageBox.Show("Could Not Update the Database.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBox.Show("Changes Saved!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            //Refresh view of items in datagrid
+            tableRouteView.Items.Refresh();
+
         }
     }
 }

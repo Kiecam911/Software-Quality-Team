@@ -62,6 +62,7 @@ namespace TMSv2_Carriers
             CarrierDepots = new List<Depot>();
         }
 
+
         ///
         /// \brief To retrieve details all carriers from the database
         /// \details <b>Details</b>
@@ -150,10 +151,23 @@ namespace TMSv2_Carriers
             //For each carrier in the list get each depot in that carrier and update the carriers in the database
             foreach(Carrier c in carrierList)
             {
+                //For each depot in the old carriers list if the new carrierDepots does not contain the old carrierDepot then delete the old depot from the database
+                foreach(Depot d in carriers[carrierList.IndexOf(c)].CarrierDepots)
+                {
+                    if(!c.CarrierDepots.Contains(d))
+                    {
+                        //Check if delete fails
+                        if(!da.DeleteFromCarriers(d.CarrierInfoID))
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+                //For each depot in the new carriers list if the old depot does contain the new depot list then update all depots otherwise add new depot from newdepotlist to the database
                 foreach (Depot d in c.CarrierDepots)
                 {
-                    //if(carriers[carrierList.FindIndex(])
-                    if (d.CarrierInfoID != 0)
+                    if (carriers[carrierList.IndexOf(c)].CarrierDepots.Contains(d))
                     {
                         //If the update failed return false
                         if (!da.UpdateCarriers(c.CarrierID, c.CarrierName, d.CarrierInfoID, d.DestinationCity, d.FTLAvailability, d.LTLAvailability, d.FTLRate, d.LTLRate, d.ReefCharge))
@@ -163,9 +177,13 @@ namespace TMSv2_Carriers
                     }
                     else
                     {
-                        if(!da.AddDepotToCarriers(c.CarrierID, d.DestinationCity, d.FTLAvailability, d.LTLAvailability, d.FTLRate, d.LTLRate, d.ReefCharge))
+                        if (d.CarrierInfoID == 0)
                         {
-                            return false;
+                            //Check if the insert failed
+                            if (!da.AddDepotToCarriers(c.CarrierID, d.DestinationCity, d.FTLAvailability, d.LTLAvailability, d.FTLRate, d.LTLRate, d.ReefCharge))
+                            {
+                                return false;
+                            }
                         }
                     }
                 }
