@@ -64,13 +64,13 @@ namespace TMSv2_TripPlanner
                 }
             }
         }
-        private double _TotalDistanceHours;
-        public double TotalDistanceHours                               /// Public accessor to the private for safety
+        private TimeSpan _TotalDistanceHours;
+        public TimeSpan TotalDistanceHours                               /// Public accessor to the private for safety
         {
             get { return _TotalDistanceHours; }
             set
             {
-                if (value >= 0)
+                if (value >= TimeSpan.FromHours(0.0))
                 {
                     _TotalDistanceHours = value;
                 }
@@ -117,14 +117,18 @@ namespace TMSv2_TripPlanner
 
         public void SetOriginDestination(string origin, string destination)
         {
+            //Variables
+            Routes tempRoutes = new Routes();
+            List<Routes> allRoutes = tempRoutes.GetRoutes();
+
             // find destination by string name and assign
-            foreach (Routes d in DestinationInfo.AllCities)
+            foreach (Routes d in allRoutes)
             {
-                if (origin == d.CityName)
+                if (origin == d.City)
                 {
                     Origin = d;
                 }
-                else if (destination == d.CityName)
+                else if (destination == d.City)
                 {
                     Destination = d;
                 }
@@ -137,12 +141,14 @@ namespace TMSv2_TripPlanner
         {
             // start at the origin
             Routes currentCity = Origin;
+            List<Routes> allRoutes = currentCity.GetRoutes();           //Gets all routes from route table in database
             int direction = 0;
-            if (Destination.Index < Origin.Index)
+
+            if (Destination.RouteID < Origin.RouteID)
             {
                 direction = kGoingWest;
             }
-            else if (Destination.Index < Origin.Index)
+            else if (Destination.RouteID < Origin.RouteID)
             {
                 direction = kGoingEast;
             }
@@ -165,12 +171,24 @@ namespace TMSv2_TripPlanner
                 else if (direction == kGoingWest)
                 {
                     // move west 1 city
-                    currentCity = currentCity.WestDest;
+                    foreach (Routes r in allRoutes)
+                    {
+                        if(currentCity.WestDestination == r.City)
+                        {
+                            currentCity = r;
+                        }
+                    }
                 }
                 else if (direction == kGoingEast)
                 {
                     // move east 1 city
-                    currentCity = currentCity.EastDest;
+                    foreach (Routes r in allRoutes)
+                    {
+                        if (currentCity.EastDestination == r.City)
+                        {
+                            currentCity = r;
+                        }
+                    }
                 }
                 else if (currentCity == null)
                 {

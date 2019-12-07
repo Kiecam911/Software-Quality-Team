@@ -124,7 +124,15 @@
 
         <Grid x:Name="AlterRoutesGrid" Visibility="Hidden">
             <Label Content="Alter Routes Table Data" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}" FontSize="15"/>
-            <DataGrid x:Name="tableRouteView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray"/>
+            <DataGrid x:Name="tableRouteView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" AutoGenerateColumns="False" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="City" Binding="{Binding Path=City}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Distance Km" Binding="{Binding Path=DistanceKm}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Distance Hours" Binding="{Binding Path=DistanceHours}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="West Destination" Binding="{Binding Path=WestDestination}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="East Destination" Binding="{Binding Path=EastDestination}"/>
+                </DataGrid.Columns>
+            </DataGrid>
             <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White" Click="RouteSave_Click"/>
         </Grid>
 

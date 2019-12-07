@@ -150,7 +150,7 @@ namespace TMSv2_Order
             foreach (Trip t in Trips)
             {
                 TotalKm += t.TotalDistanceKm;
-                HoursTaken += TimeSpan.FromHours(t.TotalDistanceHours);
+                HoursTaken += t.TotalDistanceHours;
             }
         }
     }
