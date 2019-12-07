@@ -56,8 +56,8 @@ namespace TMSv2_TripPlanner
                 }
             }
         }
-        private TimeSpan _DistanceHours;
-        public TimeSpan DistanceHours
+        private double _DistanceHours;
+        public double DistanceHours
         {
             get { return _DistanceHours; }
             set
@@ -68,20 +68,28 @@ namespace TMSv2_TripPlanner
                 }
             }
         }
-        public string WestDestination { get; set; }
-        public string EastDestination { get; set; }
+        private Destination _WestDestination;
+        public Destination WestDest { get { return _WestDestination; } set { _WestDestination = value; } }
+        private Destination _EastDestination;
+        public Destination EastDest { get { return _EastDestination; } set { _EastDestination = value; } }
 
 
         public Destination()
         {
             _RouteID = 0;
             City = "";
-            _DistanceHours = TimeSpan.FromHours(0.0);
-            _DistanceKm = 0;
-            WestDestination = "";
-            EastDestination = "";
+            _DistanceHours = -1.0f;
+            _DistanceKm = -1;
+            _WestDestination = null;
+            _EastDestination = null;
         }
 
+        public Destination(int newIndex, string newCity, int newDistanceKm, double newDistanceHours)
+        {
+            CityName = newCity;
+            DistanceKm = newDistanceKm;
+            DistanceHours = newDistanceHours;
+        }
 
         ///
         /// \brief To retrieve Routes from Route table in the database

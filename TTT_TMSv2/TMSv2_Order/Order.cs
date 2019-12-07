@@ -100,10 +100,58 @@ namespace TMSv2_Order
 
         public void CalculateTotalCost()
         {
-
+          
         }
 
 
-        
+
+        ///
+        /// \fn CreateOrderFromContract()
+        /// 
+        /// \brief To instantiate an order based on a contract
+        /// \details <b>Details</b>
+        ///
+        /// Instantiates the Order's data members related to contracts to create a new order
+        /// from the  corresponding contract to be carried out.
+        ///
+        /// \param contract <b>Contract</b> - The contract that the order is based on
+        ///
+        /// \return nothing <i>void</i> this method returns void
+        ///
+        public void CreateOrderFromContract(Contract contract)
+        {
+            Order newOrder = new Order();
+            newOrder.OrderID = contract.ContractID;
+            newOrder.IsCompleted = false;
+            newOrder.IsActive = false;
+        }
+
+
+
+        public void AddCitiesToOrder(List<string> newCities)
+        {
+            Cities = newCities;
+        }
+
+
+
+        public void AddTripsToOrder(List<Trip> newTrips)
+        {
+            Trips = newTrips;
+        }
+
+
+
+        public void CalculateTripTotals()
+        {
+            TotalKm = 0;
+            HoursTaken = TimeSpan.FromHours(0);
+
+            foreach (Trip t in Trips)
+            {
+                TotalKm += t.TotalDistanceKm;
+                HoursTaken += TimeSpan.FromHours(t.TotalDistanceHours);
+            }
+        }
     }
 }

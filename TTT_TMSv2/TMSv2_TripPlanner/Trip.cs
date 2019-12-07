@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMSv2_Carriers;
 using System.Text.RegularExpressions;
+using TMSv2_Logging;
 
 namespace TMSv2_TripPlanner
 {
@@ -31,6 +32,10 @@ namespace TMSv2_TripPlanner
     ///
     public class Trip
     {
+        // constants
+        private const int kGoingWest = 0;
+        private const int kGoingEast = 1;
+
         // Private Data members
         private int _TripID;                                /// The Identification number for the trip
         public int TripID                                   /// The public accessor for the _TripID for safety
@@ -45,20 +50,33 @@ namespace TMSv2_TripPlanner
             }
         }
         public Carrier TripCarrier { get; set; }            /// The Carrier that will carryout the trip
-        public string Origin { get; set; }                  /// The city of origin of the Contract
-        public string Destination { get; set; }             /// The destination city of the Contract
-        private int _DistanceKm;                            /// The calculated total distance that must be traveled
-        public int DistanceKm                               /// Public accessor to the private _TotalKm for safety
+        public Destination Origin { get; set; }                  /// The city of origin of the Contract
+        public Destination Destination { get; set; }             /// The destination city of the Contract
+        private int _TotalDistanceKm;                            /// The calculated total distance that must be traveled
+        public int TotalDistanceKm                               /// Public accessor to the private _TotalKm for safety
         {
-            get { return _DistanceKm; }
+            get { return _TotalDistanceKm; }
             set
             {
                 if (value >= 0)
                 {
-                    _DistanceKm = value;
+                    _TotalDistanceKm = value;
                 }
             }
         }
+        private double _TotalDistanceHours;
+        public double TotalDistanceHours                               /// Public accessor to the private for safety
+        {
+            get { return _TotalDistanceHours; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _TotalDistanceHours = value;
+                }
+            }
+        }
+
         private TimeSpan _HoursTaken;                       /// The elapsed time for the order
         public TimeSpan HoursTaken                          /// Public accessor to the private _HoursTaken for safety
         {
@@ -89,12 +107,76 @@ namespace TMSv2_TripPlanner
         {
             _TripID = 0;
             TripCarrier = null;
-            Origin = "";
-            Destination = "";
-            _DistanceKm = 0;
+            _TotalDistanceKm = 0;
             _HoursTaken = TimeSpan.FromHours(0.0);
             IsCompleted = false;
         }
 
+
+
+
+        public void SetOriginDestination(string origin, string destination)
+        {
+            // find destination by string name and assign
+            foreach (Destination d in DestinationInfo.AllCities)
+            {
+                if (origin == d.CityName)
+                {
+                    Origin = d;
+                }
+                else if (destination == d.CityName)
+                {
+                    Destination = d;
+                }
+            }
+        }
+
+
+
+        public void CalculateTotals()
+        {
+            // start at the origin
+            Destination currentCity = Origin;
+            int direction = 0;
+            if (Destination.Index < Origin.Index)
+            {
+                direction = kGoingWest;
+            }
+            else if (Destination.Index < Origin.Index)
+            {
+                direction = kGoingEast;
+            }
+            else
+            {
+                Logger.LogToFile("Error: matching origin and destination for TripID " + TripID);   
+            }
+
+            // loop from origin to destination to determine totals
+            while(true)
+            {
+                TotalDistanceKm += currentCity.DistanceKm;
+                TotalDistanceHours += currentCity.DistanceHours;
+
+                if (currentCity == Destination)
+                {
+                    // stop looping once destination is found
+                    break;
+                }
+                else if (direction == kGoingWest)
+                {
+                    // move west 1 city
+                    currentCity = currentCity.WestDest;
+                }
+                else if (direction == kGoingEast)
+                {
+                    // move east 1 city
+                    currentCity = currentCity.EastDest;
+                }
+                else if (currentCity == null)
+                {
+                    Logger.LogToFile("Error: invalid trip - currentCity is null, going direction " + direction + " on TripID " + TripID);   
+                }
+            }
+        }
     }
 }
