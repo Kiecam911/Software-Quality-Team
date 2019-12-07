@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -20,7 +20,6 @@
     <ProjectReference Include="..\TMSv2_Order\TMSv2_Order.csproj" />
     <ProjectReference Include="..\TMSv2_TripPlanner\TMSv2_TripPlanner.csproj" />
     <ProjectReference Include="..\TMSv2_UIClass\TMSv2_UIClass.csproj" />
-    <ProjectReference Include="..\TMSv2_UI\TMSv2_UI.csproj" />
     <ProjectReference Include="..\TMSv2_Users\TMSv2_Users.csproj" />
   </ItemGroup>
 
