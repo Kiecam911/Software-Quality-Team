@@ -505,7 +505,7 @@ namespace UnitTesting
         public void DestinationExceptionTest()
         {
             //Variables
-            var destination = new Destination();
+            var destination = new Routes();
 
             // Try Catch block to test the fail condition
             try
@@ -567,7 +567,7 @@ namespace UnitTesting
         public void DestinationCityFunctionalTest()
         {
             //Variables
-            var destination = new Destination();
+            var destination = new Routes();
 
             // Try Catch block to test the fail condition
             try
@@ -605,7 +605,7 @@ namespace UnitTesting
         public void DestinationHoursBoundaryTest()
         {
             //Variables
-            var destination = new Destination();
+            var destination = new Routes();
 
             // Try Catch block to test the fail condition
             try
@@ -688,7 +688,7 @@ namespace UnitTesting
         public void DestinationKmBoundaryTest()
         {
             //Variables
-            var destination = new Destination();
+            var destination = new Routes();
 
             // Try Catch block to test the fail condition
             try

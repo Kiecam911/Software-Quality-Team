@@ -50,8 +50,8 @@ namespace TMSv2_TripPlanner
             }
         }
         public Carrier TripCarrier { get; set; }            /// The Carrier that will carryout the trip
-        public Destination Origin { get; set; }                  /// The city of origin of the Contract
-        public Destination Destination { get; set; }             /// The destination city of the Contract
+        public Routes Origin { get; set; }                  /// The city of origin of the Contract
+        public Routes Destination { get; set; }             /// The destination city of the Contract
         private int _TotalDistanceKm;                            /// The calculated total distance that must be traveled
         public int TotalDistanceKm                               /// Public accessor to the private _TotalKm for safety
         {
@@ -118,7 +118,7 @@ namespace TMSv2_TripPlanner
         public void SetOriginDestination(string origin, string destination)
         {
             // find destination by string name and assign
-            foreach (Destination d in DestinationInfo.AllCities)
+            foreach (Routes d in DestinationInfo.AllCities)
             {
                 if (origin == d.CityName)
                 {
@@ -136,7 +136,7 @@ namespace TMSv2_TripPlanner
         public void CalculateTotals()
         {
             // start at the origin
-            Destination currentCity = Origin;
+            Routes currentCity = Origin;
             int direction = 0;
             if (Destination.Index < Origin.Index)
             {

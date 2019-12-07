@@ -164,7 +164,29 @@ namespace TMSv2_DAL
             return data;
         }
 
-
+        ///
+        /// \fn UpdateCarriers(int cID, string cName, int ciID, string cDestCity, int FTLA, int LTLA, double FTLRate, double LTLRate, double reefCharge)
+        /// 
+        /// \brief Updates the Carriers and CarrierInfo table
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database and updates the data in the Carrier and CarrierInfo
+        /// tables according to the data passed by the parameters
+        ///
+        /// \param cID <b>int</b> - The CarrierID
+        /// \param cName <b>string</b> - The CarrierName
+        /// \param ciID <b>int</b> - The CarrierInfoID
+        /// \param cDestCity <b>string</b> - The CarrierInfo's DestinationCity
+        /// \param FTLA <b>int</b> - The CarrierInfo's FTLAvailability
+        /// \param LTLA <b>int</b> - The CarrierInfo's FTLAvailability
+        /// \param FTLRate <b>double</b> - The CarrierInfo's FTLRate
+        /// \param LTLRate <b>double</b> - The CarrierInfo's LTLRate
+        /// \param reefCharge <b>double</b> - The CarrierInfo's reefCharge
+        ///
+        /// \return bool Returns Success or Failure
+        /// 
+        /// \sa Carrier
+        ///
         public bool UpdateCarriers(int cID, string cName, int ciID, string cDestCity, int FTLA, int LTLA, double FTLRate, double LTLRate, double reefCharge)
         {
             //Connect to variabled database
@@ -211,7 +233,27 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn AddDepotToCarriers(int cID, string cDestCity, int FTLA, int LTLA, double FTLRate, double LTLRate, double reefCharge)
+        /// 
+        /// \brief Adds Depot to the CarrierInfo Table and the associates it with the designated Carrier in CArrierLine
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database and add the data from the depot to the carrierInfo Table
+        /// with the appropriate CarrierID in CarrierLine
+        ///
+        /// \param cID <b>int</b> - The CarrierID for the CarrierLine Table
+        /// \param cDestCity <b>string</b> - The CarrierInfo's DestinationCity
+        /// \param FTLA <b>int</b> - The CarrierInfo's FTLAvailability
+        /// \param LTLA <b>int</b> - The CarrierInfo's FTLAvailability
+        /// \param FTLRate <b>double</b> - The CarrierInfo's FTLRate
+        /// \param LTLRate <b>double</b> - The CarrierInfo's LTLRate
+        /// \param reefCharge <b>double</b> - The CarrierInfo's reefCharge
+        ///
+        /// \return bool Returns Success or Failure
+        /// 
+        /// \sa Carrier
+        ///
         public bool AddDepotToCarriers(int cID, string cDestCity, int FTLA, int LTLA, double FTLRate, double LTLRate, double reefCharge)
         {
             //Connect to variabled database
@@ -300,7 +342,21 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn DeleteFromCarriers(int ciID)
+        /// 
+        /// \brief Deletes a Depot from the database
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database and deletes the depot information from the carrierInfo table
+        /// and deletes from the carrierInfo and CarrierLine based on the carrierInfoID
+        ///
+        /// \param ciID <b>int</b> - The CarrierInfoID from the depot class
+        ///
+        /// \return bool Returns Success or Failure
+        /// 
+        /// \sa Carrier
+        ///
         public bool DeleteFromCarriers(int ciID)
         {
             //Connect to variabled database
@@ -340,7 +396,21 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn GetRouteTable()
+        /// 
+        /// \brief Gets the Data from the routes table in  the database
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database and extracts the data from the Routes table in the
+        /// database
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet Returns the DataSet of the information extracted from the Database's Routes Table
+        /// 
+        /// \sa Carrier
+        ///
         public DataSet GetRouteTable()
         {
             //Variables
@@ -471,8 +541,6 @@ namespace TMSv2_DAL
 
             try
             {
-
-
                 //Get Data From the Route Table
                 data = GetRouteTable();
                 //Write Data To file to save it
