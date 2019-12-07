@@ -72,6 +72,8 @@ namespace TMSv2_Order
             }
         }
         public bool IsCompleted { get; set; }               /// The Completion status
+        public bool IsActive { get; set; }                  /// The Active status
+        public bool IsMerged { get; set; }                  /// The Merged status
 
         ///
         /// \fn Order()
