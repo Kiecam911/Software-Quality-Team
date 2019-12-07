@@ -404,5 +404,65 @@ namespace TMSv2_DAL
             return true;
         }
 
+
+        public DataSet GetRatesTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            //Create query string
+            string query = @"SELECT FTLRate, LTLRate FROM OSHTRates; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "Rates");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+        public bool UpdateRatesTable(double FTLRate, double LTLRate)
+        {
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create query string
+            string query = @"UPDATE OSHTRates
+                            SET 
+                                FTLRate = @FTLR,
+                                LTLRate = @LTLR  WHERE ID = 1; ";
+
+            //Create command
+            var command = new MySqlCommand(query, _Connection);
+
+            //Load command with parameters
+            command.Parameters.AddWithValue("@FTLR", FTLRate);
+            command.Parameters.AddWithValue("@LTLR", LTLRate);
+
+
+            //Check if the command executed Properly; close and return failure if not
+            if (0 == command.ExecuteNonQuery())
+            {
+                CloseConnection();
+                return false;
+            }
+
+            //Close and return success
+            CloseConnection();
+            return true;
+        }
+
+
+
     }
 }

@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractManager.cs" />
+    <Compile Include="OSHTRates.cs" />
     <Compile Include="RequestedCargo.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Contract.cs" />

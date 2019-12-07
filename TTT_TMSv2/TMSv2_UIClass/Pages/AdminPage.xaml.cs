@@ -206,10 +206,10 @@ namespace TMSv2_UIClass.Pages
             //Reset logGrid
             ViewLogGrid.Visibility = Visibility.Hidden;
 
-            //Reset Alter Table Grid
+            //Reset Alter Table Grids
             AlterTableGrid.Visibility = Visibility.Hidden;
-
             AlterRoutesGrid.Visibility = Visibility.Hidden;
+            AlterRatesGrid.Visibility = Visibility.Hidden;
         }
 
         ///
@@ -437,6 +437,50 @@ namespace TMSv2_UIClass.Pages
             //Refresh view of items in datagrid
             tableRouteView.Items.Refresh();
 
+        }
+
+        private void AlterRatesButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Variables
+            OSHTRates tempRates = new OSHTRates();
+            List<OSHTRates> rates = new List<OSHTRates>();
+
+            //Add rates to list
+            rates.Add(tempRates.GetRates());
+
+            //Reset view
+            resetView();
+
+            //Set datagrid itemssource to rates
+            tableRatesView.ItemsSource = rates;
+
+            //Set Grid to visible
+            AlterRatesGrid.Visibility = Visibility.Visible;
+
+            //Set headers to visible
+            tableRatesView.HeadersVisibility = DataGridHeadersVisibility.All;
+
+            //Refresh items
+            tableRatesView.Items.Refresh();
+        }
+
+        private void SaveRates_Click(object sender, RoutedEventArgs e)
+        {
+            //Variables
+            OSHTRates rates = new OSHTRates();
+            List<OSHTRates> ratesTable = tableRatesView.ItemsSource as List<OSHTRates>;
+
+            if (!rates.UpdateRates(ratesTable[0]))
+            {
+                MessageBox.Show("Could Not Update the Database.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBox.Show("Changes Saved!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            //Refresh view of items in datagrid
+            tableRatesView.Items.Refresh();
         }
     }
 }

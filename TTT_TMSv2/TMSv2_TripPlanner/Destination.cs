@@ -84,15 +84,14 @@ namespace TMSv2_TripPlanner
 
 
         ///
-        /// \brief To retrieve details for the new contract from the contract marketplace
+        /// \brief To retrieve Routes from Route table in the database
         /// \details <b>Details</b>
         ///
-        /// This method interfaces with the contract marketplace database to populate the variables
-        /// related to the contract marketplace. 
+        /// This method interfaces with the database to retrieve the data from the routes table
         ///
         /// \param <b>void</b> - None
         ///
-        /// \return Nothing
+        /// \return List Destination Returns a list of the rows of routes in the database
         ///
         public List<Destination> GetRoutes()
         {
