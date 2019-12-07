@@ -24,6 +24,7 @@ using TMSv2_DAL;
 
 namespace TMSv2_UIClass.Pages
 {
+
     /// 
     /// \class AdminPage : Page
     ///
