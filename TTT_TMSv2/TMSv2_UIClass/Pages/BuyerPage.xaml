@@ -1,0 +1,63 @@
+﻿<Page x:Class="TMSv2_UIClass.Pages.BuyerPage"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TMSv2_UIClass.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="390" d:DesignWidth="785"
+      Title="TMS Home">
+
+
+    <Grid Background="LightGray">
+        <Grid x:Name="panelHeader" VerticalAlignment="Top" Height="52" Background="#FF047FD4">
+
+            <TextBlock Text="TMS Home" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic" FontSize="20" FontWeight="Bold" Foreground="White"/>
+
+        </Grid>
+
+        <Grid x:Name="sidePanel" Background="#FF047FD4"  HorizontalAlignment="Left" Width="169" Margin="0,50,0,0">
+            <StackPanel>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold" Height="160">
+                    <ListViewItem Height="30" Foreground="{x:Null}" Focusable="False">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="HomeButton" Content="Home" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="HomeButton_Click" Width="145" Height="30" FontSize="14"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="29">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="newContractsButton" Content="New Contracts" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="newContract_Click" Height="27" Width="146" FontSize="14"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="CurrentContractsButton" Content="Current Contracts" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="145" Height="26" FontSize="14" Click="CurrentContractsButton_Click"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="CompletedContractsButton" Content="Completed Contracts" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="156" Height="28" FontSize="14"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="newContractGrid" Visibility="Hidden">
+            <DataGrid x:Name="NewContractsGrid" HorizontalAlignment="Left" Height="266" Margin="188,105,0,0" VerticalAlignment="Top" Width="579" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="Column" GridLinesVisibility="Horizontal" RowBackground="#FF047FD4" AlternatingRowBackground="LightGray"/>
+            <Label Content="Select a contract from the list, and hit accept to claim it:" HorizontalAlignment="Left" Margin="188,64,0,0" VerticalAlignment="Top" Foreground="#FF0074FF"/>
+            <Button x:Name="acceptButton" Content="Accept Contract" HorizontalAlignment="Left" Margin="549,64,0,0" VerticalAlignment="Top" Width="99" Height="26" Background="#FF047FD4" Foreground="White"/>
+        </Grid>
+
+        <Grid x:Name="CurrentContractGrid" Visibility="Hidden">
+            <DataGrid x:Name="currentContractsGrid" HorizontalAlignment="Left" Height="306" Margin="179,65,0,0" VerticalAlignment="Top" Width="596" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="Column" GridLinesVisibility="Horizontal" RowBackground="#FF047FD4" AlternatingRowBackground="LightGray"/>
+
+        </Grid>
+
+
+    </Grid>
+
+
+
+</Page>
