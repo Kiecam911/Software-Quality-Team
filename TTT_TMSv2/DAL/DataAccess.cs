@@ -9,8 +9,6 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 
 
-
-
 namespace TMSv2_DAL
 {
     /// 
@@ -133,6 +131,35 @@ namespace TMSv2_DAL
             _Connection.Close();
         }
 
+        public DataSet GetCarrierData()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
 
+            string query = @"SELECT C.CarrierID, C.CarrierName, CI.DestinationCity, CI.FTLAvailability, CI.LTLAvailability, CI.FTLRate, CI.LTLRate, CI.ReefCharge
+                            FROM
+                                CarrierLine CL
+                                    INNER JOIN
+                                Carriers C ON C.CarrierID = CL.CarrierID
+                                    INNER JOIN
+                                CarrierInfo CI ON CI.CarrierInfoID = CL.CarrierInfoID; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "Contract");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
     }
 }

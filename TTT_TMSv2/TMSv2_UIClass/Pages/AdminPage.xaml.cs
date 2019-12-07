@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TMSv2_Users;
+using TMSv2_Carriers;
+using TMSv2_Contracts;
 using TMSv2_TripPlanner;
 using TMSv2_Order;
 using TMSv2_Logging;
@@ -325,11 +327,17 @@ namespace TMSv2_UIClass.Pages
 
         private void AlterTable_Click(object sender, RoutedEventArgs e)
         {
+            //Variables
+            Carrier tempCarrier = new Carrier();
+            List<Carrier> carriers = tempCarrier.GetCarriers();
+
             resetView();
             AlterTableGrid.Visibility = Visibility.Visible;
 
-            TableSelect.Items.Add("Carriers");
-            TableSelect.Items.Add("Routes");
+            foreach (Carrier c in carriers)
+            {
+                tableSelect.Items.Add(c.CarrierName);
+            }
         }
 
         private void copyPathButton_Click(object sender, RoutedEventArgs e)
@@ -339,14 +347,24 @@ namespace TMSv2_UIClass.Pages
 
         private void TableSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TableSelect.Text == "Carriers")
-            {
+            //Variables
+            Carrier tempCarrier = new Carrier();
+            List<Carrier> carriers = tempCarrier.GetCarriers();
 
-            }
-            else if (TableSelect.Text == "Routes")
+            if (tableSelect.SelectedItem != null)
             {
-
+                foreach (Carrier c in carriers)
+                {
+                    if((string)tableSelect.SelectedItem == c.CarrierName)
+                    {
+                        tableView.ItemsSource = c.CarrierDepots;
+                    }
+                }
             }
+
+            tableView.HeadersVisibility = DataGridHeadersVisibility.All;
+
+            tableView.Items.Refresh();
         }
     }
 }

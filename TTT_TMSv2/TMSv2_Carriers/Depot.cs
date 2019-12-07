@@ -90,42 +90,15 @@ namespace TMSv2_Carriers
             }
         }
 
-
-
-        ///
-        /// \brief Returns all associated carriers
-        /// \details <b>Details</b>
-        ///
-        /// 
-        /// This method returns a list of integers corresponding to the IDs of 
-        /// all carriers that are owned by the respective depot
-        ///
-        /// \param nothing <b>void</b> - None
-        ///
-        /// \return List<int> containing the carrierIDs
-        ///
-        public List<int> GetAssociatedCarriers()
+        public Depot()
         {
-            throw new Exception("No carriers");
+            DestinationCity = "";
+            _FTLAvailability = 0;
+            _LTLAvailability = 0;
+            _FTLRate = 0.0;
+            _LTLRate = 0.0;
+            _ReefCharge = 0.0;
         }
 
-
-
-        ///
-        /// \brief Assigns a carrier to a depot
-        /// \details <b>Details</b>
-        ///
-        /// 
-        /// This method takes the carrierID parameter and assigns
-        /// it to the depot denoted by the depotID parameter.
-        ///
-        /// \param nothing <b>void</b> - None
-        ///
-        /// \return List<int> containing the contract IDs
-        ///
-        public void AssignCarrier(int carrerID, int depotID)
-        {
-            throw new Exception("Invalid carrier");
-        }
     }
 }

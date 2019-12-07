@@ -45,5 +45,11 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\TMSv2_DAL.csproj">
+      <Project>{9d7b2a1d-064d-4b34-a755-d14c7d5d95b3}</Project>
+      <Name>TMSv2_DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
