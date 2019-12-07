@@ -19,7 +19,7 @@
 
         <Grid x:Name="sidePanel" Background="#FF047FD4"  HorizontalAlignment="Left" Width="160" Margin="0,50,0,0">
             <StackPanel>
-                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold" Height="160">
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold" Height="285">
                     <ListViewItem Height="30" Foreground="{x:Null}" Focusable="False">
                         <StackPanel Orientation="Horizontal">
                             <Button x:Name="HomeButton" Content="Home" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="HomeButton_Click" Width="145" Height="30"/>
@@ -37,7 +37,17 @@
                     </ListViewItem>
                     <ListViewItem Height="30">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="AlterTableButton" Content="Alter Table Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="AlterTable_Click"/>
+                            <Button x:Name="AlterTableButton" Content="Alter Carrier Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="AlterTable_Click"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="AlterRoutesButton" Content="Alter Route Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="AlterRoutesButton_Click"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="AlterRatesButton" Content="Alter Rates Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="AlterRatesButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="30">
@@ -97,10 +107,31 @@
         </Grid>
 
         <Grid x:Name="AlterTableGrid" Visibility="Hidden">
-            <Label Content="Please choose a table to edit from the list:" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}"/>
+            <Label Content="Please choose a carrier to edit from the list:" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}"/>
             <ComboBox x:Name="tableSelect" HorizontalAlignment="Left" Margin="417,60,0,0" VerticalAlignment="Top" Width="120" Height="26" SelectionChanged="TableSelect_SelectionChanged"/>
-            <DataGrid x:Name="tableView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" HeadersVisibility="None" AlternatingRowBackground="#FF047FD4" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" ColumnWidth="*"/>
-            <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White"/>
+            <DataGrid x:Name="tableView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" AutoGenerateColumns="False" ColumnWidth="*" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="City" Binding="{Binding Path=DestinationCity}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="FTL Availability" Binding="{Binding Path=FTLAvailability}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="LTL Availability" Binding="{Binding Path=LTLAvailability}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="FTL Rate" Binding="{Binding Path=FTLRate}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="LTL Rate" Binding="{Binding Path=LTLRate}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Reefer Charge" Binding="{Binding Path=ReefCharge}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White" Click="SaveCarrierData_Click"/>
+        </Grid>
+
+        <Grid x:Name="AlterRoutesGrid" Visibility="Hidden">
+            <Label Content="Alter Routes Table Data" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}" FontSize="15"/>
+            <DataGrid x:Name="tableRouteView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray"/>
+            <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White" Click="RouteSave_Click"/>
+        </Grid>
+
+        <Grid x:Name="AlterRatesGrid" Visibility="Hidden">
+            <Label Content="Alter OSHT Rates" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}" FontSize="15"/>
+            <DataGrid x:Name="tableRatesView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray"/>
+            <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White" Click="SaveRates_Click"/>
         </Grid>
     </Grid>
 </Page>

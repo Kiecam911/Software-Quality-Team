@@ -72,7 +72,8 @@ namespace TMSv2_Order
             }
         }
         public bool IsCompleted { get; set; }               /// The Completion status
-        public bool IsActive { get; set; }                  /// Active status indicating if contract has been confirmed by planner or not
+        public bool IsActive { get; set; }                  /// The Active status
+        public bool IsMerged { get; set; }                  /// The Merged status
 
         ///
         /// \fn Order()

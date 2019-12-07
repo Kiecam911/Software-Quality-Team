@@ -12,7 +12,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="/TMSv2_UIClass;component/Images/mainMenuArt.jpg"/>
         </Grid.Background>
-        <Button x:Name="BuyerButton" Content="Buyer Login" HorizontalAlignment="Left" Height="81" Margin="237,21,0,0" VerticalAlignment="Top" Width="182" Background="{x:Null}" BorderBrush="LightGray" FontFamily="Bernard MT Condensed" FontSize="20" Foreground="White"/>
+        <Button x:Name="BuyerButton" Content="Buyer Login" HorizontalAlignment="Left" Height="81" Margin="237,21,0,0" VerticalAlignment="Top" Width="182" Background="{x:Null}" BorderBrush="LightGray" FontFamily="Bernard MT Condensed" FontSize="20" Foreground="White" Click="BuyerButton_Click"/>
         <Button x:Name="adminButton" Content="Admin Login" Height="81" Margin="30,21,588,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White" FontFamily="Bernard MT Condensed" FontSize="20" BorderBrush="LightGray" Click="adminButton_Click"/>
     </Grid>
 </Page>

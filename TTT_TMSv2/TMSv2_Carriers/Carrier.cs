@@ -62,16 +62,17 @@ namespace TMSv2_Carriers
             CarrierDepots = new List<Depot>();
         }
 
+
         ///
-        /// \brief To retrieve details for the new contract from the contract marketplace
+        /// \brief To retrieve details all carriers from the database
         /// \details <b>Details</b>
         ///
-        /// This method interfaces with the contract marketplace database to populate the variables
-        /// related to the contract marketplace. 
+        /// This method interfaces with the variabled database to get all carriers and their respective depots
+        /// and return them in a list
         ///
         /// \param <b>void</b> - None
         ///
-        /// \return Nothing
+        /// \return List Carrier Returns a list of all the carriers and their respective depots
         ///
         public List<Carrier> GetCarriers()
         {
@@ -114,12 +115,13 @@ namespace TMSv2_Carriers
                 tempCarrier.CarrierName = name;
 
                 //Get Depot data
-                depots.DestinationCity = currentRow.Field<string>(2);
-                depots.FTLAvailability = currentRow.Field<int>(3);
-                depots.LTLAvailability = currentRow.Field<int>(4);
-                depots.FTLRate = currentRow.Field<double>(5);
-                depots.LTLRate = currentRow.Field<double>(6);
-                depots.ReefCharge = currentRow.Field<double>(7);
+                depots.CarrierInfoID = currentRow.Field<int>(2);
+                depots.DestinationCity = currentRow.Field<string>(3);
+                depots.FTLAvailability = currentRow.Field<int>(4);
+                depots.LTLAvailability = currentRow.Field<int>(5);
+                depots.FTLRate = currentRow.Field<double>(6);
+                depots.LTLRate = currentRow.Field<double>(7);
+                depots.ReefCharge = currentRow.Field<double>(8);
 
                 //Add Depots to the carrier
                 tempCarrier.CarrierDepots.Add(depots);
@@ -139,6 +141,61 @@ namespace TMSv2_Carriers
             }
             return carrierList;
         }
+
+        public bool UpdateCarriers(List<Carrier> carrierList)
+        {
+            //Variables
+            List<Carrier> carriers = GetCarriers();
+            DataAccess da = DataAccess.Instance();
+
+            //For each carrier in the list get each depot in that carrier and update the carriers in the database
+            foreach(Carrier c in carrierList)
+            {
+                //For each depot in the old carriers list if the new carrierDepots does not contain the old carrierDepot then delete the old depot from the database
+                foreach(Depot d in carriers[carrierList.IndexOf(c)].CarrierDepots)
+                {
+                    if(!c.CarrierDepots.Contains(d))
+                    {
+                        //Check if delete fails
+                        if(!da.DeleteFromCarriers(d.CarrierInfoID))
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+                //For each depot in the new carriers list if the old depot does contain the new depot list then update all depots otherwise add new depot from newdepotlist to the database
+                foreach (Depot d in c.CarrierDepots)
+                {
+                    if (carriers[carrierList.IndexOf(c)].CarrierDepots.Contains(d))
+                    {
+                        //If the update failed return false
+                        if (!da.UpdateCarriers(c.CarrierID, c.CarrierName, d.CarrierInfoID, d.DestinationCity, d.FTLAvailability, d.LTLAvailability, d.FTLRate, d.LTLRate, d.ReefCharge))
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (d.CarrierInfoID == 0)
+                        {
+                            //Check if the insert failed
+                            if (!da.AddDepotToCarriers(c.CarrierID, d.DestinationCity, d.FTLAvailability, d.LTLAvailability, d.FTLRate, d.LTLRate, d.ReefCharge))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Return true on success
+            return true;
+        }
+
+
+
+
 
     }
 }
