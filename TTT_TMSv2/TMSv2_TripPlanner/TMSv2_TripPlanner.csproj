@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Destination.cs" />
+    <Compile Include="DestinationInfo.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +73,10 @@
     <ProjectReference Include="..\TMSv2_Carriers\TMSv2_Carriers.csproj">
       <Project>{7e53f3f0-cf38-4309-a762-33ef8c1eacff}</Project>
       <Name>TMSv2_Carriers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMSv2_Logging\TMSv2_Logging.csproj">
+      <Project>{d9303871-7260-4224-8078-35961f100ebd}</Project>
+      <Name>TMSv2_Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

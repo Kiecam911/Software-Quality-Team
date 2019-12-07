@@ -29,9 +29,10 @@ namespace TMSv2_TripPlanner
     public class Destination
     {
         // Data members
-        private string City { get; set; }
-        private double _DistanceKm;
-        public double DistanceKm
+        public int Index;
+        public string CityName { get; set; }
+        private int _DistanceKm;
+        public int DistanceKm
         { 
             get { return _DistanceKm; }
             set
@@ -42,8 +43,8 @@ namespace TMSv2_TripPlanner
                 }
             }
         }
-        private float _DistanceHours;
-        public float DistanceHours
+        private double _DistanceHours;
+        public double DistanceHours
         {
             get { return _DistanceHours; }
             set
@@ -55,17 +56,25 @@ namespace TMSv2_TripPlanner
             }
         }
         private Destination _WestDestination;
-        public Destination WestDest { get { return _WestDestination; } }
+        public Destination WestDest { get { return _WestDestination; } set { _WestDestination = value; } }
         private Destination _EastDestination;
-        public Destination EastDest { get { return _EastDestination; } }
+        public Destination EastDest { get { return _EastDestination; } set { _EastDestination = value; } }
 
         public Destination()
         {
-            City = "";
+            Index = 0;
+            CityName = "";
             _DistanceHours = -1.0f;
-            _DistanceKm = -1.0f;
+            _DistanceKm = -1;
             _WestDestination = null;
             _EastDestination = null;
+        }
+
+        public Destination(int newIndex, string newCity, int newDistanceKm, double newDistanceHours)
+        {
+            CityName = newCity;
+            DistanceKm = newDistanceKm;
+            DistanceHours = newDistanceHours;
         }
 
         ///
