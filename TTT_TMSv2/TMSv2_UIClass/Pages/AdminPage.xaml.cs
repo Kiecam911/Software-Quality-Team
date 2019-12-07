@@ -482,5 +482,20 @@ namespace TMSv2_UIClass.Pages
             //Refresh view of items in datagrid
             tableRatesView.Items.Refresh();
         }
+
+        private void BackupButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataAccess da = DataAccess.Instance();
+
+            if(!da.FullDatabaseBackup())
+            {
+                MessageBox.Show("There was an error in Creating the backupfiles!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBox.Show("Database has successfully backed up!", "Alert!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+        }
     }
 }

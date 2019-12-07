@@ -52,7 +52,7 @@
                     </ListViewItem>
                     <ListViewItem Height="30">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="BackupButton" Content="Backup Jobs" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="144" Height="27"/>
+                            <Button x:Name="BackupButton" Content="Backup Jobs" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="144" Height="27" Click="BackupButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Data.SqlClient;
 using TMSv2_Logging;
+using System.Security;
 
 namespace TMSv2_DAL
 {
@@ -461,6 +462,298 @@ namespace TMSv2_DAL
             CloseConnection();
             return true;
         }
+
+
+        public bool FullDatabaseBackup()
+        {
+            //Create a file stream for each table in the database
+            DataSet data = new DataSet();
+
+            try
+            {
+
+
+                //Get Data From the Route Table
+                data = GetRouteTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName3"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Order Table
+                data = GetOrdersTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName1"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Users Table
+                data = GetUsersTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName2"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the OSHTRates Table
+                data = GetRatesTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName4"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Trips Table
+                data = GetTripsTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName5"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Carriers Table
+                data = GetCarriersTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName6"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the CarrierLine Table
+                data = GetCarrierLineTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName7"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the CarrierInfo Table
+                data = GetCarrierInfoTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName8"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Contracts Table
+                data = GetContractsTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName9"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Invoices Table
+                data = GetInvoicesTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName10"]));
+            }
+            catch(SecurityException e)
+            {
+                //Log information about the failure to the log file and return false failure
+                Logger.LogToFile("There was an error in backup the database of type " + e.GetType() + ". From the source: " + e.Source + " with the message '" + e.Message + "'.");
+
+                return false;
+            }
+
+            return true;
+        }
+
+
+        private DataSet GetUsersTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            string query = @"SELECT UserID, Password, Permission FROM Users; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "Users");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+        private DataSet GetOrdersTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            string query = @"SELECT OrderID, ContractID, Cities, HoursTaken, TotalKm, TotalCost, Completed, IsActive, IsMerged FROM Orders; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "Orders");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+        private DataSet GetTripsTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            string query = @"SELECT TripID, CarrierID, OrderID, Origin, Destination, TotalKm, HoursTaken, Completed FROM Trips; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "Trips");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+        private DataSet GetCarriersTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            string query = @"SELECT CarrierID, CarrierName FROM Carriers; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "Carriers");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+        private DataSet GetCarrierInfoTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            string query = @"SELECT CarrierInfoID, DestinationCity, FTLAvailability, LTLAvailability, FTLRate, LTLRate, reefCharge FROM CarrierInfo; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "CarrierInfo");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+        private DataSet GetCarrierLineTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            string query = @"SELECT CarrierID, CarrierInfoID FROM CarrierLine; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "CarrierLine");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+        private DataSet GetContractsTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            string query = @"SELECT ContractID, Client_Name, Job_Type, Quantity, Origin, Destination, Van_Type FROM Contracts; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "Contracts");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+        private DataSet GetInvoicesTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            string query = @"SELECT InvoiceID, OrderID, TotalCost FROM Invoices; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "Invoices");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+
 
 
 
