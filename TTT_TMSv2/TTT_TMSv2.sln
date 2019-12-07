@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMSv2_UIClass", "TMSv2_UICl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMSv2_Logging", "TMSv2_Logging\TMSv2_Logging.csproj", "{D9303871-7260-4224-8078-35961F100EBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHarness", "TestHarness\TestHarness.csproj", "{49C24A3F-11A2-460E-8641-6C7EE5664ED4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{D9303871-7260-4224-8078-35961F100EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9303871-7260-4224-8078-35961F100EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9303871-7260-4224-8078-35961F100EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C24A3F-11A2-460E-8641-6C7EE5664ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C24A3F-11A2-460E-8641-6C7EE5664ED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C24A3F-11A2-460E-8641-6C7EE5664ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C24A3F-11A2-460E-8641-6C7EE5664ED4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

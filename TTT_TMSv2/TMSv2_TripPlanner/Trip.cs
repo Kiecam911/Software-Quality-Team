@@ -64,13 +64,13 @@ namespace TMSv2_TripPlanner
                 }
             }
         }
-        private double _TotalDistanceHours;
-        public double TotalDistanceHours                               /// Public accessor to the private for safety
+        private TimeSpan _TotalDistanceHours;
+        public TimeSpan TotalDistanceHours                               /// Public accessor to the private for safety
         {
             get { return _TotalDistanceHours; }
             set
             {
-                if (value >= 0)
+                if (value >= TimeSpan.FromHours(0))
                 {
                     _TotalDistanceHours = value;
                 }

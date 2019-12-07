@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMSv2_Logging;
 
 namespace TMSv2_TripPlanner
 {
@@ -52,6 +53,19 @@ namespace TMSv2_TripPlanner
             dOttawa.WestDest = dKingston;
             dOttawa.EastDest = null;
             AllCities.Add(dOttawa);
+        }
+
+
+        public static Destination GetDestinationByName(string name)
+        {
+            foreach(Destination d in AllCities)
+            {
+                if (name == d.CityName)
+                {
+                    return d;
+                }
+            }
+            return null;
         }
     }
 }
