@@ -52,6 +52,12 @@ namespace TMSv2_UIClass.Pages
         {
             InitializeComponent();
             admin = new Admin();
+            Carrier tempCarrier = new Carrier();
+            List<Carrier> carriers = tempCarrier.GetCarriers();
+            foreach (Carrier c in carriers)
+            {
+                tableSelect.Items.Add(c.CarrierName);
+            }
         }
 
         ///
@@ -330,17 +336,8 @@ namespace TMSv2_UIClass.Pages
 
         private void AlterTable_Click(object sender, RoutedEventArgs e)
         {
-            //Variables
-            Carrier tempCarrier = new Carrier();
-            List<Carrier> carriers = tempCarrier.GetCarriers();
-
             resetView();
             AlterTableGrid.Visibility = Visibility.Visible;
-
-            foreach (Carrier c in carriers)
-            {
-                tableSelect.Items.Add(c.CarrierName);
-            }
         }
 
         private void copyPathButton_Click(object sender, RoutedEventArgs e)

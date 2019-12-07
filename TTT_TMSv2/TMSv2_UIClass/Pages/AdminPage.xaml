@@ -101,10 +101,10 @@
 
         </Grid>
 
-        <Grid x:Name="AlterTableGrid" Visibility="Visible">
+        <Grid x:Name="AlterTableGrid" Visibility="Hidden">
             <Label Content="Please choose a carrier to edit from the list:" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}"/>
             <ComboBox x:Name="tableSelect" HorizontalAlignment="Left" Margin="417,60,0,0" VerticalAlignment="Top" Width="120" Height="26" SelectionChanged="TableSelect_SelectionChanged"/>
-            <DataGrid x:Name="tableView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" HeadersVisibility="None" AlternatingRowBackground="#FF047FD4" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" ColumnWidth="*" AutoGenerateColumns="False">
+            <DataGrid x:Name="tableView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" ColumnWidth="*" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="City" Binding="{Binding Path=DestinationCity}"/>
                     <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="FTL Availability" Binding="{Binding Path=FTLAvailability}"/>
@@ -119,7 +119,7 @@
 
         <Grid x:Name="AlterRoutesGrid" Visibility="Hidden">
             <Label Content="Alter Routes Table Data" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}" FontSize="15"/>
-            <DataGrid x:Name="tableRouteView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" HeadersVisibility="None" AlternatingRowBackground="#FF047FD4" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" ColumnWidth="*"/>
+            <DataGrid x:Name="tableRouteView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" ColumnWidth="*" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray"/>
             <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White"/>
         </Grid>
     </Grid>

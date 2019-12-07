@@ -24,8 +24,9 @@ namespace TMSv2_UIClass.Pages
     /// </summary>
     public partial class BuyerPage : Page
     {
-        
 
+        
+        string connectionString = "SERVER=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; PORT = 3306 ;" + "DATABASE=" + ConfigurationManager.AppSettings["DatabaseName"] + ";" + "UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + ";" + "PASSWORD=" + ConfigurationManager.AppSettings["DatabasePassword"] + ";";
 
         public BuyerPage()
         {
@@ -37,16 +38,6 @@ namespace TMSv2_UIClass.Pages
             resetView();
             newContractGrid.Visibility = Visibility.Visible;
             loadNewContracts();
-        }
-
-        private void LogButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AlterTable_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
@@ -69,16 +60,17 @@ namespace TMSv2_UIClass.Pages
             }
         }
 
-        private void resetView()
-        {
-            //Reset New Contracts
-            newContractGrid.Visibility = Visibility.Hidden;
-        }
-
         private void CurrentContractsButton_Click(object sender, RoutedEventArgs e)
         {
             resetView();
             CurrentContractGrid.Visibility = Visibility.Visible;
+            LoadCurrentContracts();
+        }
+
+        private void CompletedContractsButton_Click(object sender, RoutedEventArgs e)
+        {
+            resetView();
+            CompletedContractGrid.Visibility = Visibility.Visible;
         }
 
         private void loadNewContracts()
@@ -94,8 +86,8 @@ namespace TMSv2_UIClass.Pages
                 connection.Open();
 
                 DataSet ds = new DataSet();
-                adapter.Fill(ds, "items");
-                NewContractsGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["items"] });
+                adapter.Fill(ds, "*");
+                NewContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["*"] });
                 connection.Close();
             }
             catch
@@ -103,5 +95,60 @@ namespace TMSv2_UIClass.Pages
                 MessageBox.Show("Database failed to load, please check your connection");
             }
         }
+
+        private void LoadCurrentContracts()
+        {
+            try
+            {
+                
+                MySqlConnection connection = new MySqlConnection(connectionString);
+                string sqlCommand = "SELECT * FROM Orders";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+
+
+                connection.Open();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "*");
+                currentContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["*"] });
+                connection.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Database failed to load, please check your connection");
+            }
+        }
+
+        private void LoadCompleteContracts()
+        {
+            try
+            {
+
+                MySqlConnection connection = new MySqlConnection(connectionString);
+                string sqlCommand = "SELECT * FROM Orders WHERE Completed=1";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+
+
+                connection.Open();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "*");
+                currentContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["*"] });
+                connection.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Database failed to load, please check your connection");
+            }
+        }
+
+        private void resetView()
+        {
+            //Reset New Contracts
+            newContractGrid.Visibility = Visibility.Hidden;
+            CurrentContractGrid.Visibility = Visibility.Hidden;
+            CompletedContractGrid.Visibility = Visibility.Hidden;
+        }
+
     }
 }
