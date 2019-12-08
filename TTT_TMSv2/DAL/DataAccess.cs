@@ -47,6 +47,8 @@ namespace TMSv2_DAL
         }
 
         ///
+        /// \fn GetContracts()
+        /// 
         /// \brief To retrieve the contracts from the Contract Marketplace
         /// \details <b>Details</b>
         ///
@@ -83,6 +85,8 @@ namespace TMSv2_DAL
         }
 
         ///
+        /// \fn ConnectToDatabase()
+        /// 
         /// \brief Open a Connection to the variabled database
         /// \details <b>Details</b>
         ///
@@ -118,6 +122,8 @@ namespace TMSv2_DAL
         }
 
         ///
+        /// \fn CloseConnection()
+        /// 
         /// \brief Closes an open Connection to the variabled database
         /// \details <b>Details</b>
         ///
@@ -133,6 +139,21 @@ namespace TMSv2_DAL
             _Connection.Close();
         }
 
+
+        ///
+        /// \fn GetCarrierData()
+        /// 
+        /// \brief Get All Relevant Data to the Carrier from the Database
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get all relevant <b>Carrier</b> Data (To the <b>Carrier</b> Class)
+        /// and stores the data in a dataset to be returned and unpacked by the <b>Carrier</b> class
+        ///
+        /// \param none <b>void</b> - None
+        ///
+        /// \return DataSet - Returns the information for the <b>Carrier</b> class
+        /// 
+        ///
         public DataSet GetCarrierData()
         {
             //Variables
