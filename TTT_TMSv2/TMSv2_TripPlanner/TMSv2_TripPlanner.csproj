@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Destination.cs" />
+    <Compile Include="Routes.cs" />
     <Compile Include="DestinationInfo.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

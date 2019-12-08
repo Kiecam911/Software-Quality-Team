@@ -50,8 +50,8 @@ namespace TMSv2_TripPlanner
             }
         }
         public Carrier TripCarrier { get; set; }            /// The Carrier that will carryout the trip
-        public Destination Origin { get; set; }                  /// The city of origin of the Contract
-        public Destination Destination { get; set; }             /// The destination city of the Contract
+        public Routes Origin { get; set; }                  /// The city of origin of the Contract
+        public Routes Destination { get; set; }             /// The destination city of the Contract
         private int _TotalDistanceKm;                            /// The calculated total distance that must be traveled
         public int TotalDistanceKm                               /// Public accessor to the private _TotalKm for safety
         {
@@ -72,7 +72,7 @@ namespace TMSv2_TripPlanner
             get { return _TotalDistanceHours; }
             set
             {
-                if (value >= TimeSpan.FromHours(0))
+                if (value >= TimeSpan.FromHours(0.0))
                 {
                     _TotalDistanceHours = value;
                 }
@@ -122,14 +122,18 @@ namespace TMSv2_TripPlanner
 
         public void SetOriginDestination(string origin, string destination)
         {
+            //Variables
+            Routes tempRoutes = new Routes();
+            List<Routes> allRoutes = tempRoutes.GetRoutes();
+
             // find destination by string name and assign
-            foreach (Destination d in DestinationInfo.AllCities)
+            foreach (Routes d in allRoutes)
             {
-                if (origin == d.CityName)
+                if (origin == d.City)
                 {
                     Origin = d;
                 }
-                else if (destination == d.CityName)
+                else if (destination == d.City)
                 {
                     Destination = d;
                 }
@@ -141,13 +145,15 @@ namespace TMSv2_TripPlanner
         public void CalculateTotals(bool isFTL)
         {
             // start at the origin
-            Destination currentCity = Origin;
+            Routes currentCity = Origin;
+            List<Routes> allRoutes = currentCity.GetRoutes();           //Gets all routes from route table in database
             int direction = 0;
-            if (Destination.Index < Origin.Index)
+
+            if (Destination.RouteID < Origin.RouteID)
             {
                 direction = kGoingWest;
             }
-            else if (Destination.Index > Origin.Index)
+            else if (Destination.RouteID < Origin.RouteID)
             {
                 direction = kGoingEast;
             }

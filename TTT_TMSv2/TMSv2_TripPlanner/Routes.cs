@@ -19,8 +19,8 @@ namespace TMSv2_TripPlanner
     /// \var data member City <i>string</i> - <i>private<i> data member that holds the final city the <b>Order</b> will reach
     /// \var data member _DistanceKm <i>double</i> - <i>private<i> data member that holds the distance in KM
     /// \var data member _DistanceHours <i>double</i> - <i>private<i> data member that holds the distance in hours
-    /// \var data member _WestDestination <i>Destination</i> - <i>private<i> data member that contains a reference to the destination to the west
-    /// \var data member _EastDestination <i>Destination</i> - <i>private<i> data member that contains a reference to the destination to the east
+    /// \var data member WestDestination <i>string</i> - <i>public<i> data member that contains the name of the city to the west
+    /// \var data member EastDestination <i>string</i> - <i>public<i> data member that contains the name of the city to the east
     ///
     /// \author <i>TeamTeamTeam</i>
     /// 
@@ -28,11 +28,9 @@ namespace TMSv2_TripPlanner
     /// \sa Carrier
     /// \see Trip
     ///
-    public class Destination
+    public class Routes
     {
         // Data members
-        public int Index;
-
         private int _RouteID;
         public int RouteID
         {
@@ -45,7 +43,7 @@ namespace TMSv2_TripPlanner
                 }
             }
         }
-        public string CityName { get; set; }
+        public string City { get; set; }
         private int _DistanceKm;
         public int DistanceKm
         { 
@@ -70,29 +68,28 @@ namespace TMSv2_TripPlanner
                 }
             }
         }
-        private Destination _WestDestination;
-        public Destination WestDest { get { return _WestDestination; } set { _WestDestination = value; } }
-        private Destination _EastDestination;
-        public Destination EastDest { get { return _EastDestination; } set { _EastDestination = value; } }
+        public string WestDestination { get; set; }
+        public string EastDestination { get; set; }
 
 
-        public Destination()
+        public Routes()
         {
-            Index = 0;
             _RouteID = 0;
-            CityName = "";
-            _DistanceHours = TimeSpan.FromHours(0);
-            _DistanceKm = -1;
-            _WestDestination = null;
-            _EastDestination = null;
+            City = "";
+            _DistanceHours = TimeSpan.FromHours(0.0);
+            _DistanceKm = 0;
+            WestDestination = "";
+            EastDestination = "";
         }
 
-        public Destination(int newIndex, string newCity, int newDistanceKm, double newDistanceHours)
+        public Routes(int newIndex, string newCity, int newDistanceKm, double newDistanceHours, string newWestDest, string newEastDest)
         {
-            Index = newIndex;
-            CityName = newCity;
+            RouteID = newIndex;
+            City = newCity;
             DistanceKm = newDistanceKm;
             DistanceHours = TimeSpan.FromHours(newDistanceHours);
+            WestDestination = newWestDest;
+            EastDestination = newEastDest;
         }
 
         ///
@@ -105,13 +102,13 @@ namespace TMSv2_TripPlanner
         ///
         /// \return List Destination Returns a list of the rows of routes in the database
         ///
-        public List<Destination> GetRoutes()
+        public List<Routes> GetRoutes()
         {
             // create objects to hold information from DAL
             DataAccess tempDA = DataAccess.Instance();
             DataTable routesTable = tempDA.GetRouteTable().Tables[0];
-            List<Destination> routesList = new List<Destination>();
-            Destination tempDestination = null;
+            List<Routes> routesList = new List<Routes>();
+            Routes tempDestination = null;
 
             DataRowCollection routeRows = routesTable.Rows;
 
@@ -119,15 +116,15 @@ namespace TMSv2_TripPlanner
             foreach (DataRow currentRow in routeRows)
             {
                 //Instantiate a new Destination
-                tempDestination = new Destination();
+                tempDestination = new Routes();
 
                 //Fill destination
                 tempDestination.RouteID = currentRow.Field<int>(0);
-                tempDestination.CityName = currentRow.Field<string>(1);
+                tempDestination.City = currentRow.Field<string>(1);
                 tempDestination.DistanceKm = currentRow.Field<int>(2);
                 tempDestination.DistanceHours = currentRow.Field<TimeSpan>(3);
-                tempDestination.WestDest = DestinationInfo.GetDestinationByName(currentRow.Field<string>(4));
-                tempDestination.EastDest = DestinationInfo.GetDestinationByName(currentRow.Field<string>(5));
+                tempDestination.WestDestination = currentRow.Field<string>(4);
+                tempDestination.EastDestination = currentRow.Field<string>(5);
 
                 //Add to list
                 routesList.Add(tempDestination);
@@ -135,15 +132,15 @@ namespace TMSv2_TripPlanner
             return routesList;
         }
 
-        public bool UpdateRoutesTable(List<Destination> destList)
+        public bool UpdateRoutesTable(List<Routes> destList)
         {
             //Variables
             DataAccess da = DataAccess.Instance();
 
             //For each destination in the list update the database and check for failure/success
-            foreach (Destination d in destList)
+            foreach (Routes d in destList)
             {
-                if(!da.UpdateRoutes(d.RouteID, d.CityName, d.DistanceKm, d.DistanceHours, d.WestDest.CityName, d.EastDest.CityName))
+                if(!da.UpdateRoutes(d.RouteID, d.City, d.DistanceKm, d.DistanceHours, d.WestDestination, d.EastDestination))
                 {
                     return false;
                 }

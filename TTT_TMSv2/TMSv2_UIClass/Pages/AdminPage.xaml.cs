@@ -370,8 +370,8 @@ namespace TMSv2_UIClass.Pages
         private void AlterRoutesButton_Click(object sender, RoutedEventArgs e)
         {
             //Variables
-            Destination destination = new Destination();
-            List<Destination> routeTable = destination.GetRoutes();
+            Routes destination = new Routes();
+            List<Routes> routeTable = destination.GetRoutes();
 
             //Reset view
             resetView();
@@ -422,8 +422,8 @@ namespace TMSv2_UIClass.Pages
         private void RouteSave_Click(object sender, RoutedEventArgs e)
         {
             //Variables
-            Destination destination = new Destination();
-            List<Destination> routeTable = tableRouteView.ItemsSource as List<Destination>;
+            Routes destination = new Routes();
+            List<Routes> routeTable = tableRouteView.ItemsSource as List<Routes>;
 
             if (!destination.UpdateRoutesTable(routeTable))
             {
