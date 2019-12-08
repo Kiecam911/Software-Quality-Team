@@ -13,14 +13,14 @@ namespace TMSv2_TripPlanner
 
         public static void InitializeDestinations()
         {
-            //Routes dWindsor = new Routes(0, "Windsor", 191, 2.5);
-            //Routes dLondon = new Routes(1, "London", 128, 1.75);
-            //Routes dHamilton = new Routes(2, "Hamilton", 68, 1.25);
-            //Routes dToronto = new Routes(3, "Toronto", 60, 1.3);
-            //Routes dOshawa = new Routes(4, "Oshawa", 134, 1.65);
-            //Routes dBelleville = new Routes(5, "Belleville", 82, 1.2);
-            //Routes dKingston = new Routes(6, "Kingston", 196, 2.5);
-            //Routes dOttawa = new Routes(7, "Ottawa", 0, 0);
+            Destination dWindsor = new Destination(0, "Windsor", 191, 2.5);
+            Destination dLondon = new Destination(1, "London", 128, 1.75);
+            Destination dHamilton = new Destination(2, "Hamilton", 68, 1.25);
+            Destination dToronto = new Destination(3, "Toronto", 60, 1.3);
+            Destination dOshawa = new Destination(4, "Oshawa", 134, 1.65);
+            Destination dBelleville = new Destination(5, "Belleville", 82, 1.2);
+            Destination dKingston = new Destination(6, "Kingston", 196, 2.5);
+            Destination dOttawa = new Destination(7, "Ottawa", 0, 0);
 
             //dWindsor.WestDest = null;
             //dWindsor.EastDest = dLondon;
