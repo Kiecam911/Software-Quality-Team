@@ -105,6 +105,17 @@ namespace TMSv2_TripPlanner
         ///
         /// \return As this is a <i>constructor</i> for the Trip class, nothing is returned
         ///
+        public Trip()
+        {
+            _TripID = 0;
+            TripCarrier = null;
+            _TotalDistanceKm = 0;
+            _HoursTaken = TimeSpan.FromHours(0.0);
+            IsCompleted = false;
+        }
+
+
+
         public Trip(string origin, string destination)
         {
             _TripID = 0;
@@ -146,7 +157,7 @@ namespace TMSv2_TripPlanner
         {
             // start at the origin
             Routes currentCity = Origin;
-            List<Routes> allRoutes = currentCity.GetRoutes();           //Gets all routes from route table in database
+            // List<Routes> allRoutes = currentCity.GetRoutes();           //Gets all routes from route table in database
             int direction = 0;
 
             if (Destination.RouteID < Origin.RouteID)
@@ -191,12 +202,12 @@ namespace TMSv2_TripPlanner
                 else if (direction == kGoingWest)
                 {
                     // move west 1 city
-                    currentCity = currentCity.WestDest;
+                    currentCity = currentCity.WestDestination;
                 }
                 else if (direction == kGoingEast)
                 {
                     // move east 1 city
-                    currentCity = currentCity.EastDest;
+                    currentCity = currentCity.EastDestination;
                 }
                 else if (currentCity == null)
                 {
