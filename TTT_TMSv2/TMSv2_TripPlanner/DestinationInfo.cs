@@ -13,6 +13,8 @@ namespace TMSv2_TripPlanner
 
         public static void InitializeDestinations()
         {
+            AllCities = new List<Destination>();
+
             Destination dWindsor = new Destination(0, "Windsor", 191, 2.5);
             Destination dLondon = new Destination(1, "London", 128, 1.75);
             Destination dHamilton = new Destination(2, "Hamilton", 68, 1.25);

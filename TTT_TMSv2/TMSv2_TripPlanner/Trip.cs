@@ -64,6 +64,8 @@ namespace TMSv2_TripPlanner
                 }
             }
         }
+        public TimeSpan TotalDrivingHours;
+
         private TimeSpan _TotalDistanceHours;
         public TimeSpan TotalDistanceHours                               /// Public accessor to the private for safety
         {
@@ -103,13 +105,16 @@ namespace TMSv2_TripPlanner
         ///
         /// \return As this is a <i>constructor</i> for the Trip class, nothing is returned
         ///
-        public Trip()
+        public Trip(string origin, string destination)
         {
             _TripID = 0;
             TripCarrier = null;
             _TotalDistanceKm = 0;
             _HoursTaken = TimeSpan.FromHours(0.0);
             IsCompleted = false;
+
+            Origin = DestinationInfo.GetDestinationByName(origin);
+            Destination = DestinationInfo.GetDestinationByName(destination);
         }
 
 
@@ -133,7 +138,7 @@ namespace TMSv2_TripPlanner
 
 
 
-        public void CalculateTotals()
+        public void CalculateTotals(bool isFTL)
         {
             // start at the origin
             Destination currentCity = Origin;
@@ -142,7 +147,7 @@ namespace TMSv2_TripPlanner
             {
                 direction = kGoingWest;
             }
-            else if (Destination.Index < Origin.Index)
+            else if (Destination.Index > Origin.Index)
             {
                 direction = kGoingEast;
             }
@@ -152,10 +157,25 @@ namespace TMSv2_TripPlanner
             }
 
             // loop from origin to destination to determine totals
+
+            if (isFTL)
+            {
+                // add 2 hours for each origin and destination for FTL
+                TotalDistanceHours = TimeSpan.FromHours(4);
+            }
+
             while(true)
             {
                 TotalDistanceKm += currentCity.DistanceKm;
+
+                TotalDrivingHours += currentCity.DistanceHours;
                 TotalDistanceHours += currentCity.DistanceHours;
+
+                // add 2 hours per intermediary city for LTL
+                if (!isFTL)
+                {
+                    TotalDistanceHours += TimeSpan.FromHours(2);
+                }
 
                 if (currentCity == Destination)
                 {

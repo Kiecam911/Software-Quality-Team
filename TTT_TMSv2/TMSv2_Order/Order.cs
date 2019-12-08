@@ -44,6 +44,33 @@ namespace TMSv2_Order
                 }
             }
         }
+
+        private double _FinalCustomerPrice;                               /// Order's final price for customer
+        public double FinalCustomerPrice                               
+        {
+            get { return _FinalCustomerPrice; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _FinalCustomerPrice = value;
+                }
+            }
+        }
+
+        private double _FinalCarrierPrice;                               /// Order's final price for the company
+        public double FinalCarrierPrice
+        {
+            get { return _FinalCarrierPrice; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _FinalCarrierPrice = value;
+                }
+            }
+        }
+
         public Contract OrderContract { get; set; }
         public List<string> Cities { get; set; }            /// List of Cities the Order is associated with
         public List<Trip> Trips { get; set; }               /// The list of trips the order has, must, or will undertake
@@ -87,10 +114,10 @@ namespace TMSv2_Order
         ///
         /// \return As this is a <i>constructor</i> for the Order class, nothing is returned
         ///
-        public Order()
+        public Order(Contract c)
         {
             _OrderID = 0;
-            OrderContract = null;
+            OrderContract = c;
             Cities = null;
             Trips = null;
             _TotalKm = 0;
@@ -98,9 +125,46 @@ namespace TMSv2_Order
             IsCompleted = false;
         }
 
-        public void CalculateTotalCost()
+        public void CalculateTotalCost(bool isFTL)
         {
-          
+            double carrierRatePerKM = 0;
+            double customerRatePerKM = 0;
+            if (isFTL)
+            {
+                // to do: get rate of selected carrier from planner
+                carrierRatePerKM = 4.985;
+                customerRatePerKM = carrierRatePerKM * 1.08;
+            }
+            else
+            {
+                carrierRatePerKM = 0.2995 * OrderContract.Quantity;
+                customerRatePerKM = carrierRatePerKM * 1.05;
+            }
+
+            //use fomrula to calculate costs
+            int totalKM = Trips[0].TotalDistanceKm;
+            double totalDriveHours = Trips[0].TotalDrivingHours.TotalHours;
+            double totalWorkHours = Trips[0].TotalDistanceHours.TotalHours;
+            int extraDays = GetTripDaysFromHours(totalDriveHours, totalWorkHours);
+
+            FinalCustomerPrice = customerRatePerKM * totalKM + 150 * extraDays;
+            FinalCarrierPrice = carrierRatePerKM * totalKM + 150 * extraDays;
+        }
+
+
+
+        private int GetTripDaysFromHours(double drivingHours, double workingHours)
+        {
+           // get amount of days taken as an integer rounded down (since only days after day 1 cost extra)
+           int days1 = (int)(workingHours /= 12);
+           int days2 = (int)(drivingHours /= 8);
+
+            // return the greater of the 2
+            if (days1 >= days2)
+            {
+                return days1;
+            }
+            return days2;
         }
 
 
@@ -120,10 +184,10 @@ namespace TMSv2_Order
         ///
         public void CreateOrderFromContract(Contract contract)
         {
-            Order newOrder = new Order();
-            newOrder.OrderID = contract.ContractID;
-            newOrder.IsCompleted = false;
-            newOrder.IsActive = false;
+            //Order newOrder = new Order();
+            //newOrder.OrderID = contract.ContractID;
+            //newOrder.IsCompleted = false;
+            //newOrder.IsActive = false;
         }
 
 
@@ -144,14 +208,14 @@ namespace TMSv2_Order
 
         public void CalculateTripTotals()
         {
-            TotalKm = 0;
-            HoursTaken = TimeSpan.FromHours(0);
+            //TotalKm = 0;
+            //HoursTaken = TimeSpan.FromHours(0);
 
-            foreach (Trip t in Trips)
-            {
-                TotalKm += t.TotalDistanceKm;
-                HoursTaken += t.TotalDistanceHours;
-            }
+            //foreach (Trip t in Trips)
+            //{
+            //    TotalKm += t.TotalDistanceKm;
+            //    HoursTaken += t.TotalDistanceHours;
+            //}
         }
     }
 }
