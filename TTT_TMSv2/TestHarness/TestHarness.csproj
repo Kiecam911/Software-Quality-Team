@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{49C24A3F-11A2-460E-8641-6C7EE5664ED4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TestHarness</RootNamespace>
+    <AssemblyName>TestHarness</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\TMSv2_DAL.csproj">
+      <Project>{9d7b2a1d-064d-4b34-a755-d14c7d5d95b3}</Project>
+      <Name>TMSv2_DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMSv2_Carriers\TMSv2_Carriers.csproj">
+      <Project>{7e53f3f0-cf38-4309-a762-33ef8c1eacff}</Project>
+      <Name>TMSv2_Carriers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMSv2_Contracts\TMSv2_Contracts.csproj">
+      <Project>{8fbe4a1c-35de-41ca-9cd3-9bfd3e6c053d}</Project>
+      <Name>TMSv2_Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMSv2_Logging\TMSv2_Logging.csproj">
+      <Project>{d9303871-7260-4224-8078-35961f100ebd}</Project>
+      <Name>TMSv2_Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMSv2_Order\TMSv2_Order.csproj">
+      <Project>{63f37c7a-dd2c-42e1-b380-b04f98de6df0}</Project>
+      <Name>TMSv2_Order</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMSv2_TripPlanner\TMSv2_TripPlanner.csproj">
+      <Project>{679e40d9-3813-4672-bcb3-4b3491d4f961}</Project>
+      <Name>TMSv2_TripPlanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMSv2_UIClass\TMSv2_UIClass.csproj">
+      <Project>{84cedb2d-d0c9-4961-8055-206af0c7785a}</Project>
+      <Name>TMSv2_UIClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMSv2_Users\TMSv2_Users.csproj">
+      <Project>{193d8a80-6566-4357-8a9d-9663168a0689}</Project>
+      <Name>TMSv2_Users</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
