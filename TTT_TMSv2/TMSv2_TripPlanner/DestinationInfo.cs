@@ -56,11 +56,11 @@ namespace TMSv2_TripPlanner
         }
 
 
-        public static Destination GetDestinationByName(string name)
+        public static Routes GetDestinationByName(string name)
         {
-            foreach(Destination d in AllCities)
+            foreach(Routes d in AllCities)
             {
-                if (name == d.CityName)
+                if (name == d.City)
                 {
                     return d;
                 }
