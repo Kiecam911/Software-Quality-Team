@@ -70,7 +70,6 @@ namespace TMSv2_Order
                 }
             }
         }
-
         public Contract OrderContract { get; set; }
         public List<string> Cities { get; set; }            /// List of Cities the Order is associated with
         public List<Trip> Trips { get; set; }               /// The list of trips the order has, must, or will undertake

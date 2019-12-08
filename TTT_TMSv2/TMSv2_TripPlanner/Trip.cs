@@ -191,12 +191,24 @@ namespace TMSv2_TripPlanner
                 else if (direction == kGoingWest)
                 {
                     // move west 1 city
-                    currentCity = currentCity.WestDest;
+                    foreach(Routes r in allRoutes)
+                    {
+                        if(currentCity.WestDestination == r.City)
+                        {
+                            currentCity = r;
+                        }
+                    }
                 }
                 else if (direction == kGoingEast)
                 {
                     // move east 1 city
-                    currentCity = currentCity.EastDest;
+                    foreach (Routes r in allRoutes)
+                    {
+                        if (currentCity.EastDestination == r.City)
+                        {
+                            currentCity = r;
+                        }
+                    }
                 }
                 else if (currentCity == null)
                 {
