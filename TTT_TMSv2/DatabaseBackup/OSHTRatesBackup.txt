@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Rates>
+    <FTLRate>0.08</FTLRate>
+    <LTLRate>0.05</LTLRate>
+  </Rates>
+</NewDataSet>

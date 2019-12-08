@@ -26,75 +26,20 @@ namespace TMSv2_Contracts
     public class Customer
     {
         // data members
-        private List<int> associatedContracts;
-        private string customerName;
-        private int customerID;
-
-        ///
-        /// \brief Sets customer name
-        /// \details <b>Details</b>
-        ///
-        /// Sets customer name to new value
-        /// 
-        /// \param Customer
-        ///
-        /// \return Creates/edits customers
-        ///
-        public void setCustomerName(string newName)
+        private int _CustomerID;
+        public int CustomerID
         {
-            if (newName != "")
+            get { return _CustomerID; }
+            set
             {
-                customerName = newName;
+                if(value >= 0)
+                {
+                    _CustomerID = value;
+                }
             }
-            else customerName = "none";
         }
-
-        ///
-        /// \brief Sets customer ID
-        /// \details <b>Details</b>
-        ///
-        /// Sets customerID to new value
-        /// 
-        /// \param Customer
-        ///
-        /// \return Creates/edits customers
-        ///
-        public void setCustomerID(int newID)
-        {
-            if (newID >= 0)
-            {
-                customerID = newID;
-            }
-            else customerID = 0;
-        }
-
-        public string getCxName()
-        {
-            return customerName;
-        }
-
-        public int getCxID()
-        {
-            return customerID;
-        }
-
-        ///
-        /// \brief Returns all associated contracts
-        /// \details <b>Details</b>
-        ///
-        /// 
-        /// This method returns a list of integers corresponding to the IDs of 
-        /// all contracts that are owned by the respective customer
-        ///
-        /// \param <b>void</b> - None
-        ///
-        /// \return List<int> containing the contract IDs
-        ///
-        public List<int> GetAssociatedContracts()
-        {
-            return null;
-        }
-
+        public string CustomerName { get; set; }
+        public List<Contract> _AssociatedContracts { get; set; }
 
 
         ///

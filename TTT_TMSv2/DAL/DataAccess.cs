@@ -608,6 +608,13 @@ namespace TMSv2_DAL
                 data = GetInvoicesTable();
                 //Write Data To file to save it
                 data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName10"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Invoices Table
+                data = GetCustomersTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName11"]));
             }
             catch(SecurityException e)
             {
@@ -813,6 +820,31 @@ namespace TMSv2_DAL
 
             //Fill dataset
             adapter.Fill(data, "Invoices");
+
+            //Close connection
+            CloseConnection();
+
+            //Return dataset
+            return data;
+        }
+
+        private DataSet GetCustomersTable()
+        {
+            //Variables
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet data = new DataSet();
+
+            string query = @"SELECT CustomerID, ContractID, CustomerName FROM Customers; ";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            //Create and use command from query string and connection
+            MySqlCommand command = new MySqlCommand(query, _Connection);
+            adapter.SelectCommand = command;
+
+            //Fill dataset
+            adapter.Fill(data, "Customers");
 
             //Close connection
             CloseConnection();
