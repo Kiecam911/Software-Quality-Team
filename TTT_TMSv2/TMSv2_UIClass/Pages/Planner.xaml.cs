@@ -85,6 +85,10 @@ namespace TMSv2_UIClass.Pages
 
         private void AssignCarrierButton_Click_1(object sender, RoutedEventArgs e)
         {
+            if (carrierID == 0 || orderIDAssignCarrier == 0)
+            {
+                return;
+            }
             int newTripID = 0;
 
             string sqlCommand = String.Format(@"INSERT INTO Trips (CarrierID, OrderID, Origin, Destination) VALUES ({0}, {1}, ""{2}"", ""{3}"");", carrierID, orderIDAssignCarrier, origin, destination);
@@ -119,6 +123,8 @@ namespace TMSv2_UIClass.Pages
 
             currentOrder.Trips.Add(currentTrip);
             currentOrder.CalculateTotalCost(false);
+
+            loadCarrierAssignmentTable(AssignCarrierDatagrid);
 
             // DataRow carrier = dal.GetCarrierByID(carrierID);
         }
