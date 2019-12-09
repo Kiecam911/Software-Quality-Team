@@ -25,7 +25,8 @@ namespace TMSv2_UIClass.Pages
     /// </summary>
     public partial class Planner : Page
     {
-        public int orderID;
+        public int orderIDAssignCarrier;
+        public int orderIDCompleteOrder;
         
 
         public Planner()
@@ -53,7 +54,7 @@ namespace TMSv2_UIClass.Pages
 
 
             MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
-            string sqlCommand = "Select CarrierID, CarrierName FROM Carriers INNER JOIN Orders WHERE OrderID = " + orderID;
+            string sqlCommand = "Select CarrierID, CarrierName FROM Carriers INNER JOIN Orders WHERE OrderID = " + orderIDAssignCarrier;
             MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
             connection.Open();
@@ -66,7 +67,8 @@ namespace TMSv2_UIClass.Pages
 
         private void completeOrderButton_Click(object sender, RoutedEventArgs e)
         {
-
+            resetView();
+            CompleteOrderScreen.Visibility = Visibility.Visible;
         }
 
         private void generateReportButton_Click(object sender, RoutedEventArgs e)
@@ -83,6 +85,7 @@ namespace TMSv2_UIClass.Pages
         {
             ActiveOrders.Visibility = Visibility.Hidden;
             AssignCarrierScreen.Visibility = Visibility.Hidden;
+            CompleteOrderScreen.Visibility = Visibility.Hidden;
         }
 
         private void AssignCarrierButton_Click_1(object sender, RoutedEventArgs e)
@@ -96,7 +99,7 @@ namespace TMSv2_UIClass.Pages
             DataRowView row_selected = dg.SelectedItem as DataRowView;
             if (row_selected != null) //Gets contents of row and inserts it into variables
             {
-                orderID = Convert.ToInt32(row_selected["SKU"]);
+                orderIDAssignCarrier = Convert.ToInt32(row_selected["OrderID"]);
             }
         }
 
@@ -118,6 +121,26 @@ namespace TMSv2_UIClass.Pages
             {
                 frame.Navigate(new MenuPage());
             }
+        }
+
+        private void CompleteOrdersDatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dg = (DataGrid)sender;
+            DataRowView row_selected = dg.SelectedItem as DataRowView;
+            if (row_selected != null) //Gets contents of row and inserts it into variables
+            {
+                orderIDCompleteOrder = Convert.ToInt32(row_selected["OrderID"]);
+            }
+        }
+
+        private void CompleteOrderButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
+            connection.Open();
+            string sqlCommand = "UPDATE Orders SET Completed = 1, IsActive = 0 WHERE OrderID = " + orderIDCompleteOrder;
+            MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+ 
+            connection.Close();
         }
     }
 }
