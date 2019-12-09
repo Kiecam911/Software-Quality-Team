@@ -151,7 +151,7 @@ namespace TMSv2_UIClass.Pages
             {
                 string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
                 MySqlConnection connection = new MySqlConnection(ConnectionString);
-                string sqlCommand = "SELECT OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination FROM Orders INNER JOIN Contracts WHERE Orders.IsActive = 1";
+                string sqlCommand = "SELECT OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.OrderID WHERE Orders.IsActive = 1";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
                 connection.Open();
@@ -173,7 +173,7 @@ namespace TMSv2_UIClass.Pages
             {
                 string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
                 MySqlConnection connection = new MySqlConnection(ConnectionString);
-                string sqlCommand = "SELECT Orders.OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination FROM Orders INNER JOIN Contracts WHERE hasTrip = 0";
+                string sqlCommand = "SELECT Orders.OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.ContractID WHERE hasTrip = 0";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
                 connection.Open();
@@ -219,7 +219,7 @@ namespace TMSv2_UIClass.Pages
             {
                 carrierID = Convert.ToInt32(row_selected["CarrierID"]);
                 
-                destination = row_selected["Destination"].ToString();
+                destination = row_selected["DestinationCity"].ToString();
             }
         }
     }
