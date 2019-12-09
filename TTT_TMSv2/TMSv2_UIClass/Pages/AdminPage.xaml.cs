@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 using TMSv2_Users;
 using TMSv2_Carriers;
 using TMSv2_Contracts;
@@ -303,11 +304,14 @@ namespace TMSv2_UIClass.Pages
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
             //Save the new Database settings to the config file
-            config.AppSettings.Settings["DatabaseIP"].Value = newIP.Text;
-            config.AppSettings.Settings["DatabaseName"].Value = newDBName.Text;
-            config.AppSettings.Settings["DatabaseUsername"].Value = newUsername.Text;
-            config.AppSettings.Settings["DatabasePassword"].Value = newPassword.Text;
-            config.Save();
+            if (Regex.IsMatch(newIP.Text, @"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"))
+            {
+                config.AppSettings.Settings["DatabaseIP"].Value = newIP.Text;
+                config.AppSettings.Settings["DatabaseName"].Value = newDBName.Text;
+                config.AppSettings.Settings["DatabaseUsername"].Value = newUsername.Text;
+                config.AppSettings.Settings["DatabasePassword"].Value = newPassword.Text;
+                config.Save();
+            }
 
             if(temp.ConnectToDatabase() == false)
             {

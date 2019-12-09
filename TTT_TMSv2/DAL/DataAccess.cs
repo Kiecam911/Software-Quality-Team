@@ -850,7 +850,7 @@ namespace TMSv2_DAL
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             DataSet data = new DataSet();
 
-            string query = @"SELECT OrderID, ContractID, Cities, HoursTaken, TotalKm, TotalCost, Completed, IsActive, IsMerged FROM Orders; ";
+            string query = @"SELECT OrderID, ContractID, Cities, HoursTaken, TotalKm, TotalCost, Completed, IsActive, IsMerged, hasTrip FROM Orders; ";
 
             //Connect to variabled database
             ConnectToDatabase();
@@ -880,8 +880,8 @@ namespace TMSv2_DAL
                 foreach (DataRow row in dataRows)
                 {
                     //Create query string
-                    string query = @"INSERT INTO Orders(OrderID, ContractID, Cities, HoursTaken, TotalKm, TotalCost, Completed, IsActive, IsMerged) VALUES
-                            (@ID, @cID, @cities, @hrs, @km, @cost, @completed, @active, @merged); ";
+                    string query = @"INSERT INTO Orders(OrderID, ContractID, Cities, HoursTaken, TotalKm, TotalCost, Completed, IsActive, IsMerged, hasTrip) VALUES
+                            (@ID, @cID, @cities, @hrs, @km, @cost, @completed, @active, @merged, @hasTrip); ";
 
                     //Connect to variabled database
                     ConnectToDatabase();
@@ -899,6 +899,7 @@ namespace TMSv2_DAL
                     command.Parameters.AddWithValue("@completed", XmlConvert.ToBoolean(row.Field<string>(6)));
                     command.Parameters.AddWithValue("@active", XmlConvert.ToBoolean(row.Field<string>(7)));
                     command.Parameters.AddWithValue("@merged", XmlConvert.ToBoolean(row.Field<string>(8)));
+                    command.Parameters.AddWithValue("@hasTrip", XmlConvert.ToBoolean(row.Field<string>(9)));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -1095,8 +1096,8 @@ namespace TMSv2_DAL
                 foreach (DataRow row in dataRows)
                 {
                     //Create query string
-                    string query = @"INSERT INTO CarrierInfo(CarrierInfoID, DestinationCity, FTLAvailability, LTLAvailability, FTLRate, LTLRate, reefCharge) VALUES
-                            (@CID, @DestCity, @FTLA, @LTLA, @FTLRate, @LTLRate, @reef); ";
+                    string query = @"INSERT INTO CarrierInfo(CarrierID, CarrierInfoID, DestinationCity, FTLAvailability, LTLAvailability, FTLRate, LTLRate, reefCharge) VALUES
+                            (@CarrierID, @CID, @DestCity, @FTLA, @LTLA, @FTLRate, @LTLRate, @reef); ";
 
                     //Connect to variabled database
                     ConnectToDatabase();
@@ -1105,13 +1106,14 @@ namespace TMSv2_DAL
                     var command = new MySqlCommand(query, _Connection);
 
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@CID", XmlConvert.ToInt32(row.Field<string>(0)));
-                    command.Parameters.AddWithValue("@DestCity", row.Field<string>(1));
-                    command.Parameters.AddWithValue("@FTLA", XmlConvert.ToInt32(row.Field<string>(2)));
-                    command.Parameters.AddWithValue("@LTLA", XmlConvert.ToInt32(row.Field<string>(3)));
-                    command.Parameters.AddWithValue("@FTLRate", XmlConvert.ToDouble(row.Field<string>(4)));
-                    command.Parameters.AddWithValue("@LTLRate", XmlConvert.ToDouble(row.Field<string>(5)));
-                    command.Parameters.AddWithValue("@reef", XmlConvert.ToDouble(row.Field<string>(6)));
+                    command.Parameters.AddWithValue("@CarrierID", XmlConvert.ToInt32(row.Field<string>(0)));
+                    command.Parameters.AddWithValue("@CID", XmlConvert.ToInt32(row.Field<string>(1)));
+                    command.Parameters.AddWithValue("@DestCity", row.Field<string>(2));
+                    command.Parameters.AddWithValue("@FTLA", XmlConvert.ToInt32(row.Field<string>(3)));
+                    command.Parameters.AddWithValue("@LTLA", XmlConvert.ToInt32(row.Field<string>(4)));
+                    command.Parameters.AddWithValue("@FTLRate", XmlConvert.ToDouble(row.Field<string>(5)));
+                    command.Parameters.AddWithValue("@LTLRate", XmlConvert.ToDouble(row.Field<string>(6)));
+                    command.Parameters.AddWithValue("@reef", XmlConvert.ToDouble(row.Field<string>(7)));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -1347,7 +1349,7 @@ namespace TMSv2_DAL
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             DataSet data = new DataSet();
 
-            string query = @"SELECT CarrierInfoID, DestinationCity, FTLAvailability, LTLAvailability, FTLRate, LTLRate, reefCharge FROM CarrierInfo; ";
+            string query = @"SELECT CarrierID, CarrierInfoID, DestinationCity, FTLAvailability, LTLAvailability, FTLRate, LTLRate, reefCharge FROM CarrierInfo; ";
 
             //Connect to variabled database
             ConnectToDatabase();
