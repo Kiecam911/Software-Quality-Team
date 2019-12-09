@@ -35,11 +35,14 @@ namespace TMSv2_UIClass.Pages
 
         private TMSv2_Users.Planner currentPlanner;
 
+        private List<int> DaysRequiredList;
+
 
         public Planner()
         {
             InitializeComponent();
             currentPlanner = new TMSv2_Users.Planner();
+            DaysRequiredList = new List<int>();
         }
 
         private void activeOrdersButton_Click(object sender, RoutedEventArgs e)
@@ -63,7 +66,7 @@ namespace TMSv2_UIClass.Pages
             resetView();
             CompleteOrderScreen.Visibility = Visibility.Visible;
 
-            loadActiveContracts(CompleteOrdersDatagrid);
+            LoadOrdersWithTrip(CompleteOrdersDatagrid);
         }
 
         private void generateReportButton_Click(object sender, RoutedEventArgs e)
@@ -73,7 +76,9 @@ namespace TMSv2_UIClass.Pages
 
         private void increaseTimeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            DataAccess dal = new DataAccess();
+            dal.DayPassed();
+            LoadOrdersWithTrip(CompleteOrdersDatagrid);
         }
 
         private void resetView()
@@ -183,6 +188,9 @@ namespace TMSv2_UIClass.Pages
             DataSet sd = new DataSet();
             adapter.Fill(sd, "Orders");
             connection.Close();
+
+            // update grid
+            LoadOrdersWithTrip(CompleteOrdersDatagrid);
         }
 
         private void loadActiveContracts(DataGrid grid)
@@ -200,6 +208,33 @@ namespace TMSv2_UIClass.Pages
                 adapter.Fill(ds, "items");
                 grid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["items"] });
                 connection.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Database failed to load, please check your connection");
+            }
+        }
+
+        private void LoadOrdersWithTrip(DataGrid grid)
+        {
+            try
+            {
+                string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
+                MySqlConnection connection = new MySqlConnection(ConnectionString);
+                string sqlCommand = @"SELECT DaysRequired AS 'Days Left', OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.OrderID WHERE Orders.hasTrip = 1 AND Orders.Completed = 0;";
+                
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+
+                DaysRequiredList.Clear();
+
+                connection.Open();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "items");
+
+                connection.Close();
+
+                grid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["items"] });
             }
             catch
             {

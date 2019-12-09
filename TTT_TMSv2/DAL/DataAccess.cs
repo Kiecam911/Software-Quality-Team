@@ -1643,5 +1643,19 @@ namespace TMSv2_DAL
                 return null;
             }
         }
+
+        public void DayPassed()
+        {
+            string cmdText = @"UPDATE Orders SET DaysRequired = DaysRequired - 1 WHERE Orders.hasTrip = 1 AND Orders.Completed = 0;";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            // execute commands
+            MySqlCommand command = new MySqlCommand(cmdText, _Connection);
+            int result = command.ExecuteNonQuery();
+            //Close connection
+            CloseConnection();
+        }
     }
 }
