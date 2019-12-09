@@ -50,8 +50,10 @@ namespace TMSv2_TripPlanner
             }
         }
         public Carrier TripCarrier { get; set; }            /// The Carrier that will carryout the trip
-        public Routes Origin { get; set; }                  /// The city of origin of the Contract
-        public Routes Destination { get; set; }             /// The destination city of the Contract
+        public Routes OriginPointer { get; set; }                  /// The city of origin of the Contract
+        public Routes DestinationPointer { get; set; }             /// The destination city of the Contract
+        public string Origin { get; set; }                  /// The city of origin of the Contract
+        public string Destination { get; set; }             /// The destination city of the Contract
         private int _TotalDistanceKm;                            /// The calculated total distance that must be traveled
         public int TotalDistanceKm                               /// Public accessor to the private _TotalKm for safety
         {
@@ -112,6 +114,10 @@ namespace TMSv2_TripPlanner
             _TotalDistanceKm = 0;
             _HoursTaken = TimeSpan.FromHours(0.0);
             IsCompleted = false;
+            Origin = "";
+            Destination = "";
+            OriginPointer = null;
+            DestinationPointer = null;
         }
 
 
@@ -123,9 +129,8 @@ namespace TMSv2_TripPlanner
             _TotalDistanceKm = 0;
             _HoursTaken = TimeSpan.FromHours(0.0);
             IsCompleted = false;
-
-            Origin = DestinationInfo.GetDestinationByName(origin);
-            Destination = DestinationInfo.GetDestinationByName(destination);
+            OriginPointer = DestinationInfo.GetDestinationByName(origin);
+            DestinationPointer = DestinationInfo.GetDestinationByName(destination);
         }
 
 
@@ -142,11 +147,11 @@ namespace TMSv2_TripPlanner
             {
                 if (origin == d.City)
                 {
-                    Origin = d;
+                    OriginPointer = d;
                 }
                 else if (destination == d.City)
                 {
-                    Destination = d;
+                    DestinationPointer = d;
                 }
             }
         }
@@ -156,15 +161,15 @@ namespace TMSv2_TripPlanner
         public void CalculateTotals(bool isFTL)
         {
             // start at the origin
-            Routes currentCity = Origin;
-            // List<Routes> allRoutes = Routes.GetRoutes();           //Gets all routes from route table in database
+            Routes currentCity = OriginPointer;
+            List<Routes> allRoutes = Routes.GetRoutes();           //Gets all routes from route table in database
             int direction = 0;
 
-            if (Destination.RouteID < Origin.RouteID)
+            if (DestinationPointer.RouteID < OriginPointer.RouteID)
             {
                 direction = kGoingWest;
             }
-            else if (Destination.RouteID < Origin.RouteID)
+            else if (DestinationPointer.RouteID < OriginPointer.RouteID)
             {
                 direction = kGoingEast;
             }
@@ -194,7 +199,7 @@ namespace TMSv2_TripPlanner
                     TotalDistanceHours += TimeSpan.FromHours(2);
                 }
 
-                if (currentCity == Destination)
+                if (currentCity == DestinationPointer)
                 {
                     // stop looping once destination is found
                     break;
@@ -202,30 +207,24 @@ namespace TMSv2_TripPlanner
                 else if (direction == kGoingWest)
                 {
                     // move west 1 city
-                    //foreach(Routes r in allRoutes)
-                    //{
-                    //    if(currentCity.WestDestinationName == r.City)
-                    //    {
-                    //        currentCity = r;
-                    //    }
-                    //}
-
-                    //temp fix:
-                    currentCity = currentCity.WestDestination;
+                    foreach(Routes r in allRoutes)
+                    {
+                        if(currentCity.WestDestinationName == r.City)
+                        {
+                            currentCity = r;
+                        }
+                    }
                 }
                 else if (direction == kGoingEast)
                 {
                     // move east 1 city
-                    //foreach (Routes r in allRoutes)
-                    //{
-                    //    if (currentCity.EastDestinationName == r.City)
-                    //    {
-                    //        currentCity = r;
-                    //    }
-                    //}
-
-                    // temp fix:
-                    currentCity = currentCity.EastDestination;
+                    foreach (Routes r in allRoutes)
+                    {
+                        if (currentCity.EastDestinationName == r.City)
+                        {
+                            currentCity = r;
+                        }
+                    }
                 }
                 else if (currentCity == null)
                 {

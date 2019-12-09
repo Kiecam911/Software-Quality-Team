@@ -11,7 +11,7 @@
 
 
     <Grid Background="LightGray">
-        <!--<Grid x:Name="panelHeader" VerticalAlignment="Top" Height="52" Background="#FF047FD4">
+        <Grid x:Name="panelHeader" VerticalAlignment="Top" Height="52" Background="#FF047FD4">
 
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic" FontSize="20" FontWeight="Bold" Foreground="White"><Run Text="Planner Home"/><LineBreak/><Run/></TextBlock>
 
@@ -22,7 +22,7 @@
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold" Height="285">
                     <ListViewItem Height="30" Foreground="{x:Null}" Focusable="False">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="HomeButton" Content="Home" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="HomeButton_Click" Width="145" Height="30"/>
+                            <Button x:Name="HomeButton" Content="Home" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="145" Height="30" Click="HomeButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="29">
@@ -50,92 +50,60 @@
                             <Button x:Name="increaseTimeButton" Content="Next Day" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="increaseTimeButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
-                    
+
                 </ListView>
             </StackPanel>
         </Grid>
 
 
-        <Grid x:Name="ConfigGrid" Visibility="Hidden">
+        <Grid x:Name="ActiveOrders" Visibility="Hidden">
             <Rectangle Fill="LightGray" HorizontalAlignment="Left" Height="340" Margin="160,50,0,0" Stroke="Black" VerticalAlignment="Top" Width="625"/>
-            <Button x:Name="setLogButton" Content="Set Logfile Directory" HorizontalAlignment="Left" Height="39" Margin="171,67,0,0" VerticalAlignment="Top" Width="123" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" Click="setLogButton_Click"/>
-            <Button x:Name="setDBMSInfoButton" Content="Set DBMS Info" HorizontalAlignment="Left" Height="39" Margin="307,67,0,0" VerticalAlignment="Top" Width="122" FontFamily="Century Gothic" Foreground="White" Background="{x:Null}" BorderBrush="White" Click="setDBMSInfoButton_Click"/>
-
-            <Grid x:Name="LogFileGrid" Visibility="Hidden">
-                <Label Content="Logfile Current Path:" HorizontalAlignment="Left" Margin="171,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="currPathBox" HorizontalAlignment="Left" Height="25" Margin="317,157,0,0" TextWrapping="Wrap" Text="" Focusable="False" VerticalAlignment="Top" Width="449" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Label Content="Logfile New Path:" HorizontalAlignment="Left" Margin="171,202,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="newPathBox" HorizontalAlignment="Left" Height="25" Margin="317,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="451" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Button x:Name="browseNewPath" Content="Browse" HorizontalAlignment="Left" Height="24" Margin="171,240,0,0" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561" Click="browseNewPath_Click"/>
-                <Button x:Name="newPathButton" Content="Set New Path" HorizontalAlignment="Left" Height="39" Margin="440,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561" Click="newPathButton_Click"/>
-                <Button x:Name="copyPathButton" Content="Copy Path to Clipboard" HorizontalAlignment="Left" Height="39" Margin="612,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" Click="copyPathButton_Click"/>
-            </Grid>
-
-            <Grid x:Name="DBMSInfoScreen" Visibility="Hidden">
-                <Label Content="Current IP:" HorizontalAlignment="Left" Margin="171,120,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="currIP" HorizontalAlignment="Left" Height="25" Margin="288,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
-                <Label Content="Current DB Name:" HorizontalAlignment="Left" Margin="171,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="currDBName" HorizontalAlignment="Left" Height="25" Margin="288,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
-                <Label Content="Current Username:" HorizontalAlignment="Left" Margin="171,194,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="currUsername" HorizontalAlignment="Left" Height="25" Margin="288,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
-                <Label Content="Current Password:" HorizontalAlignment="Left" Margin="171,231,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="currPassword" HorizontalAlignment="Left" Height="25" Margin="288,231,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}" Focusable="False"/>
-
-                <Label Content="New IP:" HorizontalAlignment="Left" Margin="480,120,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="newIP" HorizontalAlignment="Left" Height="25" Margin="594,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Label Content="New DB Name:" HorizontalAlignment="Left" Margin="480,157,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="newDBName" HorizontalAlignment="Left" Height="25" Margin="594,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Label Content="New Username:" HorizontalAlignment="Left" Margin="480,194,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="newUsername" HorizontalAlignment="Left" Height="25" Margin="594,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-                <Label Content="New Password:" HorizontalAlignment="Left" Margin="480,231,0,0" VerticalAlignment="Top" FontFamily="Century Gothic" Background="{x:Null}" Foreground="White"/>
-                <TextBox x:Name="newPassword" HorizontalAlignment="Left" Height="25" Margin="594,231,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="149" Foreground="White" BorderBrush="Black" Background="{x:Null}"/>
-
-                <Button x:Name="newDBSettings" Content="Save Settings" HorizontalAlignment="Left" Height="39" Margin="619,341,0,0" VerticalAlignment="Top" Width="156" Background="{x:Null}" BorderBrush="White" Foreground="White" FontFamily="Century Gothic" RenderTransformOrigin="0.419,0.561" Click="newDBSettings_Click"/>
-            </Grid>
-        </Grid>
-
-        <Grid x:Name="ViewLogGrid" Visibility="Hidden">
-            <Rectangle Fill="LightGray" HorizontalAlignment="Left" Height="338" Margin="160,52,0,0" VerticalAlignment="Top" Width="625"/>
-            <Label Content="Click view to select a log and display it in the window: " HorizontalAlignment="Left" Margin="177,354,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-            <TextBox x:Name="LogDisplay" HorizontalAlignment="Left" Height="268" Margin="176,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="591" Background="{x:Null}" BorderBrush="Black" Foreground="White" Focusable="False"/>
-            <Button x:Name="viewLogsButton" Content="View" HorizontalAlignment="Left" Height="31" Margin="600,354,0,0" VerticalAlignment="Top" Width="137" Background="#FF047FD4" BorderBrush="{x:Null}" Foreground="White" FontSize="14" Click="viewLogsButton_Click"/>
-
-        </Grid>
-
-        <Grid x:Name="AlterTableGrid" Visibility="Hidden">
-            <Label Content="Please choose a carrier to edit from the list:" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}"/>
-            <ComboBox x:Name="tableSelect" HorizontalAlignment="Left" Margin="417,60,0,0" VerticalAlignment="Top" Width="120" Height="26" SelectionChanged="TableSelect_SelectionChanged"/>
-            <DataGrid x:Name="tableView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" AutoGenerateColumns="False" ColumnWidth="*" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray">
+            <DataGrid x:Name="ActiveOrderDataGrid" HorizontalAlignment="Left" Height="296" Margin="178,67,0,0" VerticalAlignment="Top" Width="586" Background="LightGray" BorderBrush="{x:Null}" AlternatingRowBackground="#FF047FD4" VerticalGridLinesBrush="{x:Null}" GridLinesVisibility="Horizontal" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="City" Binding="{Binding Path=DestinationCity}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="FTL Availability" Binding="{Binding Path=FTLAvailability}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="LTL Availability" Binding="{Binding Path=LTLAvailability}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="FTL Rate" Binding="{Binding Path=FTLRate}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="LTL Rate" Binding="{Binding Path=LTLRate}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Reefer Charge" Binding="{Binding Path=ReefCharge}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="OrderID" Binding="{Binding Path=OrderID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="ContractID" Binding="{Binding Path=ContractID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="TotalKM" Binding="{Binding Path=TotalKm}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Hours Taken" Binding="{Binding Path=HoursTaken}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Final Carrier Price" Binding="{Binding Path=FinalCarrierPrice}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White" Click="SaveCarrierData_Click"/>
+
+
+        </Grid>
+
+        <Grid x:Name="AssignCarrierScreen" Visibility="Hidden">
+            <Rectangle Fill="LightGray" HorizontalAlignment="Left" Height="338" Margin="160,52,0,0" VerticalAlignment="Top" Width="625"/>
+            <DataGrid x:Name="AssignCarrierDatagrid" HorizontalAlignment="Left" Height="118" Margin="176,67,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4" SelectionChanged="AssignCarrierDatagrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="OrderID" Binding="{Binding Path=OrderID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="ContractID" Binding="{Binding Path=ContractID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="TotalKM" Binding="{Binding Path=TotalKm}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Hours Taken" Binding="{Binding Path=HoursTaken}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Final Carrier Price" Binding="{Binding Path=FinalCarrierPrice}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="AssignCarrierButton" Content="Assign" HorizontalAlignment="Left" Margin="631,339,0,0" VerticalAlignment="Top" Width="134" Height="32" Background="#FF047FD4" Foreground="White" Click="AssignCarrierButton_Click_1"/>
+            <Label Content="Select an order from the table, and then choose one of the supplied carriers&#xD;&#xA;followed by assign to assign a carrier to an order." HorizontalAlignment="Left" Margin="176,329,0,0" VerticalAlignment="Top" Foreground="#FF047FD4"/>
+            <DataGrid x:Name="PricesForCarriers" HorizontalAlignment="Left" Height="118" Margin="176,185,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4"/>
+        </Grid>
+
+        <Grid x:Name="CompleteOrderScreen" Visibility="Visible">
+            <DataGrid x:Name="CompleteOrdersDatagrid" HorizontalAlignment="Left" Height="236" Margin="176,67,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="OrderID" Binding="{Binding Path=OrderID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="ContractID" Binding="{Binding Path=ContractID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="TotalKM" Binding="{Binding Path=TotalKm}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Hours Taken" Binding="{Binding Path=HoursTaken}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Final Carrier Price" Binding="{Binding Path=FinalCarrierPrice}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Complete Order" HorizontalAlignment="Left" Margin="644,340,0,0" VerticalAlignment="Top" Width="121" Height="40" Background="#FF047FD4" Foreground="White" BorderBrush="{x:Null}"/>
         </Grid>
 
         <Grid x:Name="AlterRoutesGrid" Visibility="Hidden">
-            <Label Content="Alter Routes Table Data" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}" FontSize="15"/>
-            <DataGrid x:Name="tableRouteView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" AutoGenerateColumns="False" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="City" Binding="{Binding Path=City}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Distance Km" Binding="{Binding Path=DistanceKm}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Distance Hours" Binding="{Binding Path=DistanceHours}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="West Destination" Binding="{Binding Path=WestDestination}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="East Destination" Binding="{Binding Path=EastDestination}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White" Click="RouteSave_Click"/>
         </Grid>
 
         <Grid x:Name="AlterRatesGrid" Visibility="Hidden">
-            <Label Content="Alter OSHT Rates" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}" FontSize="15"/>
-            <DataGrid x:Name="tableRatesView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray"/>
-            <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White" Click="SaveRates_Click"/>
-        </Grid>-->
+        </Grid>
     </Grid>
 </Page>

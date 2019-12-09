@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMSv2_Contracts;
 using TMSv2_TripPlanner;
+using System.Data;
 
 namespace TMSv2_Order
 {
@@ -228,6 +229,64 @@ namespace TMSv2_Order
             //    TotalKm += t.TotalDistanceKm;
             //    HoursTaken += t.TotalDistanceHours;
             //}
+        }
+
+        public List<Order> GetActiveOrders()
+        {
+            // create objects to hold information from DAL
+            DataTable routesTable = TMSv2_DAL.DataAccess.GetActiveOrders().Tables[0];
+            List<Order> routesList = new List<Order>();
+            Order tempOrder = null;
+
+            DataRowCollection routeRows = routesTable.Rows;
+
+            // loop through each row of data, creating contract and assigning values to it
+            foreach (DataRow currentRow in routeRows)
+            {
+                //Instantiate a new Destination
+                tempOrder = new Order();
+
+                //Fill destination
+                tempOrder.OrderID = currentRow.Field<int>(0);
+                tempOrder.OrderContract.ContractID = currentRow.Field<int>(1);
+                tempOrder.TotalKm = currentRow.Field<int>(2);
+                tempOrder.HoursTaken = currentRow.Field<TimeSpan>(3);
+                tempOrder.FinalCarrierPrice = currentRow.Field<int>(4);
+               
+
+                //Add to list
+                routesList.Add(tempOrder);
+            }
+            return routesList;
+        }
+
+        public List<Order> GetUnassignedTripOrders()
+        {
+            // create objects to hold information from DAL
+            DataTable routesTable = TMSv2_DAL.DataAccess.GetUnassignedTripOrders().Tables[0];
+            List<Order> routesList = new List<Order>();
+            Order tempOrder = null;
+
+            DataRowCollection routeRows = routesTable.Rows;
+
+            // loop through each row of data, creating contract and assigning values to it
+            foreach (DataRow currentRow in routeRows)
+            {
+                //Instantiate a new Destination
+                tempOrder = new Order();
+
+                //Fill destination
+                tempOrder.OrderID = currentRow.Field<int>(0);
+                tempOrder.OrderContract.ContractID = currentRow.Field<int>(1);
+                tempOrder.TotalKm = currentRow.Field<int>(2);
+                tempOrder.HoursTaken = currentRow.Field<TimeSpan>(3);
+                tempOrder.FinalCarrierPrice = currentRow.Field<int>(4);
+
+
+                //Add to list
+                routesList.Add(tempOrder);
+            }
+            return routesList;
         }
     }
 }

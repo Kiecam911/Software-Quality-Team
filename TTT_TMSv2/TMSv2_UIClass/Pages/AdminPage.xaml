@@ -55,6 +55,11 @@
                             <Button x:Name="BackupButton" Content="Backup Database" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="144" Height="27" Click="BackupButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="RestoreButton" Content="Restore Database" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="144" Height="27" Click="RestoreButton_Click"/>
+                        </StackPanel>
+                    </ListViewItem>
                 </ListView>
             </StackPanel>
         </Grid>
@@ -129,8 +134,8 @@
                     <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="City" Binding="{Binding Path=City}"/>
                     <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Distance Km" Binding="{Binding Path=DistanceKm}"/>
                     <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Distance Hours" Binding="{Binding Path=DistanceHours}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="West Destination" Binding="{Binding Path=WestDestination}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="East Destination" Binding="{Binding Path=EastDestination}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="West Destination" Binding="{Binding Path=WestDestinationName}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="East Destination" Binding="{Binding Path=EastDestinationName}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White" Click="RouteSave_Click"/>

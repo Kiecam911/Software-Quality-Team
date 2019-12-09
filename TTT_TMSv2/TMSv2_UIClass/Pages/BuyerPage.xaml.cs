@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 using TMSv2_Users;
 using TMSv2_Order;
@@ -28,8 +29,8 @@ namespace TMSv2_UIClass.Pages
     /// </summary>
     public partial class BuyerPage : Page
     {
-        Buyer CurrentBuyer;
-        
+
+        private Timer timer;
         string connectionString = "SERVER=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; PORT = 3306 ;" + "DATABASE=" + ConfigurationManager.AppSettings["DatabaseName"] + ";" + "UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + ";" + "PASSWORD=" + ConfigurationManager.AppSettings["DatabasePassword"] + ";";
 
         public BuyerPage()
@@ -41,7 +42,16 @@ namespace TMSv2_UIClass.Pages
         private void newContract_Click(object sender, RoutedEventArgs e)
         {
             resetView();
+            loadNewContracts();
             newContractGrid.Visibility = Visibility.Visible;
+            Timer timer = new Timer();
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = 5000;
+            timer.Start();
+        }
+
+        private void timerTick(object sender, EventArgs e)
+        {
             loadNewContracts();
         }
 
@@ -92,12 +102,12 @@ namespace TMSv2_UIClass.Pages
 
                 DataSet ds = new DataSet();
                 adapter.Fill(ds, "*");
-                NewContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["*"] });
+                NewContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new System.Windows.Data.Binding { Source = ds.Tables["*"] });
                 connection.Close();
             }
             catch
             {
-                MessageBox.Show("Database failed to load, please check your connection");
+                System.Windows.MessageBox.Show("Database failed to load, please check your connection");
             }
         }
 
@@ -115,12 +125,12 @@ namespace TMSv2_UIClass.Pages
 
                 DataSet ds = new DataSet();
                 adapter.Fill(ds, "*");
-                currentContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["*"] });
+                currentContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new System.Windows.Data.Binding { Source = ds.Tables["*"] });
                 connection.Close();
             }
             catch
             {
-                MessageBox.Show("Database failed to load, please check your connection");
+                System.Windows.MessageBox.Show("Database failed to load, please check your connection");
             }
         }
 
@@ -138,12 +148,12 @@ namespace TMSv2_UIClass.Pages
 
                 DataSet ds = new DataSet();
                 adapter.Fill(ds, "*");
-                currentContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["*"] });
+                currentContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new System.Windows.Data.Binding { Source = ds.Tables["*"] });
                 connection.Close();
             }
             catch
             {
-                MessageBox.Show("Database failed to load, please check your connection");
+                System.Windows.MessageBox.Show("Database failed to load, please check your connection");
             }
         }
 
@@ -153,6 +163,11 @@ namespace TMSv2_UIClass.Pages
             newContractGrid.Visibility = Visibility.Hidden;
             CurrentContractGrid.Visibility = Visibility.Hidden;
             CompletedContractGrid.Visibility = Visibility.Hidden;
+            try
+            {
+                timer.Stop();
+            }
+            catch { }
         }
 
         private void acceptButton_Click(object sender, RoutedEventArgs e)

@@ -1,26 +1,6 @@
 <?xml version="1.0" standalone="yes"?>
 <NewDataSet>
   <CarrierLine>
-    <CarrierID>1</CarrierID>
-    <CarrierInfoID>1</CarrierInfoID>
-  </CarrierLine>
-  <CarrierLine>
-    <CarrierID>1</CarrierID>
-    <CarrierInfoID>2</CarrierInfoID>
-  </CarrierLine>
-  <CarrierLine>
-    <CarrierID>1</CarrierID>
-    <CarrierInfoID>3</CarrierInfoID>
-  </CarrierLine>
-  <CarrierLine>
-    <CarrierID>1</CarrierID>
-    <CarrierInfoID>4</CarrierInfoID>
-  </CarrierLine>
-  <CarrierLine>
-    <CarrierID>1</CarrierID>
-    <CarrierInfoID>5</CarrierInfoID>
-  </CarrierLine>
-  <CarrierLine>
     <CarrierID>2</CarrierID>
     <CarrierInfoID>6</CarrierInfoID>
   </CarrierLine>
@@ -51,5 +31,9 @@
   <CarrierLine>
     <CarrierID>4</CarrierID>
     <CarrierInfoID>13</CarrierInfoID>
+  </CarrierLine>
+  <CarrierLine>
+    <CarrierID>1</CarrierID>
+    <CarrierInfoID>14</CarrierInfoID>
   </CarrierLine>
 </NewDataSet>

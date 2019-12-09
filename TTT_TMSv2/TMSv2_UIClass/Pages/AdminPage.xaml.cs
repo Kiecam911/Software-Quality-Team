@@ -386,6 +386,7 @@ namespace TMSv2_UIClass.Pages
 
             //Refresh items
             tableRouteView.Items.Refresh();
+            tableView.Items.Refresh();
         }
 
         private void SaveCarrierData_Click(object sender, RoutedEventArgs e)
@@ -494,6 +495,20 @@ namespace TMSv2_UIClass.Pages
                 MessageBox.Show("Database has successfully backed up!", "Alert!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
+        }
+
+        private void RestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataAccess da = DataAccess.Instance();
+
+            if(!da.FullDatabaseRestore())
+            {
+                MessageBox.Show("There was an error in Restoring the Database from the backup files!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBox.Show("Database has been successfully restored!", "Alert!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }
