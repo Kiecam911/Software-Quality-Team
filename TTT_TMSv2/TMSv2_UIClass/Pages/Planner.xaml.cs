@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using TMSv2_DAL;
 using TMSv2_Order;
+using TMSv2_Users;
+using TMSv2_TripPlanner;
 
 namespace TMSv2_UIClass.Pages
 {
@@ -31,9 +33,13 @@ namespace TMSv2_UIClass.Pages
         public string origin;
         public string destination;
 
+        private TMSv2_Users.Planner currentPlanner;
+
+
         public Planner()
         {
             InitializeComponent();
+            currentPlanner = new TMSv2_Users.Planner();
         }
 
         private void activeOrdersButton_Click(object sender, RoutedEventArgs e)
@@ -79,15 +85,42 @@ namespace TMSv2_UIClass.Pages
 
         private void AssignCarrierButton_Click_1(object sender, RoutedEventArgs e)
         {
+            int newTripID = 0;
+
+            string sqlCommand = String.Format(@"INSERT INTO Trips (CarrierID, OrderID, Origin, Destination) VALUES ({0}, {1}, ""{2}"", ""{3}"");", carrierID, orderIDAssignCarrier, origin, destination);
+            string sqlCommand2 = String.Format(@"SELECT LAST_INSERT_ID();");
             MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
+            MySqlCommand cmd = new MySqlCommand(sqlCommand, connection);
             connection.Open();
-            string sqlCommand = "INSERT Trips SET TripID = 56, CarrierID = "+ carrierID+ ", OrderID = "+ orderIDAssignCarrier+", Origin = '"+origin+ "', Destination = '"+destination+"';";
-            MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
+            cmd.ExecuteNonQuery();
 
-            DataSet sd = new DataSet();
-            adapter.Fill(sd, "Orders");
+            cmd.CommandText = sqlCommand2;
+
+            newTripID = (int)(ulong)cmd.ExecuteScalar();
+
             connection.Close();
+
+            // get inserted trip into object
+            // get associated order into object
+            // get associataed carrier into object
+            // link the 3 together
+            // carry out calculations
+            // store results in order
+
+            // get rows from dal
+            DataAccess dal = new DataAccess();
+            DataRow orderRow = dal.GetOrderByID(orderIDAssignCarrier);
+            DataRow tripRow = dal.GetTripByID(newTripID);
+
+            // create objects from rows
+            Order currentOrder = currentPlanner.LoadOrderRow(orderRow);
+            Trip currentTrip = currentPlanner.LoadTripRow(tripRow);
+
+            currentOrder.Trips.Add(currentTrip);
+            currentOrder.CalculateTotalCost(false);
+
+            // DataRow carrier = dal.GetCarrierByID(carrierID);
         }
 
         private void AssignCarrierDatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -98,6 +131,7 @@ namespace TMSv2_UIClass.Pages
             {
                 orderIDAssignCarrier = Convert.ToInt32(row_selected["OrderID"]);
                 origin = row_selected["Origin"].ToString();
+                destination = row_selected["Destination"].ToString();
             }
             loadPotentialCarriers(PricesForCarriers);
         }
@@ -219,7 +253,7 @@ namespace TMSv2_UIClass.Pages
             {
                 carrierID = Convert.ToInt32(row_selected["CarrierID"]);
                 
-                destination = row_selected["DestinationCity"].ToString();
+                // destination = row_selected["DestinationCity"].ToString();
             }
         }
     }

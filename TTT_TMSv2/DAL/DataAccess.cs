@@ -1563,7 +1563,7 @@ namespace TMSv2_DAL
 
         public void UpdateOrderTotals(int orderID, int daysRequired, int totalKM, double totalIncome, double totalExpense)
         {
-            string cmdText = String.Format(@"UPDATE Orders SET DaysRequired = {0}, TotalKm = {1}, TotalIncome = {2}, TotalExpense = {3} WHERE OrderID = {4};", daysRequired, totalKM, totalIncome, totalExpense, orderID);
+            string cmdText = String.Format(@"UPDATE Orders SET DaysRequired = {0}, TotalKm = {1}, TotalIncome = {2}, TotalExpense = {3},  hasTrip = true WHERE OrderID = {4};", daysRequired, totalKM, totalIncome, totalExpense, orderID);
 
             //Connect to variabled database
             ConnectToDatabase();
@@ -1573,6 +1573,75 @@ namespace TMSv2_DAL
             int result = command.ExecuteNonQuery();
             //Close connection
             CloseConnection();
+        }
+
+        public DataRow GetOrderByID(int orderID)
+        {
+            try
+            {
+                string sqlCommand = String.Format(@"SELECT * FROM Orders WHERE OrderID = {0};", orderID);
+
+
+                ConnectToDatabase();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, _Connection);
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
+
+                CloseConnection();
+                return ds.Tables[0].Rows[0];
+            }
+            catch(Exception ex)
+            {
+                Logger.LogToFile(ex.Message);
+                return null;
+            }
+        }
+
+        public DataRow GetTripByID(int tripID)
+        {
+            try
+            {
+                string sqlCommand = String.Format(@"SELECT * FROM Trips WHERE TripID = {0};", tripID);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, _Connection);
+
+
+                ConnectToDatabase();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
+
+                CloseConnection();
+                return ds.Tables[0].Rows[0];
+            }
+            catch (Exception ex)
+            {
+                Logger.LogToFile(ex.Message);
+                return null;
+            }
+        }
+
+        public DataRow GetCarrierByID(int carrierID)
+        {
+            try
+            {
+                string sqlCommand = String.Format(@"SELECT * FROM Carriers WHERE CarrierID = {0};", carrierID);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, _Connection);
+
+
+                ConnectToDatabase();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
+
+                CloseConnection();
+                return ds.Tables[0].Rows[0];
+            }
+            catch (Exception ex)
+            {
+                Logger.LogToFile(ex.Message);
+                return null;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ using TMSv2_Carriers;
 using TMSv2_Contracts;
 using TMSv2_Order;
 using TMSv2_TripPlanner;
+using System.Data;
 
 namespace TMSv2_Users
 {
@@ -95,6 +96,26 @@ namespace TMSv2_Users
         public void GenerateSummaryReport(bool isAllTime)
         {
             throw new Exception("No data");
+        }
+
+
+
+        public Order LoadOrderRow(DataRow orderInfo)
+        {
+            Order order = new Order();
+            order.OrderID = orderInfo.Field<int>("OrderID");
+            return order;
+        }
+
+
+
+        public Trip LoadTripRow(DataRow tripInfo)
+        {
+            Trip trip = new Trip();
+            trip.TripID = tripInfo.Field<int>("TripID");
+            trip.Origin = tripInfo.Field<string>("Origin");
+            trip.Destination = tripInfo.Field<string>("Destination");
+            return trip;
         }
     }
 }
