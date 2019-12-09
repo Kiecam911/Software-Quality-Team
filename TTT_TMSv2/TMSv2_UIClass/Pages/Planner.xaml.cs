@@ -25,6 +25,9 @@ namespace TMSv2_UIClass.Pages
     /// </summary>
     public partial class Planner : Page
     {
+        public int orderID;
+        
+
         public Planner()
         {
             InitializeComponent();
@@ -48,16 +51,16 @@ namespace TMSv2_UIClass.Pages
             Order order = new Order();
             AssignCarrierDatagrid.ItemsSource = order.GetActiveOrders();
 
-            MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
-            string selectQuery = "SELECT CarrierID FROM Carriers";
-            connection.Open();
-            MySqlCommand command = new MySqlCommand(selectQuery, connection);
-            MySqlDataReader reader = command.ExecuteReader();
 
-            while (reader.Read()) //Add BranchID to combo box
-            {
-                CarrierComboBox.Items.Add(reader.GetString("CarrierID"));
-            }
+            MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
+            string sqlCommand = "Select CarrierID, CarrierName FROM Carriers INNER JOIN Orders WHERE OrderID = " + orderID;
+            MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+
+            connection.Open();
+
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "items");
+            AssignCarrierDatagrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["Carriers"] });
             connection.Close();
         }
 
@@ -80,6 +83,21 @@ namespace TMSv2_UIClass.Pages
         {
             ActiveOrders.Visibility = Visibility.Hidden;
             AssignCarrierScreen.Visibility = Visibility.Hidden;
+        }
+
+        private void AssignCarrierButton_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AssignCarrierDatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dg = (DataGrid)sender;
+            DataRowView row_selected = dg.SelectedItem as DataRowView;
+            if (row_selected != null) //Gets contents of row and inserts it into variables
+            {
+                orderID = Convert.ToInt32(row_selected["SKU"]);
+            }
         }
     }
 }
