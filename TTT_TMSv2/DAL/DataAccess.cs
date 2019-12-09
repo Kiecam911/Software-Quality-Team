@@ -1058,7 +1058,29 @@ namespace TMSv2_DAL
             return data;
         }
 
+        public static DataSet GetActiveOrders()
+        {
+            try
+            {
 
+                MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
+                string sqlCommand = "SELECT OrderID, TotalKm, HoursTaken FROM Orders";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+
+
+                connection.Open();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "*");
+                
+                connection.Close();
+                return ds;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
 
 
