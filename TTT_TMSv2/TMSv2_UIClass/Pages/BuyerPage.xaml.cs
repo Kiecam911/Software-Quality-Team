@@ -29,7 +29,7 @@ namespace TMSv2_UIClass.Pages
     /// </summary>
     public partial class BuyerPage : Page
     {
-
+        private Buyer CurrentBuyer;
         private Timer timer;
         string connectionString = "SERVER=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; PORT = 3306 ;" + "DATABASE=" + ConfigurationManager.AppSettings["DatabaseName"] + ";" + "UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + ";" + "PASSWORD=" + ConfigurationManager.AppSettings["DatabasePassword"] + ";";
 
