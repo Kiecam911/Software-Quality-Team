@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using TMSv2_Users;
 using TMSv2_Order;
 using TMSv2_DAL;
+using TMSv2_Logging;
 
 namespace TMSv2_UIClass.Pages
 {
@@ -117,7 +118,7 @@ namespace TMSv2_UIClass.Pages
             {
                 
                 MySqlConnection connection = new MySqlConnection(connectionString);
-                string sqlCommand = "SELECT * FROM Orders";
+                string sqlCommand = "SELECT * FROM Contracts";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
 
@@ -172,24 +173,34 @@ namespace TMSv2_UIClass.Pages
 
         private void acceptButton_Click(object sender, RoutedEventArgs e)
         {
-            DataRowView rows = (DataRowView)NewContractsDataGrid.SelectedItems[0];
+            try
+            {
+                if (NewContractsDataGrid.SelectedItem != null)
+                {
+                    DataRowView rows = (DataRowView)NewContractsDataGrid.SelectedItems[0];
 
-            // get values from selected row
-            string clientName = (string)rows.Row.ItemArray[0];
-            int jobType = (int)rows.Row.ItemArray[1];
-            int quantity = (int)rows.Row.ItemArray[2];
-            string origin = (string)rows.Row.ItemArray[3];
-            string destination = (string)rows.Row.ItemArray[4];
-            int vanType = (int)rows.Row.ItemArray[5];
+                    // get values from selected row
+                    string clientName = (string)rows.Row.ItemArray[0];
+                    int jobType = (int)rows.Row.ItemArray[1];
+                    int quantity = (int)rows.Row.ItemArray[2];
+                    string origin = (string)rows.Row.ItemArray[3];
+                    string destination = (string)rows.Row.ItemArray[4];
+                    int vanType = (int)rows.Row.ItemArray[5];
 
-            // create order from it
-            Order newOrder = CurrentBuyer.CreateOrder(clientName, jobType, quantity, origin, destination, vanType);
+                    // create order from it
+                    Order newOrder = CurrentBuyer.CreateOrder(clientName, jobType, quantity, origin, destination, vanType);
 
-            // insert the new contract into the database for record, getting contract ID
-            DataAccess dal = new DataAccess();
-            int contractID = dal.InsertNewContract(clientName, jobType, quantity, origin, destination, vanType);
+                    // insert the new contract into the database for record, getting contract ID
+                    DataAccess dal = new DataAccess();
+                    int contractID = dal.InsertNewContract(clientName, jobType, quantity, origin, destination, vanType);
 
-            dal.InsertNewOrder(contractID);
+                    dal.InsertNewOrder(contractID);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogToFile("Error accepting contract - " + ex.Message);
+            }
         }
     }
 }
