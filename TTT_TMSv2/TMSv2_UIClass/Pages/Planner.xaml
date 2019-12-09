@@ -1,4 +1,4 @@
-﻿<Page x:Class="TMSv2_UIClass.Pages.AdminPage"
+﻿<Page x:Class="TMSv2_UIClass.Pages.Planner"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,13 +7,13 @@
       xmlns:local="clr-namespace:TMSv2_UIClass.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="390" d:DesignWidth="785"
-      Title="AdminPage">
+      Title="Planner Page">
 
 
     <Grid Background="LightGray">
         <Grid x:Name="panelHeader" VerticalAlignment="Top" Height="52" Background="#FF047FD4">
 
-            <TextBlock Text="Admin Settings" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic" FontSize="20" FontWeight="Bold" Foreground="White"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic" FontSize="20" FontWeight="Bold" Foreground="White"><Run Text="Planner Home"/><LineBreak/><Run/></TextBlock>
 
         </Grid>
 
@@ -27,34 +27,30 @@
                     </ListViewItem>
                     <ListViewItem Height="29">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="configButton" Content="TMS Configuration" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="configButton_Click" Height="27" Width="146"/>
+                            <Button x:Name="activeOrdersButton" Content="View Active Orders" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Height="27" Width="146" Click="activeOrdersButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="30">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="LogButton" Content="View Logs" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="145" Height="26" Click="LogButton_Click"/>
+                            <Button x:Name="assignCarrierButton" Content="Assign Carrier(s)" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="145" Height="26" Click="assignCarrierButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="30">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="AlterTableButton" Content="Alter Carrier Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="AlterTable_Click"/>
+                            <Button x:Name="completeOrderButton" Content="Complete Order" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="completeOrderButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="30">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="AlterRoutesButton" Content="Alter Route Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="AlterRoutesButton_Click"/>
+                            <Button x:Name="generateReportButton" Content="Generate Report(s)" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="generateReportButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="30">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="AlterRatesButton" Content="Alter Rates Data" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="AlterRatesButton_Click"/>
+                            <Button x:Name="increaseTimeButton" Content="Next Day" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="149" Height="28" Click="increaseTimeButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="30">
-                        <StackPanel Orientation="Horizontal">
-                            <Button x:Name="BackupButton" Content="Backup Database" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="144" Height="27" Click="BackupButton_Click"/>
-                        </StackPanel>
-                    </ListViewItem>
+                    
                 </ListView>
             </StackPanel>
         </Grid>

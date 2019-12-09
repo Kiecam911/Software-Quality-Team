@@ -118,7 +118,7 @@ namespace TMSv2_TripPlanner
         ///
         /// \return List Destination Returns a list of the rows of routes in the database
         ///
-        public List<Routes> GetRoutes()
+        public static List<Routes> GetRoutes()
         {
             // create objects to hold information from DAL
             DataAccess tempDA = DataAccess.Instance();
@@ -148,7 +148,7 @@ namespace TMSv2_TripPlanner
             return routesList;
         }
 
-        public bool UpdateRoutesTable(List<Routes> destList)
+        public static bool UpdateRoutesTable(List<Routes> destList)
         {
             //Variables
             DataAccess da = DataAccess.Instance();

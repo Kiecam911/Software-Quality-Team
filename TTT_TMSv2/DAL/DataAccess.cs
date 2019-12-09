@@ -47,6 +47,8 @@ namespace TMSv2_DAL
         }
 
         ///
+        /// \fn GetContracts()
+        /// 
         /// \brief To retrieve the contracts from the Contract Marketplace
         /// \details <b>Details</b>
         ///
@@ -83,6 +85,8 @@ namespace TMSv2_DAL
         }
 
         ///
+        /// \fn ConnectToDatabase()
+        /// 
         /// \brief Open a Connection to the variabled database
         /// \details <b>Details</b>
         ///
@@ -118,6 +122,8 @@ namespace TMSv2_DAL
         }
 
         ///
+        /// \fn CloseConnection()
+        /// 
         /// \brief Closes an open Connection to the variabled database
         /// \details <b>Details</b>
         ///
@@ -133,6 +139,21 @@ namespace TMSv2_DAL
             _Connection.Close();
         }
 
+
+        ///
+        /// \fn GetCarrierData()
+        /// 
+        /// \brief Get All Relevant Data to the Carrier from the Database
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get all relevant <b>Carrier</b> Data (To the <b>Carrier</b> Class)
+        /// and stores the data in a dataset to be returned and unpacked by the <b>Carrier</b> class
+        ///
+        /// \param none <b>void</b> - None
+        ///
+        /// \return DataSet - Returns the information for the <b>Carrier</b> class
+        /// 
+        ///
         public DataSet GetCarrierData()
         {
             //Variables
@@ -164,7 +185,27 @@ namespace TMSv2_DAL
             return data;
         }
 
-
+        ///
+        /// \fn UpdateCarriers(int cID, string cName, int ciID, string cDestCity, int FTLA, int LTLA, double FTLRate, double LTLRate, double reefCharge)
+        /// 
+        /// \brief Update all Relevant database tables with New Carrier Data
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to update all relevant tables within the database that are related to the <b>Carrier</b>
+        /// class using the specified function parameters as the information to update the database with
+        ///
+        /// \param cID <b>int</b> - Carrier's ID
+        /// \param cName <b>string</b> - Carrier's name
+        /// \param ciID <b>int</b> - Carrier's Depot ID (The Database's CarrierInfoID)
+        /// \param cDestCity <b>string</b> - Carrier's City
+        /// \param FTLA <b>int</b> - Carrier's Full Truck Load (FTL) Availability
+        /// \param LTLA <b>int</b> - Carrier's Less Than Load (LTL) Availability
+        /// \param FTLRate <b>double</b> - Carrier's Full Truck Load (FTL) Rate
+        /// \param LTLRate <b>double</b> - Carrier's Less Than Load (LTL) Rate
+        /// \param reefCharge <b>double</b> - Carrier's Refrigirated Cargo charge
+        ///
+        /// \return bool - Returns the success or failure status
+        /// 
         public bool UpdateCarriers(int cID, string cName, int ciID, string cDestCity, int FTLA, int LTLA, double FTLRate, double LTLRate, double reefCharge)
         {
             //Connect to variabled database
@@ -211,7 +252,25 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn AddDepotToCarriers(int cID, string cDestCity, int FTLA, int LTLA, double FTLRate, double LTLRate, double reefCharge)
+        /// 
+        /// \brief Add new depot data to relevant database tables
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to add new depot data to relevant tables within the database that are related 
+        /// to the <b>Carrier</b> class's Depots using the specified function parameters as the information to update the database with
+        ///
+        /// \param cID <b>int</b> - Carrier's ID
+        /// \param cDestCity <b>string</b> - Carrier's City
+        /// \param FTLA <b>int</b> - Carrier's Full Truck Load (FTL) Availability
+        /// \param LTLA <b>int</b> - Carrier's Less Than Load (LTL) Availability
+        /// \param FTLRate <b>double</b> - Carrier's Full Truck Load (FTL) Rate
+        /// \param LTLRate <b>double</b> - Carrier's Less Than Load (LTL) Rate
+        /// \param reefCharge <b>double</b> - Carrier's Refrigirated Cargo charge
+        ///
+        /// \return bool - Returns the success or failure status
+        /// 
         public bool AddDepotToCarriers(int cID, string cDestCity, int FTLA, int LTLA, double FTLRate, double LTLRate, double reefCharge)
         {
             //Connect to variabled database
@@ -300,7 +359,19 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn DeleteFromCarriers(int ciID)
+        /// 
+        /// \brief Add new depot data to relevant database tables
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to add new depot data to relevant tables within the database that are related 
+        /// to the <b>Carrier</b> class's Depots using the specified function parameters as the information to update the database with
+        ///
+        /// \param ciID <b>int</b> - Carrier's Depot ID (The Database's CarrierInfoID)
+        ///
+        /// \return bool - Returns the success or failure status
+        /// 
         public bool DeleteFromCarriers(int ciID)
         {
             //Connect to variabled database
@@ -340,7 +411,20 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn GetRouteTable()
+        /// 
+        /// \brief Get All Relevant Data to the Routes class from the Database
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get all relevant <b>Routes</b> Data (To the <b>Routes</b> Class)
+        /// and stores the data in a dataset to be returned and unpacked by the <b>Routes</b> class
+        ///
+        /// \param none <b>void</b> - None
+        ///
+        /// \return DataSet - Returns the information for the <b>Routes</b> class
+        /// 
+        ///
         public DataSet GetRouteTable()
         {
             //Variables
@@ -405,7 +489,20 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn GetRatesTable()
+        /// 
+        /// \brief Get All Relevant Data to the OSHTRates class from the Database
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get all relevant <b>OSHTRates</b> Data (To the <b>OSHTRates</b> Class)
+        /// and stores the data in a dataset to be returned and unpacked by the <b>OSHTRates</b> class
+        ///
+        /// \param none <b>void</b> - None
+        ///
+        /// \return DataSet - Returns the information for the <b>OSHTRates</b> class
+        /// 
+        ///
         public DataSet GetRatesTable()
         {
             //Variables
@@ -559,6 +656,99 @@ namespace TMSv2_DAL
             return true;
         }
 
+        public bool FullDatabaseRestore()
+        {
+            //Create a file stream for each table in the database
+            DataSet data = new DataSet();
+
+            try
+            {
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Order Table
+                data = GetOrdersTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName1"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Users Table
+                data = GetUsersTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName2"]));
+
+                //Get Data From the Route Table
+                data = GetRouteTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName3"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the OSHTRates Table
+                data = GetRatesTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName4"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Trips Table
+                data = GetTripsTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName5"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Carriers Table
+                data = GetCarriersTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName6"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the CarrierLine Table
+                data = GetCarrierLineTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName7"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the CarrierInfo Table
+                data = GetCarrierInfoTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName8"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Contracts Table
+                data = GetContractsTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName9"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Invoices Table
+                data = GetInvoicesTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName10"]));
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Get Data From the Invoices Table
+                data = GetCustomersTable();
+                //Write Data To file to save it
+                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName11"]));
+            }
+            catch (SecurityException e)
+            {
+                //Log information about the failure to the log file and return false failure
+                Logger.LogToFile("There was an error in backup the database of type " + e.GetType() + ". From the source: " + e.Source + " with the message '" + e.Message + "'.");
+
+                return false;
+            }
+
+            return true;
+        }
+
 
         private DataSet GetUsersTable()
         {
@@ -585,6 +775,45 @@ namespace TMSv2_DAL
             return data;
         }
 
+        public bool UpdateUsersTable(DataSet data)
+        {
+            //Variables
+            DataTable dataTable = data.Tables[0];
+            DataRowCollection dataRows = dataTable.Rows;
+
+            //Create query string
+            string query = @"UPDATE Users
+                            SET 
+                                UserID = @ID,
+                                Password = @password,
+                                Permission = @permission; ";
+
+            //Create command
+            var command = new MySqlCommand(query, _Connection);
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            foreach (DataRow row in dataRows)
+            {
+                //Load command with parameters
+                command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                command.Parameters.AddWithValue("@password", row.Field<int>(1));
+                command.Parameters.AddWithValue("@permission", row.Field<int>(2));
+
+                //Check if the command executed Properly; close and return failure if not
+                if (0 == command.ExecuteNonQuery())
+                {
+                    CloseConnection();
+                    return false;
+                }
+            }
+
+            //Close and return success
+            CloseConnection();
+            return true;
+        }
+
         private DataSet GetOrdersTable()
         {
             //Variables
@@ -609,6 +838,50 @@ namespace TMSv2_DAL
             //Return dataset
             return data;
         }
+
+
+        public bool UpdateTripsTable(DataSet data)
+        {
+            //Variables
+            DataTable dataTable = data.Tables[0];
+            DataRowCollection dataRows = dataTable.Rows;
+
+            //Create query string
+            string query = @"UPDATE Trips
+                            SET 
+                                TripID = @ID, CarrierID = @cID, OrderID = @oID, Origin = @Origin, Destination = @dest, TotalKm = @Km, HoursTaken = @hrs, Completed = @completed; ";
+
+            //Create command
+            var command = new MySqlCommand(query, _Connection);
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            foreach (DataRow row in dataRows)
+            {
+                //Load command with parameters
+                command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                command.Parameters.AddWithValue("@cID", row.Field<int>(1));
+                command.Parameters.AddWithValue("@oID", row.Field<int>(2));
+                command.Parameters.AddWithValue("@Origin", row.Field<int>(3));
+                command.Parameters.AddWithValue("@dest", row.Field<int>(4));
+                command.Parameters.AddWithValue("@Km", row.Field<int>(5));
+                command.Parameters.AddWithValue("@hrs", row.Field<int>(6));
+                command.Parameters.AddWithValue("@completed", row.Field<int>(7));
+
+                //Check if the command executed Properly; close and return failure if not
+                if (0 == command.ExecuteNonQuery())
+                {
+                    CloseConnection();
+                    return false;
+                }
+            }
+
+            //Close and return success
+            CloseConnection();
+            return true;
+        }
+
 
         private DataSet GetTripsTable()
         {

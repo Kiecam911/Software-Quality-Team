@@ -135,7 +135,7 @@ namespace TMSv2_TripPlanner
         {
             //Variables
             Routes tempRoutes = new Routes();
-            List<Routes> allRoutes = tempRoutes.GetRoutes();
+            List<Routes> allRoutes = Routes.GetRoutes();
 
             // find destination by string name and assign
             foreach (Routes d in allRoutes)
@@ -157,7 +157,7 @@ namespace TMSv2_TripPlanner
         {
             // start at the origin
             Routes currentCity = Origin;
-            // List<Routes> allRoutes = currentCity.GetRoutes();           //Gets all routes from route table in database
+            List<Routes> allRoutes = Routes.GetRoutes();           //Gets all routes from route table in database
             int direction = 0;
 
             if (Destination.RouteID < Origin.RouteID)
@@ -202,12 +202,24 @@ namespace TMSv2_TripPlanner
                 else if (direction == kGoingWest)
                 {
                     // move west 1 city
-                    currentCity = currentCity.WestDestination;
+                    foreach(Routes r in allRoutes)
+                    {
+                        if(currentCity.WestDestination == r.City)
+                        {
+                            currentCity = r;
+                        }
+                    }
                 }
                 else if (direction == kGoingEast)
                 {
                     // move east 1 city
-                    currentCity = currentCity.EastDestination;
+                    foreach (Routes r in allRoutes)
+                    {
+                        if (currentCity.EastDestination == r.City)
+                        {
+                            currentCity = r;
+                        }
+                    }
                 }
                 else if (currentCity == null)
                 {
