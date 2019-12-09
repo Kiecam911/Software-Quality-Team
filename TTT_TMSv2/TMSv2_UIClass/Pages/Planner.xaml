@@ -61,15 +61,15 @@
             <DataGrid x:Name="ActiveOrderDataGrid" HorizontalAlignment="Left" Height="296" Margin="178,67,0,0" VerticalAlignment="Top" Width="586" Background="LightGray" BorderBrush="{x:Null}" AlternatingRowBackground="#FF047FD4" VerticalGridLinesBrush="{x:Null}" GridLinesVisibility="Horizontal"/>
         </Grid>
 
-        <Grid x:Name="AssignCarrierScreen" Visibility="Hidden">
+        <Grid x:Name="AssignCarrierScreen" Visibility="Visible">
             <Rectangle Fill="LightGray" HorizontalAlignment="Left" Height="338" Margin="160,52,0,0" VerticalAlignment="Top" Width="625"/>
             <DataGrid x:Name="AssignCarrierDatagrid" HorizontalAlignment="Left" Height="118" Margin="176,67,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4" SelectionChanged="AssignCarrierDatagrid_SelectionChanged"/>
             <Button x:Name="AssignCarrierButton" Content="Assign" HorizontalAlignment="Left" Margin="631,339,0,0" VerticalAlignment="Top" Width="134" Height="32" Background="#FF047FD4" Foreground="White" Click="AssignCarrierButton_Click_1"/>
             <Label Content="Select an order from the table, and then choose one of the supplied carriers&#xD;&#xA;followed by assign to assign a carrier to an order." HorizontalAlignment="Left" Margin="176,329,0,0" VerticalAlignment="Top" Foreground="#FF047FD4"/>
-            <DataGrid x:Name="PricesForCarriers" HorizontalAlignment="Left" Height="118" Margin="176,185,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4"/>
+            <DataGrid x:Name="PricesForCarriers" HorizontalAlignment="Left" Height="118" Margin="176,185,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4" SelectionChanged="PricesForCarriers_SelectionChanged"/>
         </Grid>
 
-        <Grid x:Name="CompleteOrderScreen" Visibility="Visible">
+        <Grid x:Name="CompleteOrderScreen" Visibility="Hidden">
             <DataGrid x:Name="CompleteOrdersDatagrid" HorizontalAlignment="Left" Height="236" Margin="176,67,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4" SelectionChanged="CompleteOrdersDatagrid_SelectionChanged"/>
 
 

@@ -27,7 +27,9 @@ namespace TMSv2_UIClass.Pages
     {
         public int orderIDAssignCarrier;
         public int orderIDCompleteOrder;
-        
+        public int carrierID;
+        public string origin;
+        public string destination;
 
         public Planner()
         {
@@ -47,20 +49,7 @@ namespace TMSv2_UIClass.Pages
             resetView();
             AssignCarrierScreen.Visibility = Visibility.Visible;
 
-            Order order = new Order();
-            AssignCarrierDatagrid.ItemsSource = order.GetActiveOrders();
-
-
-            MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
-            string sqlCommand = "Select CarrierID, CarrierName FROM Carriers INNER JOIN Orders WHERE OrderID = " + orderIDAssignCarrier;
-            MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
-
-            connection.Open();
-
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "items");
-            AssignCarrierDatagrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["Carriers"] });
-            connection.Close();
+            loadCarrierAssignmentTable(AssignCarrierDatagrid);
         }
 
         private void completeOrderButton_Click(object sender, RoutedEventArgs e)
@@ -90,7 +79,15 @@ namespace TMSv2_UIClass.Pages
 
         private void AssignCarrierButton_Click_1(object sender, RoutedEventArgs e)
         {
+            MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
+            connection.Open();
+            string sqlCommand = "INSERT Trips SET TripID = 56, CarrierID = "+ carrierID+ ", OrderID = "+ orderIDAssignCarrier+", Origin = '"+origin+ "', Destination = '"+destination+"';";
+            MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
+
+            DataSet sd = new DataSet();
+            adapter.Fill(sd, "Orders");
+            connection.Close();
         }
 
         private void AssignCarrierDatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -100,7 +97,9 @@ namespace TMSv2_UIClass.Pages
             if (row_selected != null) //Gets contents of row and inserts it into variables
             {
                 orderIDAssignCarrier = Convert.ToInt32(row_selected["OrderID"]);
+                origin = row_selected["Origin"].ToString();
             }
+            loadPotentialCarriers(PricesForCarriers);
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
@@ -168,6 +167,60 @@ namespace TMSv2_UIClass.Pages
             }
         }
 
+        private void loadCarrierAssignmentTable(DataGrid grid)
+        {
+            try
+            {
+                string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
+                MySqlConnection connection = new MySqlConnection(ConnectionString);
+                string sqlCommand = "SELECT Orders.OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination FROM Orders INNER JOIN Contracts WHERE hasTrip = 0";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
+                connection.Open();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "items");
+                grid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["items"] });
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        private void loadPotentialCarriers(DataGrid grid)
+        {
+            try
+            {
+                string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
+                MySqlConnection connection = new MySqlConnection(ConnectionString);
+                string sqlCommand = "SELECT *, CarrierName FROM CarrierInfo INNER JOIN Carriers ON Carriers.CarrierID = CarrierInfo.CarrierID WHERE CarrierInfo.DestinationCity = '" + origin + "';";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+
+                connection.Open();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "items");
+                grid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["items"] });
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        private void PricesForCarriers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dg = (DataGrid)sender;
+            DataRowView row_selected = dg.SelectedItem as DataRowView;
+            if (row_selected != null) //Gets contents of row and inserts it into variables
+            {
+                carrierID = Convert.ToInt32(row_selected["CarrierID"]);
+                
+                destination = row_selected["Destination"].ToString();
+            }
+        }
     }
 }
