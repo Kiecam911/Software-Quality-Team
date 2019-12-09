@@ -13,46 +13,48 @@ namespace TMSv2_TripPlanner
 
         public static void InitializeDestinations()
         {
-            Routes dWindsor = new Routes(0, "Windsor", 191, 2.5, "END", "London");
-            Routes dLondon = new Routes(1, "London", 128, 1.75, "Windsor", "Hamilton");
-            Routes dHamilton = new Routes(2, "Hamilton", 68, 1.25, "London", "Toronto");
-            Routes dToronto = new Routes(3, "Toronto", 60, 1.3, "Hamilton", "Oshawa");
-            Routes dOshawa = new Routes(4, "Oshawa", 134, 1.65, "Toronto", "Belleville");
-            Routes dBelleville = new Routes(5, "Belleville", 82, 1.2, "Oshawa", "Kingston");
-            Routes dKingston = new Routes(6, "Kingston", 196, 2.5, "Ottawa", "Belleville");
-            Routes dOttawa = new Routes(7, "Ottawa", 0, 0, "Kingston", "END");
+            AllCities = new List<Routes>();
 
-            //dWindsor.WestDest = null;
-            //dWindsor.EastDest = dLondon;
-            //AllCities.Add(dWindsor);
+            Routes rWindsor = new Routes(0, "Windsor", 191, 2.5);
+            Routes rLondon = new Routes(1, "London", 128, 1.75);
+            Routes rHamilton = new Routes(2, "Hamilton", 68, 1.25);
+            Routes rToronto = new Routes(3, "Toronto", 60, 1.3);
+            Routes rOshawa = new Routes(4, "Oshawa", 134, 1.65);
+            Routes rBelleville = new Routes(5, "Belleville", 82, 1.2);
+            Routes rKingston = new Routes(6, "Kingston", 196, 2.5);
+            Routes rOttawa = new Routes(7, "Ottawa", 0, 0);
 
-            //dLondon.WestDest = dWindsor;
-            //dLondon.EastDest = dHamilton;
-            //AllCities.Add(dLondon);
+            rWindsor.WestDestination = null;
+            rWindsor.EastDestination = rLondon;
+            AllCities.Add(rWindsor);
 
-            //dHamilton.WestDest = dLondon;
-            //dHamilton.EastDest = dToronto;
-            //AllCities.Add(dHamilton);
+            rLondon.WestDestination = rWindsor;
+            rLondon.EastDestination = rHamilton;
+            AllCities.Add(rLondon);
 
-            //dToronto.WestDest = dHamilton;
-            //dToronto.EastDest = dOshawa;
-            //AllCities.Add(dToronto);
+            rHamilton.WestDestination = rLondon;
+            rHamilton.EastDestination = rToronto;
+            AllCities.Add(rHamilton);
 
-            //dOshawa.WestDest = dToronto;
-            //dOshawa.EastDest = dBelleville;
-            //AllCities.Add(dOshawa);
+            rToronto.WestDestination = rHamilton;
+            rToronto.EastDestination = rOshawa;
+            AllCities.Add(rToronto);
 
-            //dBelleville.WestDest = dOshawa;
-            //dBelleville.EastDest = dKingston;
-            //AllCities.Add(dBelleville);
+            rOshawa.WestDestination = rToronto;
+            rOshawa.EastDestination = rBelleville;
+            AllCities.Add(rOshawa);
 
-            //dKingston.WestDest = dBelleville;
-            //dKingston.EastDest = dOttawa;
-            //AllCities.Add(dKingston);
+            rBelleville.WestDestination = rOshawa;
+            rBelleville.EastDestination = rKingston;
+            AllCities.Add(rBelleville);
 
-            //dOttawa.WestDest = dKingston;
-            //dOttawa.EastDest = null;
-            //AllCities.Add(dOttawa);
+            rKingston.WestDestination = rBelleville;
+            rKingston.EastDestination = rOttawa;
+            AllCities.Add(rKingston);
+
+            rOttawa.WestDestination = rKingston;
+            rOttawa.EastDestination = null;
+            AllCities.Add(rOttawa);
         }
 
 

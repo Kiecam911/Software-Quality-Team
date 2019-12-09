@@ -105,6 +105,17 @@ namespace TMSv2_TripPlanner
         ///
         /// \return As this is a <i>constructor</i> for the Trip class, nothing is returned
         ///
+        public Trip()
+        {
+            _TripID = 0;
+            TripCarrier = null;
+            _TotalDistanceKm = 0;
+            _HoursTaken = TimeSpan.FromHours(0.0);
+            IsCompleted = false;
+        }
+
+
+
         public Trip(string origin, string destination)
         {
             _TripID = 0;

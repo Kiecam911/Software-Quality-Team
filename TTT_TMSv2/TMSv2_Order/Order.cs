@@ -114,6 +114,19 @@ namespace TMSv2_Order
         ///
         /// \return As this is a <i>constructor</i> for the Order class, nothing is returned
         ///
+        public Order()
+        {
+            _OrderID = 0;
+            OrderContract = null;
+            Cities = null;
+            Trips = null;
+            _TotalKm = 0;
+            _HoursTaken = TimeSpan.FromHours(0.0);
+            IsCompleted = false;
+        }
+
+
+
         public Order(Contract c)
         {
             _OrderID = 0;
