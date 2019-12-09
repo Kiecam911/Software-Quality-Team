@@ -138,17 +138,6 @@ namespace TMSv2_Order
             IsCompleted = false;
         }
 
-        public Order()
-        {
-            _OrderID = 0;
-            OrderContract = null;
-            Cities = null;
-            Trips = null;
-            _TotalKm = 0;
-            _HoursTaken = TimeSpan.FromHours(0.0);
-            IsCompleted = false;
-        }
-
         public void CalculateTotalCost(bool isFTL)
         {
             double carrierRatePerKM = 0;
