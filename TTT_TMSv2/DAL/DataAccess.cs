@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using TMSv2_Logging;
 using System.Security;
+using System.Windows.Forms;
 
 namespace TMSv2_DAL
 {
@@ -1472,19 +1473,20 @@ namespace TMSv2_DAL
             {
 
                 MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
-                string sqlCommand = "SELECT OrderID, TotalKm, HoursTaken FROM Orders";
+                string sqlCommand = "SELECT OrderID, Contracts.ContractID, TotalKm, HoursTaken FROM Orders INNER JOIN Contracts WHERE Orders.IsActive = 1";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
                 connection.Open();
 
                 DataSet ds = new DataSet();
-                adapter.Fill(ds, "*");
+                adapter.Fill(ds, "Orders");
                 
                 connection.Close();
                 return ds;
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show(e.ToString());
                 return null;
             }
         }
@@ -1553,7 +1555,7 @@ namespace TMSv2_DAL
             // execute commands
             MySqlCommand command = new MySqlCommand(cmdText, _Connection);
             int result = command.ExecuteNonQuery();
-
+            MessageBox.Show("Order added");
             //Close connection
             CloseConnection();
         }

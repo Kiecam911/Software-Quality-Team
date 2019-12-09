@@ -248,10 +248,9 @@ namespace TMSv2_Order
 
                 //Fill destination
                 tempOrder.OrderID = currentRow.Field<int>(0);
-                tempOrder.OrderContract.ContractID = currentRow.Field<int>(1);
-                tempOrder.TotalKm = currentRow.Field<int>(2);
-                tempOrder.HoursTaken = currentRow.Field<TimeSpan>(3);
-                tempOrder.FinalCarrierPrice = currentRow.Field<int>(4);
+                tempOrder.TotalKm = currentRow.Field<int>(1);
+                tempOrder.HoursTaken = currentRow.Field<TimeSpan>(2);
+                tempOrder.FinalCarrierPrice = currentRow.Field<int>(3);
                
 
                 //Add to list
@@ -277,10 +276,9 @@ namespace TMSv2_Order
 
                 //Fill destination
                 tempOrder.OrderID = currentRow.Field<int>(0);
-                tempOrder.OrderContract.ContractID = currentRow.Field<int>(1);
-                tempOrder.TotalKm = currentRow.Field<int>(2);
-                tempOrder.HoursTaken = currentRow.Field<TimeSpan>(3);
-                tempOrder.FinalCarrierPrice = currentRow.Field<int>(4);
+                tempOrder.TotalKm = currentRow.Field<int>(1);
+                tempOrder.HoursTaken = currentRow.Field<TimeSpan>(2);
+                tempOrder.FinalCarrierPrice = currentRow.Field<int>(3);
 
 
                 //Add to list
