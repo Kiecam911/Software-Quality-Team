@@ -1025,33 +1025,33 @@ namespace UnitTesting
         * \test <b>Actual:</b>
         * 
         */
-        [TestMethod]
-        public void CustomerExceptionTests()
-        {
-            Customer Cx = new Customer();
+        //[TestMethod]
+        //public void CustomerExceptionTests()
+        //{
+        //    Customer Cx = new Customer();
 
-            //Test for setting customer name
-            try
-            {
-                Cx.setCustomerName("");
-                Assert.AreEqual("none", Cx.getCxName());
-            }
-            catch
-            {
-                Console.WriteLine("Error handling for customer name failed");
-            }
+        //    //Test for setting customer name
+        //    try
+        //    {
+        //        Cx.setCustomerName("");
+        //        Assert.AreEqual("none", Cx.getCxName());
+        //    }
+        //    catch
+        //    {
+        //        Console.WriteLine("Error handling for customer name failed");
+        //    }
 
-            //Test for customer ID
-            try
-            {
-                Cx.setCustomerID(-5);
-                Assert.AreEqual(0, Cx.getCxID());
-            }
-            catch
-            {
-                Console.WriteLine("Error handling for customerID failed");
-            }
-        }
+        //    //Test for customer ID
+        //    try
+        //    {
+        //        Cx.setCustomerID(-5);
+        //        Assert.AreEqual(0, Cx.getCxID());
+        //    }
+        //    catch
+        //    {
+        //        Console.WriteLine("Error handling for customerID failed");
+        //    }
+        //}
 
         /**
         * \test 

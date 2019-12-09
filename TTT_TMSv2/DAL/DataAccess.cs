@@ -1060,7 +1060,50 @@ namespace TMSv2_DAL
 
 
 
+        public int InsertNewContract(string clientName, int jobType, int quantity, string origin, string destination, int vanType)
+        {
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet id = new DataSet();
+
+            int contractID = 0;
+
+            string cmd1 = String.Format(@"INSERT INTO Contracts (Client_Name, Job_Type, Quantity, Origin, Destination, Van_Type)
+                            VALUES (""{0}"", {1}, {2}, ""{3}"", ""{4}"", {5});", clientName, jobType, quantity, origin, destination, vanType);
+            string cmd2 = @"SELECT LAST_INSERT_ID();";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            // execute commands
+            MySqlCommand command = new MySqlCommand(cmd1, _Connection);
+            int result = command.ExecuteNonQuery();
+            command.CommandText = cmd2;
+            ulong temp = (ulong)command.ExecuteScalar();
+            contractID = (int)temp;
+
+            //Close connection
+            CloseConnection();
+
+            return contractID;
+        }
 
 
+
+        public void InsertNewOrder(int contractID)
+        {
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            string cmdText = String.Format(@"INSERT INTO Orders (ContractID, IsActive) VALUES ({0}, true);", contractID);
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            // execute commands
+            MySqlCommand command = new MySqlCommand(cmdText, _Connection);
+            int result = command.ExecuteNonQuery();
+
+            //Close connection
+            CloseConnection();
+        }
     }
 }

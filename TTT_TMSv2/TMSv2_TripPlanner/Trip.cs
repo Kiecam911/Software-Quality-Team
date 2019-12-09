@@ -157,7 +157,7 @@ namespace TMSv2_TripPlanner
         {
             // start at the origin
             Routes currentCity = Origin;
-            List<Routes> allRoutes = Routes.GetRoutes();           //Gets all routes from route table in database
+            // List<Routes> allRoutes = Routes.GetRoutes();           //Gets all routes from route table in database
             int direction = 0;
 
             if (Destination.RouteID < Origin.RouteID)
@@ -202,24 +202,30 @@ namespace TMSv2_TripPlanner
                 else if (direction == kGoingWest)
                 {
                     // move west 1 city
-                    foreach(Routes r in allRoutes)
-                    {
-                        if(currentCity.WestDestination == r.City)
-                        {
-                            currentCity = r;
-                        }
-                    }
+                    //foreach(Routes r in allRoutes)
+                    //{
+                    //    if(currentCity.WestDestinationName == r.City)
+                    //    {
+                    //        currentCity = r;
+                    //    }
+                    //}
+
+                    //temp fix:
+                    currentCity = currentCity.WestDestination;
                 }
                 else if (direction == kGoingEast)
                 {
                     // move east 1 city
-                    foreach (Routes r in allRoutes)
-                    {
-                        if (currentCity.EastDestination == r.City)
-                        {
-                            currentCity = r;
-                        }
-                    }
+                    //foreach (Routes r in allRoutes)
+                    //{
+                    //    if (currentCity.EastDestinationName == r.City)
+                    //    {
+                    //        currentCity = r;
+                    //    }
+                    //}
+
+                    // temp fix:
+                    currentCity = currentCity.EastDestination;
                 }
                 else if (currentCity == null)
                 {

@@ -11,7 +11,7 @@
 
 
     <Grid Background="LightGray">
-        <Grid x:Name="panelHeader" VerticalAlignment="Top" Height="52" Background="#FF047FD4">
+        <!--<Grid x:Name="panelHeader" VerticalAlignment="Top" Height="52" Background="#FF047FD4">
 
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic" FontSize="20" FontWeight="Bold" Foreground="White"><Run Text="Planner Home"/><LineBreak/><Run/></TextBlock>
 
@@ -136,6 +136,6 @@
             <Label Content="Alter OSHT Rates" HorizontalAlignment="Left" Margin="169,60,0,0" VerticalAlignment="Top" Foreground="#FF047FD4" Background="{x:Null}" FontSize="15"/>
             <DataGrid x:Name="tableRatesView" HorizontalAlignment="Left" Height="260" Margin="178,112,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="None" GridLinesVisibility="Horizontal" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" AlternatingRowBackground="#FF047FD4" RowBackground="LightGray"/>
             <Button Content="Save Changes" HorizontalAlignment="Left" Margin="625,60,0,0" VerticalAlignment="Top" Width="119" Height="26" Background="#FF047FD4" BorderBrush="#FF95DEEA" Foreground="White" Click="SaveRates_Click"/>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Page>
