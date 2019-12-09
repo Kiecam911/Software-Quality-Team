@@ -87,8 +87,8 @@
             <DataGrid x:Name="PricesForCarriers" HorizontalAlignment="Left" Height="118" Margin="176,185,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4"/>
         </Grid>
 
-        <Grid x:Name="CompleteOrderScreen" Visibility="Visible">
-            <DataGrid x:Name="CompleteOrdersDatagrid" HorizontalAlignment="Left" Height="236" Margin="176,67,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4">
+        <Grid x:Name="CompleteOrderScreen" Visibility="Hidden">
+            <DataGrid x:Name="CompleteOrdersDatagrid" HorizontalAlignment="Left" Height="236" Margin="176,67,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4" SelectionChanged="CompleteOrdersDatagrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="OrderID" Binding="{Binding Path=OrderID}"/>
                     <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="ContractID" Binding="{Binding Path=ContractID}"/>
@@ -97,7 +97,7 @@
                     <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Final Carrier Price" Binding="{Binding Path=FinalCarrierPrice}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Content="Complete Order" HorizontalAlignment="Left" Margin="644,340,0,0" VerticalAlignment="Top" Width="121" Height="40" Background="#FF047FD4" Foreground="White" BorderBrush="{x:Null}"/>
+            <Button x:Name="CompleteOrderButton" Content="Complete Order" HorizontalAlignment="Left" Margin="644,340,0,0" VerticalAlignment="Top" Width="121" Height="40" Background="#FF047FD4" Foreground="White" BorderBrush="{x:Null}" Click="CompleteOrderButton_Click_1"/>
         </Grid>
 
         <Grid x:Name="AlterRoutesGrid" Visibility="Hidden">
