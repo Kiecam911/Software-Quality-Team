@@ -17,6 +17,10 @@ using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
+using TMSv2_Users;
+using TMSv2_Order;
+using TMSv2_DAL;
+
 namespace TMSv2_UIClass.Pages
 {
     
@@ -25,13 +29,14 @@ namespace TMSv2_UIClass.Pages
     /// </summary>
     public partial class BuyerPage : Page
     {
-
+        private Buyer CurrentBuyer;
         private Timer timer;
         string connectionString = "SERVER=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; PORT = 3306 ;" + "DATABASE=" + ConfigurationManager.AppSettings["DatabaseName"] + ";" + "UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + ";" + "PASSWORD=" + ConfigurationManager.AppSettings["DatabasePassword"] + ";";
 
         public BuyerPage()
         {
-            InitializeComponent();  
+            InitializeComponent();
+            CurrentBuyer = new Buyer();
         }
 
         private void newContract_Click(object sender, RoutedEventArgs e)
@@ -165,5 +170,26 @@ namespace TMSv2_UIClass.Pages
             catch { }
         }
 
+        private void acceptButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView rows = (DataRowView)NewContractsDataGrid.SelectedItems[0];
+
+            // get values from selected row
+            string clientName = (string)rows.Row.ItemArray[0];
+            int jobType = (int)rows.Row.ItemArray[1];
+            int quantity = (int)rows.Row.ItemArray[2];
+            string origin = (string)rows.Row.ItemArray[3];
+            string destination = (string)rows.Row.ItemArray[4];
+            int vanType = (int)rows.Row.ItemArray[5];
+
+            // create order from it
+            Order newOrder = CurrentBuyer.CreateOrder(clientName, jobType, quantity, origin, destination, vanType);
+
+            // insert the new contract into the database for record, getting contract ID
+            DataAccess dal = new DataAccess();
+            int contractID = dal.InsertNewContract(clientName, jobType, quantity, origin, destination, vanType);
+
+            dal.InsertNewOrder(contractID);
+        }
     }
 }

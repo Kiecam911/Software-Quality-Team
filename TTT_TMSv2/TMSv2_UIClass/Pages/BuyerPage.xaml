@@ -45,9 +45,9 @@
         </Grid>
 
         <Grid x:Name="newContractGrid" Visibility="Hidden">
-            <DataGrid x:Name="NewContractsDataGrid" HorizontalAlignment="Left" Height="266" Margin="188,105,0,0" VerticalAlignment="Top" Width="579" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="Column" GridLinesVisibility="Horizontal" ColumnWidth="*" RowBackground="#FF047FD4" AlternatingRowBackground="LightGray"/>
+            <DataGrid x:Name="NewContractsDataGrid" HorizontalAlignment="Left" Height="266" Margin="188,105,0,0" VerticalAlignment="Top" Width="579" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="Column" GridLinesVisibility="Horizontal" ColumnWidth="*" RowBackground="#FF047FD4" AlternatingRowBackground="LightGray" SelectionMode="Single" IsReadOnly="True"/>
             <Label Content="Select a contract from the list, and hit accept to claim it:" HorizontalAlignment="Left" Margin="188,64,0,0" VerticalAlignment="Top" Foreground="#FF0074FF"/>
-            <Button x:Name="acceptButton" Content="Accept Contract" HorizontalAlignment="Left" Margin="549,64,0,0" VerticalAlignment="Top" Width="99" Height="26" Background="#FF047FD4" Foreground="White"/>
+            <Button x:Name="acceptButton" Content="Accept Contract" HorizontalAlignment="Left" Margin="549,64,0,0" VerticalAlignment="Top" Width="99" Height="26" Background="#FF047FD4" Foreground="White" Click="acceptButton_Click"/>
         </Grid>
 
         <Grid x:Name="CurrentContractGrid" Visibility="Hidden">

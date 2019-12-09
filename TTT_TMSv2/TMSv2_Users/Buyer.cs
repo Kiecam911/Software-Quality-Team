@@ -53,9 +53,21 @@ namespace TMSv2_Users
         /// 
         /// \see Contract
         ///
-        public Order CreateOrder(Contract contract)
+        public Order CreateOrder(string clientName, int jobType, int quantity, string origin, string destination, int vanType)
         {
-            throw new Exception("Invalid Contract");
+            Contract baseContract = new Contract();
+            baseContract.ClientName = clientName;
+            baseContract.JobType = jobType;
+            baseContract.Quantity = quantity;
+            baseContract.Origin = origin;
+            baseContract.Destination = destination;
+            baseContract.VanType = vanType;
+
+            Order newOrder = new Order(baseContract);
+            newOrder.IsActive = true;
+            newOrder.IsCompleted = false;
+
+            return newOrder;
         }
 
 

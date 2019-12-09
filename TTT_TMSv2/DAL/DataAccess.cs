@@ -10,7 +10,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using TMSv2_Logging;
 using System.Security;
-using System.Xml;
+using System.Windows.Forms;
 
 namespace TMSv2_DAL
 {
@@ -724,8 +724,8 @@ namespace TMSv2_DAL
                 //Clear previous dataset
                 data = new DataSet();
                 //Write Data To file to save it
-                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName8"]));
-                if (!RestoreCarrierInfoTable(data))
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName7"]));
+                if (!RestoreCarrierLineTable(data))
                 {
                     return false;
                 }
@@ -733,8 +733,8 @@ namespace TMSv2_DAL
                 //Clear previous dataset
                 data = new DataSet();
                 //Write Data To file to save it
-                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName7"]));
-                if (!RestoreCarrierLineTable(data))
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName8"]));
+                if (!RestoreCarrierInfoTable(data))
                 {
                     return false;
                 }
@@ -811,22 +811,22 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO Users VALUES
+                            (UserID = @ID, Password = @password, Permission = @permission); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO Users(UserID, Password, Permission) VALUES
-                            (@ID, @password, @permission); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@ID", XmlConvert.ToInt32(row.Field<string>(0)));
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
                     command.Parameters.AddWithValue("@password", row.Field<string>(1));
-                    command.Parameters.AddWithValue("@permission", XmlConvert.ToChar(row.Field<string>(2)));
+                    command.Parameters.AddWithValue("@permission", row.Field<char>(2));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -834,10 +834,10 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    //Close and return success
-                    CloseConnection();
                 }
+
+                //Close and return success
+                CloseConnection();
             }
 
             return true;
@@ -876,28 +876,28 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO Orders VALUES
+                            (OrderID = @ID, ContractID = @cID, Cities = @cities, HoursTaken = @hrs, TotalKm = @km, TotalCost = @cost, Completed = @completed, IsActive = @active, IsMerged = @merged); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO Orders(OrderID, ContractID, Cities, HoursTaken, TotalKm, TotalCost, Completed, IsActive, IsMerged) VALUES
-                            (@ID, @cID, @cities, @hrs, @km, @cost, @completed, @active, @merged); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@ID", XmlConvert.ToInt32(row.Field<string>(0)));
-                    command.Parameters.AddWithValue("@cID", XmlConvert.ToInt32(row.Field<string>(1)));
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@cID", row.Field<int>(1));
                     command.Parameters.AddWithValue("@cities", row.Field<string>(2));
-                    command.Parameters.AddWithValue("@hrs", XmlConvert.ToTimeSpan(row.Field<string>(3)));
-                    command.Parameters.AddWithValue("@km", XmlConvert.ToInt32(row.Field<string>(4)));
-                    command.Parameters.AddWithValue("@cost", XmlConvert.ToDouble(row.Field<string>(5)));
-                    command.Parameters.AddWithValue("@completed", XmlConvert.ToBoolean(row.Field<string>(6)));
-                    command.Parameters.AddWithValue("@active", XmlConvert.ToBoolean(row.Field<string>(7)));
-                    command.Parameters.AddWithValue("@merged", XmlConvert.ToBoolean(row.Field<string>(8)));
+                    command.Parameters.AddWithValue("@hrs", row.Field<TimeSpan>(3));
+                    command.Parameters.AddWithValue("@km", row.Field<int>(4));
+                    command.Parameters.AddWithValue("@cost", row.Field<double>(5));
+                    command.Parameters.AddWithValue("@completed", row.Field<bool>(6));
+                    command.Parameters.AddWithValue("@active", row.Field<bool>(7));
+                    command.Parameters.AddWithValue("@merged", row.Field<bool>(8));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -905,10 +905,11 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    //Close and return success
-                    CloseConnection();
                 }
+
+
+                //Close and return success
+                CloseConnection();
             }
 
             return true;
@@ -923,27 +924,27 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO Trips VALUES
+                            (TripID = @ID, CarrierID = @cID, OrderID = @oID, Origin = @Origin, Destination = @dest, TotalKm = @Km, HoursTaken = @hrs, Completed = @completed); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO Trips(TripID, CarrierID, OrderID, Origin, Destination, TotalKm, HoursTaken, Completed) VALUES
-                            (@ID, @cID, @oID, @Origin, @dest, @Km, @hrs, @completed); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@ID", XmlConvert.ToInt32(row.Field<string>(0)));
-                    command.Parameters.AddWithValue("@cID", XmlConvert.ToInt32(row.Field<string>(1)));
-                    command.Parameters.AddWithValue("@oID", XmlConvert.ToInt32(row.Field<string>(2)));
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@cID", row.Field<int>(1));
+                    command.Parameters.AddWithValue("@oID", row.Field<int>(2));
                     command.Parameters.AddWithValue("@Origin", row.Field<string>(3));
                     command.Parameters.AddWithValue("@dest", row.Field<string>(4));
-                    command.Parameters.AddWithValue("@Km", XmlConvert.ToInt32(row.Field<string>(5)));
-                    command.Parameters.AddWithValue("@hrs", XmlConvert.ToTimeSpan(row.Field<string>(6)));
-                    command.Parameters.AddWithValue("@completed", XmlConvert.ToBoolean(row.Field<string>(7)));
+                    command.Parameters.AddWithValue("@Km", row.Field<int>(5));
+                    command.Parameters.AddWithValue("@hrs", row.Field<TimeSpan>(6));
+                    command.Parameters.AddWithValue("@completed", row.Field<bool>(7));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -951,10 +952,10 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    //Close and return success
-                    CloseConnection();
                 }
+
+                //Close and return success
+                CloseConnection();
             }
 
             return true;
@@ -968,23 +969,23 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO Routes VALUES
+                            (ID = @ID, City = @City, DistanceKm = @DistanceKm, DistanceHours = @DistanceHours, WestDestination = @WestDest, EastDestination = @EastDest); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO Routes(City, DistanceKm, DistanceHours, WestDestination, EastDestination) VALUES
-                            (@City, @DistanceKm, @DistanceHours, @WestDest, @EastDest); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    //command.Parameters.AddWithValue("@ID", XmlConvert.ToInt32(row.Field<string>(0)));
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
                     command.Parameters.AddWithValue("@City", row.Field<string>(1));
-                    command.Parameters.AddWithValue("@DistanceKm", XmlConvert.ToInt32(row.Field<string>(2)));
-                    command.Parameters.AddWithValue("@DistanceHours", XmlConvert.ToTimeSpan(row.Field<string>(3)));
+                    command.Parameters.AddWithValue("@DistanceKm", row.Field<int>(2));
+                    command.Parameters.AddWithValue("@DistanceHours", row.Field<TimeSpan>(3));
                     command.Parameters.AddWithValue("@WestDest", row.Field<string>(4));
                     command.Parameters.AddWithValue("@EastDest", row.Field<string>(5));
 
@@ -994,9 +995,9 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    CloseConnection();
                 }
+
+                CloseConnection();
             }
 
             return true;
@@ -1012,21 +1013,22 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO OSHTRates VALUES
+                            (ID = @ID, FTLRate = @FTLRate, LTLRate = @LTLRate); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO OSHTRates(FTLRate, LTLRate) VALUES
-                            (@FTLRate, @LTLRate); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@FTLRate", XmlConvert.ToDouble(row.Field<string>(0)));
-                    command.Parameters.AddWithValue("@LTLRate", XmlConvert.ToDouble(row.Field<string>(1)));
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@FTLRate", row.Field<double>(1));
+                    command.Parameters.AddWithValue("@LTLRate", row.Field<double>(2));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -1034,9 +1036,9 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    CloseConnection();
                 }
+
+                CloseConnection();
             }
 
             return true;
@@ -1052,20 +1054,20 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO Carriers VALUES
+                            (CarrierID = @CarrierID, CarrierName = @CarrierName); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO Carriers(CarrierID, CarrierName) VALUES
-                            (@CarrierID, @CarrierName); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@CarrierID", XmlConvert.ToInt32(row.Field<string>(0)));
+                    command.Parameters.AddWithValue("@CarrierID", row.Field<int>(0));
                     command.Parameters.AddWithValue("@CarrierName", row.Field<string>(1));
 
                     //Check if the command executed Properly; close and return failure if not
@@ -1074,9 +1076,9 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    CloseConnection();
                 }
+
+                CloseConnection();
             }
 
             return true;
@@ -1091,26 +1093,26 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO CarrierInfo VALUES
+                            (CarrierInfoID = @CID, = DestinationCity = @DestCity, FTLAvailability = @FTLA, LTLAvailability = @LTLA, FTLRate = @FTLRate, LTLRate = @LTLRate, reefCharge = @reef_; ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO CarrierInfo(CarrierInfoID, DestinationCity, FTLAvailability, LTLAvailability, FTLRate, LTLRate, reefCharge) VALUES
-                            (@CID, @DestCity, @FTLA, @LTLA, @FTLRate, @LTLRate, @reef); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@CID", XmlConvert.ToInt32(row.Field<string>(0)));
+                    command.Parameters.AddWithValue("@CID", row.Field<int>(0));
                     command.Parameters.AddWithValue("@DestCity", row.Field<string>(1));
-                    command.Parameters.AddWithValue("@FTLA", XmlConvert.ToInt32(row.Field<string>(2)));
-                    command.Parameters.AddWithValue("@LTLA", XmlConvert.ToInt32(row.Field<string>(3)));
-                    command.Parameters.AddWithValue("@FTLRate", XmlConvert.ToDouble(row.Field<string>(4)));
-                    command.Parameters.AddWithValue("@LTLRate", XmlConvert.ToDouble(row.Field<string>(5)));
-                    command.Parameters.AddWithValue("@reef", XmlConvert.ToDouble(row.Field<string>(6)));
+                    command.Parameters.AddWithValue("@FTLA", row.Field<int>(2));
+                    command.Parameters.AddWithValue("@LTLA", row.Field<int>(3));
+                    command.Parameters.AddWithValue("@FTLRate", row.Field<double>(4));
+                    command.Parameters.AddWithValue("@LTLRate", row.Field<double>(5));
+                    command.Parameters.AddWithValue("@reef", row.Field<double>(6));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -1118,9 +1120,9 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    CloseConnection();
                 }
+
+                CloseConnection();
             }
 
             return true;
@@ -1135,21 +1137,21 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO CarrierLine VALUES
+                            (CarrierID = @CID, CarrierInfoID = @CIID); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO CarrierLine(CarrierID, CarrierInfoID) VALUES
-                            (@CID, @CIID); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@CID", XmlConvert.ToInt32(row.Field<string>(0)));
-                    command.Parameters.AddWithValue("@CIID", XmlConvert.ToInt32(row.Field<string>(1)));
+                    command.Parameters.AddWithValue("@CID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@CIID", row.Field<int>(1));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -1157,9 +1159,9 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    CloseConnection();
                 }
+
+                CloseConnection();
             }
 
             return true;
@@ -1174,26 +1176,26 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO Contracts VALUES
+                            (ContractID = @CID, Client_Name = @name, Job_Type = @JType, Quantity = @Quantity, Origin = @Origin, Destination = @Dest, Van_Type = @VType); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO Contracts(ContractID, Client_Name, Job_Type, Quantity, Origin, Destination, Van_Type) VALUES
-                            (@CID, @name, @JType, @Quantity, @Origin, @Dest, @VType); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@CID", XmlConvert.ToInt32(row.Field<string>(0)));
+                    command.Parameters.AddWithValue("@CID", row.Field<int>(0));
                     command.Parameters.AddWithValue("@name", row.Field<string>(1));
-                    command.Parameters.AddWithValue("@JType", XmlConvert.ToInt32(row.Field<string>(2)));
-                    command.Parameters.AddWithValue("@Quantity", XmlConvert.ToInt32(row.Field<string>(3)));
+                    command.Parameters.AddWithValue("@JType", row.Field<int>(2));
+                    command.Parameters.AddWithValue("@Quantity", row.Field<int>(3));
                     command.Parameters.AddWithValue("@Origin", row.Field<string>(4));
                     command.Parameters.AddWithValue("@Dest", row.Field<string>(5));
-                    command.Parameters.AddWithValue("@VType", XmlConvert.ToInt32(row.Field<string>(6)));
+                    command.Parameters.AddWithValue("@VType", row.Field<int>(6));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -1201,9 +1203,9 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    CloseConnection();
                 }
+
+                CloseConnection();
             }
 
             return true;
@@ -1218,22 +1220,22 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO Invoices VALUES
+                            (InvoiceID = @ID, OrderID = @OID, TotalCost = @TotalCost); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO Invoices(InvoiceID, OrderID, TotalCost) VALUES
-                            (@ID, @OID, @TotalCost); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@ID", XmlConvert.ToInt32(row.Field<string>(0)));
-                    command.Parameters.AddWithValue("@OID", XmlConvert.ToInt32(row.Field<string>(1)));
-                    command.Parameters.AddWithValue("@TotalCost", XmlConvert.ToDouble(row.Field<string>(2)));
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@OID", row.Field<int>(1));
+                    command.Parameters.AddWithValue("@TotalCost", row.Field<double>(2));
 
                     //Check if the command executed Properly; close and return failure if not
                     if (0 == command.ExecuteNonQuery())
@@ -1241,9 +1243,9 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    CloseConnection();
                 }
+
+                CloseConnection();
             }
 
             return true;
@@ -1258,21 +1260,21 @@ namespace TMSv2_DAL
                 DataTable dataTable = data.Tables[0];
                 DataRowCollection dataRows = dataTable.Rows;
 
+                //Create query string
+                string query = @"INSERT INTO Customers VALUES
+                            (CustomerID = @CustID, ContractID = @ContID, CustomerName = @name); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
                 foreach (DataRow row in dataRows)
                 {
-                    //Create query string
-                    string query = @"INSERT INTO Customers(CustomerID, ContractID, CustomerName) VALUES
-                            (@CustID, @ContID, @name); ";
-
-                    //Connect to variabled database
-                    ConnectToDatabase();
-
-                    //Create command
-                    var command = new MySqlCommand(query, _Connection);
-
                     //Load command with parameters
-                    command.Parameters.AddWithValue("@CustID", XmlConvert.ToInt32(row.Field<string>(0)));
-                    command.Parameters.AddWithValue("@ContID", XmlConvert.ToInt32(row.Field<string>(1)));
+                    command.Parameters.AddWithValue("@CustID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@ContID", row.Field<int>(1));
                     command.Parameters.AddWithValue("@name", row.Field<string>(2));
 
                     //Check if the command executed Properly; close and return failure if not
@@ -1281,9 +1283,9 @@ namespace TMSv2_DAL
                         CloseConnection();
                         return false;
                     }
-
-                    CloseConnection();
                 }
+
+                CloseConnection();
             }
 
             return true;
@@ -1471,20 +1473,20 @@ namespace TMSv2_DAL
             {
 
                 MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
-                string sqlCommand = "SELECT OrderID, TotalKm, HoursTaken FROM Orders";
+                string sqlCommand = "SELECT OrderID, Contracts.ContractID, TotalKm, HoursTaken FROM Orders INNER JOIN Contracts WHERE Orders.IsActive = 1";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
-
 
                 connection.Open();
 
                 DataSet ds = new DataSet();
-                adapter.Fill(ds, "*");
+                adapter.Fill(ds, "Orders");
                 
                 connection.Close();
                 return ds;
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show(e.ToString());
                 return null;
             }
         }
@@ -1513,5 +1515,49 @@ namespace TMSv2_DAL
             }
         }
 
+
+        public int InsertNewContract(string clientName, int jobType, int quantity, string origin, string destination, int vanType)
+        {
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataSet id = new DataSet();
+
+            int contractID = 0;
+
+            string cmd1 = String.Format(@"INSERT INTO Contracts (Client_Name, Job_Type, Quantity, Origin, Destination, Van_Type)
+                            VALUES (""{0}"", {1}, {2}, ""{3}"", ""{4}"", {5});", clientName, jobType, quantity, origin, destination, vanType);
+            string cmd2 = @"SELECT LAST_INSERT_ID();";
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            // execute commands
+            MySqlCommand command = new MySqlCommand(cmd1, _Connection);
+            int result = command.ExecuteNonQuery();
+            command.CommandText = cmd2;
+            ulong temp = (ulong)command.ExecuteScalar();
+            contractID = (int)temp;
+
+            //Close connection
+            CloseConnection();
+
+            return contractID;
+        }
+
+        public void InsertNewOrder(int contractID)
+        {
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            string cmdText = String.Format(@"INSERT INTO Orders (ContractID, IsActive) VALUES ({0}, true);", contractID);
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            // execute commands
+            MySqlCommand command = new MySqlCommand(cmdText, _Connection);
+            int result = command.ExecuteNonQuery();
+            MessageBox.Show("Order added");
+            //Close connection
+            CloseConnection();
+        }
     }
 }
