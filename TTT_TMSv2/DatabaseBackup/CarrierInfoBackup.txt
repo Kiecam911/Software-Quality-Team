@@ -1,51 +1,6 @@
 <?xml version="1.0" standalone="yes"?>
 <NewDataSet>
   <CarrierInfo>
-    <CarrierInfoID>1</CarrierInfoID>
-    <DestinationCity>Windsor</DestinationCity>
-    <FTLAvailability>50</FTLAvailability>
-    <LTLAvailability>640</LTLAvailability>
-    <FTLRate>5.21</FTLRate>
-    <LTLRate>0.3621</LTLRate>
-    <reefCharge>0.08</reefCharge>
-  </CarrierInfo>
-  <CarrierInfo>
-    <CarrierInfoID>2</CarrierInfoID>
-    <DestinationCity>Hamilton</DestinationCity>
-    <FTLAvailability>50</FTLAvailability>
-    <LTLAvailability>640</LTLAvailability>
-    <FTLRate>5.21</FTLRate>
-    <LTLRate>0.3621</LTLRate>
-    <reefCharge>0.08</reefCharge>
-  </CarrierInfo>
-  <CarrierInfo>
-    <CarrierInfoID>3</CarrierInfoID>
-    <DestinationCity>Oshawa</DestinationCity>
-    <FTLAvailability>50</FTLAvailability>
-    <LTLAvailability>640</LTLAvailability>
-    <FTLRate>5.21</FTLRate>
-    <LTLRate>0.3621</LTLRate>
-    <reefCharge>0.08</reefCharge>
-  </CarrierInfo>
-  <CarrierInfo>
-    <CarrierInfoID>4</CarrierInfoID>
-    <DestinationCity>Belleville</DestinationCity>
-    <FTLAvailability>50</FTLAvailability>
-    <LTLAvailability>640</LTLAvailability>
-    <FTLRate>5.21</FTLRate>
-    <LTLRate>0.3621</LTLRate>
-    <reefCharge>0.08</reefCharge>
-  </CarrierInfo>
-  <CarrierInfo>
-    <CarrierInfoID>5</CarrierInfoID>
-    <DestinationCity>Ottawa</DestinationCity>
-    <FTLAvailability>50</FTLAvailability>
-    <LTLAvailability>640</LTLAvailability>
-    <FTLRate>5.21</FTLRate>
-    <LTLRate>0.3621</LTLRate>
-    <reefCharge>0.08</reefCharge>
-  </CarrierInfo>
-  <CarrierInfo>
     <CarrierInfoID>6</CarrierInfoID>
     <DestinationCity>London</DestinationCity>
     <FTLAvailability>18</FTLAvailability>
@@ -116,5 +71,14 @@
     <FTLRate>5.2</FTLRate>
     <LTLRate>0</LTLRate>
     <reefCharge>0.065</reefCharge>
+  </CarrierInfo>
+  <CarrierInfo>
+    <CarrierInfoID>14</CarrierInfoID>
+    <DestinationCity />
+    <FTLAvailability>6</FTLAvailability>
+    <LTLAvailability>0</LTLAvailability>
+    <FTLRate>0</FTLRate>
+    <LTLRate>0</LTLRate>
+    <reefCharge>0</reefCharge>
   </CarrierInfo>
 </NewDataSet>
