@@ -22,7 +22,7 @@
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold" Height="285">
                     <ListViewItem Height="30" Foreground="{x:Null}" Focusable="False">
                         <StackPanel Orientation="Horizontal">
-                            <Button x:Name="HomeButton" Content="Home" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="145" Height="30"/>
+                            <Button x:Name="HomeButton" Content="Home" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="145" Height="30" Click="HomeButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="29">
@@ -60,28 +60,44 @@
             <Rectangle Fill="LightGray" HorizontalAlignment="Left" Height="340" Margin="160,50,0,0" Stroke="Black" VerticalAlignment="Top" Width="625"/>
             <DataGrid x:Name="ActiveOrderDataGrid" HorizontalAlignment="Left" Height="296" Margin="178,67,0,0" VerticalAlignment="Top" Width="586" Background="LightGray" BorderBrush="{x:Null}" AlternatingRowBackground="#FF047FD4" VerticalGridLinesBrush="{x:Null}" GridLinesVisibility="Horizontal" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="City" Binding="{Binding Path=DestinationCity}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="FTL Availability" Binding="{Binding Path=FTLAvailability}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="LTL Availability" Binding="{Binding Path=LTLAvailability}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="FTL Rate" Binding="{Binding Path=FTLRate}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="LTL Rate" Binding="{Binding Path=LTLRate}"/>
-                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Reefer Charge" Binding="{Binding Path=ReefCharge}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="OrderID" Binding="{Binding Path=OrderID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="ContractID" Binding="{Binding Path=ContractID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="TotalKM" Binding="{Binding Path=TotalKm}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Hours Taken" Binding="{Binding Path=HoursTaken}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Final Carrier Price" Binding="{Binding Path=FinalCarrierPrice}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
 
         </Grid>
 
-        <Grid x:Name="AssignCarrierScreen" Visibility="Visible">
+        <Grid x:Name="AssignCarrierScreen" Visibility="Hidden">
             <Rectangle Fill="LightGray" HorizontalAlignment="Left" Height="338" Margin="160,52,0,0" VerticalAlignment="Top" Width="625"/>
-            <DataGrid x:Name="AssignCarrierDatagrid" HorizontalAlignment="Left" Height="118" Margin="176,67,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4" SelectionChanged="AssignCarrierDatagrid_SelectionChanged"/>
+            <DataGrid x:Name="AssignCarrierDatagrid" HorizontalAlignment="Left" Height="118" Margin="176,67,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4" SelectionChanged="AssignCarrierDatagrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="OrderID" Binding="{Binding Path=OrderID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="ContractID" Binding="{Binding Path=ContractID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="TotalKM" Binding="{Binding Path=TotalKm}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Hours Taken" Binding="{Binding Path=HoursTaken}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Final Carrier Price" Binding="{Binding Path=FinalCarrierPrice}"/>
+                </DataGrid.Columns>
+            </DataGrid>
             <Button x:Name="AssignCarrierButton" Content="Assign" HorizontalAlignment="Left" Margin="631,339,0,0" VerticalAlignment="Top" Width="134" Height="32" Background="#FF047FD4" Foreground="White" Click="AssignCarrierButton_Click_1"/>
             <Label Content="Select an order from the table, and then choose one of the supplied carriers&#xD;&#xA;followed by assign to assign a carrier to an order." HorizontalAlignment="Left" Margin="176,329,0,0" VerticalAlignment="Top" Foreground="#FF047FD4"/>
             <DataGrid x:Name="PricesForCarriers" HorizontalAlignment="Left" Height="118" Margin="176,185,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4"/>
-
         </Grid>
 
-        <Grid x:Name="AlterTableGrid" Visibility="Hidden">
+        <Grid x:Name="CompleteOrderScreen" Visibility="Visible">
+            <DataGrid x:Name="CompleteOrdersDatagrid" HorizontalAlignment="Left" Height="236" Margin="176,67,0,0" VerticalAlignment="Top" Width="589" Background="LightGray" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="OrderID" Binding="{Binding Path=OrderID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="ContractID" Binding="{Binding Path=ContractID}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="TotalKM" Binding="{Binding Path=TotalKm}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Hours Taken" Binding="{Binding Path=HoursTaken}"/>
+                    <DataGridTextColumn Width="*" CanUserReorder="False" CanUserResize="False" Header="Final Carrier Price" Binding="{Binding Path=FinalCarrierPrice}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Complete Order" HorizontalAlignment="Left" Margin="644,340,0,0" VerticalAlignment="Top" Width="121" Height="40" Background="#FF047FD4" Foreground="White" BorderBrush="{x:Null}"/>
         </Grid>
 
         <Grid x:Name="AlterRoutesGrid" Visibility="Hidden">
