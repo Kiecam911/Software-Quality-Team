@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TMSv2_Contracts;
 using TMSv2_TripPlanner;
 using System.Data;
+using TMSv2_DAL;
 
 namespace TMSv2_Order
 {
@@ -71,6 +72,20 @@ namespace TMSv2_Order
                 }
             }
         }
+
+        private int _DaysRequired;                               /// Order's final price for the company
+        public int DaysRequired
+        {
+            get { return _DaysRequired; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _DaysRequired = value;
+                }
+            }
+        }
+
         public Contract OrderContract { get; set; }
         public List<string> Cities { get; set; }            /// List of Cities the Order is associated with
         public List<Trip> Trips { get; set; }               /// The list of trips the order has, must, or will undertake
@@ -138,11 +153,11 @@ namespace TMSv2_Order
             IsCompleted = false;
         }
 
-        public void CalculateTotalCost(bool isFTL)
+        public void CalculateTotalCost(bool isLTL)
         {
             double carrierRatePerKM = 0;
             double customerRatePerKM = 0;
-            if (isFTL)
+            if (!isLTL)
             {
                 // to do: get rate of selected carrier from planner
                 carrierRatePerKM = 4.985;
@@ -155,13 +170,17 @@ namespace TMSv2_Order
             }
 
             //use fomrula to calculate costs
-            int totalKM = Trips[0].TotalDistanceKm;
+            TotalKm = Trips[0].TotalDistanceKm;
             double totalDriveHours = Trips[0].TotalDrivingHours.TotalHours;
             double totalWorkHours = Trips[0].TotalDistanceHours.TotalHours;
             int extraDays = GetTripDaysFromHours(totalDriveHours, totalWorkHours);
+            DaysRequired = extraDays + 1;
 
-            FinalCustomerPrice = customerRatePerKM * totalKM + 150 * extraDays;
-            FinalCarrierPrice = carrierRatePerKM * totalKM + 150 * extraDays;
+            FinalCustomerPrice = customerRatePerKM * TotalKm + 150 * extraDays;
+            FinalCarrierPrice = carrierRatePerKM * TotalKm + 150 * extraDays;
+
+            DataAccess dal = new DataAccess();
+            dal.UpdateOrderTotals(OrderID, DaysRequired, TotalKm, FinalCustomerPrice, FinalCarrierPrice);
         }
 
 

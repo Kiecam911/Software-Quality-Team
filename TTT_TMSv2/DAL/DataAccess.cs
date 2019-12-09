@@ -1558,5 +1558,19 @@ namespace TMSv2_DAL
             //Close connection
             CloseConnection();
         }
+
+        public void UpdateOrderTotals(int orderID, int daysRequired, int totalKM, double totalIncome, double totalExpense)
+        {
+            string cmdText = String.Format(@"UPDATE Orders SET DaysRequired = {0}, TotalKm = {1}, TotalIncome = {2}, TotalExpense = {3} WHERE OrderID = {4};", daysRequired, totalKM, totalIncome, totalExpense, orderID);
+
+            //Connect to variabled database
+            ConnectToDatabase();
+
+            // execute commands
+            MySqlCommand command = new MySqlCommand(cmdText, _Connection);
+            int result = command.ExecuteNonQuery();
+            //Close connection
+            CloseConnection();
+        }
     }
 }
