@@ -252,6 +252,8 @@ namespace TMSv2_DAL
             return true;
         }
 
+        
+
         ///
         /// \fn AddDepotToCarriers(int cID, string cDestCity, int FTLA, int LTLA, double FTLRate, double LTLRate, double reefCharge)
         /// 
@@ -1488,7 +1490,29 @@ namespace TMSv2_DAL
             }
         }
 
+        public static DataSet GetUnassignedTripOrders()
+        {
+            try
+            {
 
+                MySqlConnection connection = new MySqlConnection(("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]));
+                string sqlCommand = "SELECT OrderID, TotalKm, HoursTaken FROM Orders INNER JOIN Trips WHERE Trips.OrderID = NULL";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+
+
+                connection.Open();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "*");
+
+                connection.Close();
+                return ds;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
     }
 }

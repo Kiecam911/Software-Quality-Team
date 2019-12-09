@@ -99,5 +99,25 @@ namespace TMSv2_UIClass.Pages
                 orderID = Convert.ToInt32(row_selected["SKU"]);
             }
         }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Find the frame.
+            Frame frame = null;
+            DependencyObject parent = VisualTreeHelper.GetParent(this);
+
+            // Cycles through to MainWindow frame
+            while (parent != null && frame == null)
+            {
+                frame = parent as Frame;
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            // Change the page of the frame.
+            if (frame != null)
+            {
+                frame.Navigate(new MenuPage());
+            }
+        }
     }
 }
