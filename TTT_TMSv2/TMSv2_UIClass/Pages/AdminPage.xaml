@@ -55,6 +55,11 @@
                             <Button x:Name="BackupButton" Content="Backup Database" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="144" Height="27" Click="BackupButton_Click"/>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="RestoreButton" Content="Restore Database" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="144" Height="27" Click="RestoreButton_Click"/>
+                        </StackPanel>
+                    </ListViewItem>
                 </ListView>
             </StackPanel>
         </Grid>

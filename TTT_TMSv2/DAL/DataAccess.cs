@@ -665,78 +665,103 @@ namespace TMSv2_DAL
             {
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the Order Table
-                data = GetOrdersTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName1"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName1"]));
+                //Update Database With Stored Data
+                if(!RestoreOrdersTable(data))
+                {
+                    return false;
+                }
 
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the Users Table
-                data = GetUsersTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName2"]));
-
-                //Get Data From the Route Table
-                data = GetRouteTable();
-                //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName3"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName2"]));
+                if (!RestoreUsersTable(data))
+                {
+                    return false;
+                }
 
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the OSHTRates Table
-                data = GetRatesTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName4"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName3"]));
+                if (!RestoreRoutesTable(data))
+                {
+                    return false;
+                }
 
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the Trips Table
-                data = GetTripsTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName5"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName4"]));
+                if (!RestoreRatesTable(data))
+                {
+                    return false;
+                }
 
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the Carriers Table
-                data = GetCarriersTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName6"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName5"]));
+                if (!RestoreTripsTable(data))
+                {
+                    return false;
+                }
 
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the CarrierLine Table
-                data = GetCarrierLineTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName7"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName6"]));
+                if (!RestoreCarrierTable(data))
+                {
+                    return false;
+                }
 
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the CarrierInfo Table
-                data = GetCarrierInfoTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName8"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName7"]));
+                if (!RestoreCarrierLineTable(data))
+                {
+                    return false;
+                }
 
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the Contracts Table
-                data = GetContractsTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName9"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName8"]));
+                if (!RestoreCarrierInfoTable(data))
+                {
+                    return false;
+                }
 
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the Invoices Table
-                data = GetInvoicesTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName10"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName9"]));
+                if (!RestoreContractTable(data))
+                {
+                    return false;
+                }
 
                 //Clear previous dataset
                 data = new DataSet();
-                //Get Data From the Invoices Table
-                data = GetCustomersTable();
                 //Write Data To file to save it
-                data.WriteXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName11"]));
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName10"]));
+                if (!RestoreInvoiceTable(data))
+                {
+                    return false;
+                }
+
+                //Clear previous dataset
+                data = new DataSet();
+                //Write Data To file to save it
+                data.ReadXml((ConfigurationManager.AppSettings["DatabaseBackupDirectory"] + ConfigurationManager.AppSettings["DBBackupFileName11"]));
+                if (!RestoreCustomerTable(data))
+                {
+                    return false;
+                }
             }
             catch (SecurityException e)
             {
@@ -775,42 +800,43 @@ namespace TMSv2_DAL
             return data;
         }
 
-        public bool UpdateUsersTable(DataSet data)
+        private bool RestoreUsersTable(DataSet data)
         {
             //Variables
-            DataTable dataTable = data.Tables[0];
-            DataRowCollection dataRows = dataTable.Rows;
-
-            //Create query string
-            string query = @"UPDATE Users
-                            SET 
-                                UserID = @ID,
-                                Password = @password,
-                                Permission = @permission; ";
-
-            //Create command
-            var command = new MySqlCommand(query, _Connection);
-
-            //Connect to variabled database
-            ConnectToDatabase();
-
-            foreach (DataRow row in dataRows)
+            if (data.Tables.Count != 0)
             {
-                //Load command with parameters
-                command.Parameters.AddWithValue("@ID", row.Field<int>(0));
-                command.Parameters.AddWithValue("@password", row.Field<int>(1));
-                command.Parameters.AddWithValue("@permission", row.Field<int>(2));
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
 
-                //Check if the command executed Properly; close and return failure if not
-                if (0 == command.ExecuteNonQuery())
+                //Create query string
+                string query = @"INSERT INTO Users VALUES
+                            (UserID = @ID, Password = @password, Permission = @permission); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
                 {
-                    CloseConnection();
-                    return false;
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@password", row.Field<string>(1));
+                    command.Parameters.AddWithValue("@permission", row.Field<char>(2));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
                 }
+
+                //Close and return success
+                CloseConnection();
             }
 
-            //Close and return success
-            CloseConnection();
             return true;
         }
 
@@ -839,46 +865,426 @@ namespace TMSv2_DAL
             return data;
         }
 
-
-        public bool UpdateTripsTable(DataSet data)
+        private bool RestoreOrdersTable(DataSet data)
         {
             //Variables
-            DataTable dataTable = data.Tables[0];
-            DataRowCollection dataRows = dataTable.Rows;
-
-            //Create query string
-            string query = @"UPDATE Trips
-                            SET 
-                                TripID = @ID, CarrierID = @cID, OrderID = @oID, Origin = @Origin, Destination = @dest, TotalKm = @Km, HoursTaken = @hrs, Completed = @completed; ";
-
-            //Create command
-            var command = new MySqlCommand(query, _Connection);
-
-            //Connect to variabled database
-            ConnectToDatabase();
-
-            foreach (DataRow row in dataRows)
+            if (data.Tables.Count != 0)
             {
-                //Load command with parameters
-                command.Parameters.AddWithValue("@ID", row.Field<int>(0));
-                command.Parameters.AddWithValue("@cID", row.Field<int>(1));
-                command.Parameters.AddWithValue("@oID", row.Field<int>(2));
-                command.Parameters.AddWithValue("@Origin", row.Field<int>(3));
-                command.Parameters.AddWithValue("@dest", row.Field<int>(4));
-                command.Parameters.AddWithValue("@Km", row.Field<int>(5));
-                command.Parameters.AddWithValue("@hrs", row.Field<int>(6));
-                command.Parameters.AddWithValue("@completed", row.Field<int>(7));
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
 
-                //Check if the command executed Properly; close and return failure if not
-                if (0 == command.ExecuteNonQuery())
+                //Create query string
+                string query = @"INSERT INTO Orders VALUES
+                            (OrderID = @ID, ContractID = @cID, Cities = @cities, HoursTaken = @hrs, TotalKm = @km, TotalCost = @cost, Completed = @completed, IsActive = @active, IsMerged = @merged); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
                 {
-                    CloseConnection();
-                    return false;
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@cID", row.Field<int>(1));
+                    command.Parameters.AddWithValue("@cities", row.Field<string>(2));
+                    command.Parameters.AddWithValue("@hrs", row.Field<TimeSpan>(3));
+                    command.Parameters.AddWithValue("@km", row.Field<int>(4));
+                    command.Parameters.AddWithValue("@cost", row.Field<double>(5));
+                    command.Parameters.AddWithValue("@completed", row.Field<bool>(6));
+                    command.Parameters.AddWithValue("@active", row.Field<bool>(7));
+                    command.Parameters.AddWithValue("@merged", row.Field<bool>(8));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
                 }
+
+
+                //Close and return success
+                CloseConnection();
             }
 
-            //Close and return success
-            CloseConnection();
+            return true;
+        }
+
+
+        private bool RestoreTripsTable(DataSet data)
+        {
+            //Variables
+            if (data.Tables.Count != 0)
+            {
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
+
+                //Create query string
+                string query = @"INSERT INTO Trips VALUES
+                            (TripID = @ID, CarrierID = @cID, OrderID = @oID, Origin = @Origin, Destination = @dest, TotalKm = @Km, HoursTaken = @hrs, Completed = @completed); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
+                {
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@cID", row.Field<int>(1));
+                    command.Parameters.AddWithValue("@oID", row.Field<int>(2));
+                    command.Parameters.AddWithValue("@Origin", row.Field<string>(3));
+                    command.Parameters.AddWithValue("@dest", row.Field<string>(4));
+                    command.Parameters.AddWithValue("@Km", row.Field<int>(5));
+                    command.Parameters.AddWithValue("@hrs", row.Field<TimeSpan>(6));
+                    command.Parameters.AddWithValue("@completed", row.Field<bool>(7));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
+                }
+
+                //Close and return success
+                CloseConnection();
+            }
+
+            return true;
+        }
+
+        private bool RestoreRoutesTable(DataSet data)
+        {
+            //Variables
+            if (data.Tables.Count != 0)
+            {
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
+
+                //Create query string
+                string query = @"INSERT INTO Routes VALUES
+                            (ID = @ID, City = @City, DistanceKm = @DistanceKm, DistanceHours = @DistanceHours, WestDestination = @WestDest, EastDestination = @EastDest); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
+                {
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@City", row.Field<string>(1));
+                    command.Parameters.AddWithValue("@DistanceKm", row.Field<int>(2));
+                    command.Parameters.AddWithValue("@DistanceHours", row.Field<TimeSpan>(3));
+                    command.Parameters.AddWithValue("@WestDest", row.Field<string>(4));
+                    command.Parameters.AddWithValue("@EastDest", row.Field<string>(5));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
+                }
+
+                CloseConnection();
+            }
+
+            return true;
+        }
+
+
+
+        private bool RestoreRatesTable(DataSet data)
+        {
+            //Variables
+            if (data.Tables.Count != 0)
+            {
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
+
+                //Create query string
+                string query = @"INSERT INTO OSHTRates VALUES
+                            (ID = @ID, FTLRate = @FTLRate, LTLRate = @LTLRate); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
+                {
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@FTLRate", row.Field<double>(1));
+                    command.Parameters.AddWithValue("@LTLRate", row.Field<double>(2));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
+                }
+
+                CloseConnection();
+            }
+
+            return true;
+        }
+
+
+
+        private bool RestoreCarrierTable(DataSet data)
+        {
+            //Variables
+            if (data.Tables.Count != 0)
+            {
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
+
+                //Create query string
+                string query = @"INSERT INTO Carriers VALUES
+                            (CarrierID = @CarrierID, CarrierName = @CarrierName); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
+                {
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@CarrierID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@CarrierName", row.Field<string>(1));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
+                }
+
+                CloseConnection();
+            }
+
+            return true;
+        }
+
+
+        private bool RestoreCarrierInfoTable(DataSet data)
+        {
+            //Variables
+            if (data.Tables.Count != 0)
+            {
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
+
+                //Create query string
+                string query = @"INSERT INTO CarrierInfo VALUES
+                            (CarrierInfoID = @CID, = DestinationCity = @DestCity, FTLAvailability = @FTLA, LTLAvailability = @LTLA, FTLRate = @FTLRate, LTLRate = @LTLRate, reefCharge = @reef_; ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
+                {
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@CID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@DestCity", row.Field<string>(1));
+                    command.Parameters.AddWithValue("@FTLA", row.Field<int>(2));
+                    command.Parameters.AddWithValue("@LTLA", row.Field<int>(3));
+                    command.Parameters.AddWithValue("@FTLRate", row.Field<double>(4));
+                    command.Parameters.AddWithValue("@LTLRate", row.Field<double>(5));
+                    command.Parameters.AddWithValue("@reef", row.Field<double>(6));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
+                }
+
+                CloseConnection();
+            }
+
+            return true;
+        }
+
+
+        private bool RestoreCarrierLineTable(DataSet data)
+        {
+            //Variables
+            if (data.Tables.Count != 0)
+            {
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
+
+                //Create query string
+                string query = @"INSERT INTO CarrierLine VALUES
+                            (CarrierID = @CID, CarrierInfoID = @CIID); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
+                {
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@CID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@CIID", row.Field<int>(1));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
+                }
+
+                CloseConnection();
+            }
+
+            return true;
+        }
+
+
+        private bool RestoreContractTable(DataSet data)
+        {
+            //Variables
+            if (data.Tables.Count != 0)
+            {
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
+
+                //Create query string
+                string query = @"INSERT INTO Contracts VALUES
+                            (ContractID = @CID, Client_Name = @name, Job_Type = @JType, Quantity = @Quantity, Origin = @Origin, Destination = @Dest, Van_Type = @VType); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
+                {
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@CID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@name", row.Field<string>(1));
+                    command.Parameters.AddWithValue("@JType", row.Field<int>(2));
+                    command.Parameters.AddWithValue("@Quantity", row.Field<int>(3));
+                    command.Parameters.AddWithValue("@Origin", row.Field<string>(4));
+                    command.Parameters.AddWithValue("@Dest", row.Field<string>(5));
+                    command.Parameters.AddWithValue("@VType", row.Field<int>(6));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
+                }
+
+                CloseConnection();
+            }
+
+            return true;
+        }
+
+
+        private bool RestoreInvoiceTable(DataSet data)
+        {
+            //Variables
+            if (data.Tables.Count != 0)
+            {
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
+
+                //Create query string
+                string query = @"INSERT INTO Invoices VALUES
+                            (InvoiceID = @ID, OrderID = @OID, TotalCost = @TotalCost); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
+                {
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@ID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@OID", row.Field<int>(1));
+                    command.Parameters.AddWithValue("@TotalCost", row.Field<double>(2));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
+                }
+
+                CloseConnection();
+            }
+
+            return true;
+        }
+
+
+        private bool RestoreCustomerTable(DataSet data)
+        {
+            //Variables
+            if (data.Tables.Count != 0)
+            {
+                DataTable dataTable = data.Tables[0];
+                DataRowCollection dataRows = dataTable.Rows;
+
+                //Create query string
+                string query = @"INSERT INTO Customers VALUES
+                            (CustomerID = @CustID, ContractID = @ContID, CustomerName = @name); ";
+
+                //Create command
+                var command = new MySqlCommand(query, _Connection);
+
+                //Connect to variabled database
+                ConnectToDatabase();
+
+                foreach (DataRow row in dataRows)
+                {
+                    //Load command with parameters
+                    command.Parameters.AddWithValue("@CustID", row.Field<int>(0));
+                    command.Parameters.AddWithValue("@ContID", row.Field<int>(1));
+                    command.Parameters.AddWithValue("@name", row.Field<string>(2));
+
+                    //Check if the command executed Properly; close and return failure if not
+                    if (0 == command.ExecuteNonQuery())
+                    {
+                        CloseConnection();
+                        return false;
+                    }
+                }
+
+                CloseConnection();
+            }
+
             return true;
         }
 
