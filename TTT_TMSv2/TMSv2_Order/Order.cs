@@ -138,6 +138,8 @@ namespace TMSv2_Order
             _TotalKm = 0;
             _HoursTaken = TimeSpan.FromHours(0.0);
             IsCompleted = false;
+
+            Trips = new List<Trip>();
         }
 
 
@@ -151,6 +153,8 @@ namespace TMSv2_Order
             _TotalKm = 0;
             _HoursTaken = TimeSpan.FromHours(0.0);
             IsCompleted = false;
+
+            Trips = new List<Trip>();
         }
 
         public void CalculateTotalCost(bool isLTL)
@@ -237,18 +241,6 @@ namespace TMSv2_Order
         }
 
 
-
-        public void CalculateTripTotals()
-        {
-            //TotalKm = 0;
-            //HoursTaken = TimeSpan.FromHours(0);
-
-            //foreach (Trip t in Trips)
-            //{
-            //    TotalKm += t.TotalDistanceKm;
-            //    HoursTaken += t.TotalDistanceHours;
-            //}
-        }
 
         public List<Order> GetActiveOrders()
         {
