@@ -87,7 +87,6 @@
             <DataGrid x:Name="reportOut" HorizontalAlignment="Left" Height="272" Margin="174,101,0,0" VerticalAlignment="Top" Width="594" Background="{x:Null}" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4"/>
         </Grid>
 
-        <Grid x:Name="AlterRatesGrid" Visibility="Hidden">
-        </Grid>
+        
     </Grid>
 </Page>

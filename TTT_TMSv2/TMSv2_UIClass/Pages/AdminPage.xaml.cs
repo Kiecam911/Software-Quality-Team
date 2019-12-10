@@ -277,6 +277,7 @@ namespace TMSv2_UIClass.Pages
             else
             {
                 resetView();
+                TMSv2_Logging.Logger.LogToFile("New Path Set");
             }
         }
 
@@ -335,6 +336,7 @@ namespace TMSv2_UIClass.Pages
 
                 //Reset the view
                 resetView();
+                TMSv2_Logging.Logger.LogToFile("New DB settings set");
             }
         }
 
@@ -417,6 +419,7 @@ namespace TMSv2_UIClass.Pages
             else
             {
                 MessageBox.Show("Changes Saved!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                TMSv2_Logging.Logger.LogToFile("Carrier updated");
             }
 
             //Refresh view of items in datagrid
@@ -435,6 +438,7 @@ namespace TMSv2_UIClass.Pages
             else
             {
                 MessageBox.Show("Changes Saved!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                TMSv2_Logging.Logger.LogToFile("Routes updated");
             }
 
             //Refresh view of items in datagrid
@@ -465,6 +469,7 @@ namespace TMSv2_UIClass.Pages
 
             //Refresh items
             tableRatesView.Items.Refresh();
+           
         }
 
         private void SaveRates_Click(object sender, RoutedEventArgs e)
@@ -480,6 +485,7 @@ namespace TMSv2_UIClass.Pages
             else
             {
                 MessageBox.Show("Changes Saved!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                TMSv2_Logging.Logger.LogToFile("Rates updated");
             }
 
             //Refresh view of items in datagrid
@@ -497,6 +503,7 @@ namespace TMSv2_UIClass.Pages
             else
             {
                 MessageBox.Show("Database has successfully backed up!", "Alert!", MessageBoxButton.OK, MessageBoxImage.Information);
+                TMSv2_Logging.Logger.LogToFile("Database backed up");
             }
 
         }
@@ -512,6 +519,7 @@ namespace TMSv2_UIClass.Pages
             else
             {
                 MessageBox.Show("Database has been successfully restored!", "Alert!", MessageBoxButton.OK, MessageBoxImage.Information);
+                TMSv2_Logging.Logger.LogToFile("Database restored");
             }
         }
     }

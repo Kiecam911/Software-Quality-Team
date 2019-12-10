@@ -21,6 +21,7 @@ using TMSv2_Users;
 using TMSv2_TripPlanner;
 using TMSv2_Carriers;
 using TMSv2_Contracts;
+using TMSv2_Logging;
 
 namespace TMSv2_UIClass.Pages
 {
@@ -83,6 +84,7 @@ namespace TMSv2_UIClass.Pages
             DataAccess dal = new DataAccess();
             dal.DayPassed();
             LoadOrdersWithTrip(CompleteOrdersDatagrid);
+            TMSv2_Logging.Logger.LogToFile("Day increased by 1");
         }
 
         private void resetView()
@@ -157,6 +159,8 @@ namespace TMSv2_UIClass.Pages
             loadCarrierAssignmentTable(AssignCarrierDatagrid);
 
             // DataRow carrier = dal.GetCarrierByID(carrierID);
+
+            TMSv2_Logging.Logger.LogToFile("Carrier assigned to order");
         }
 
         private void AssignCarrierDatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -327,11 +331,13 @@ namespace TMSv2_UIClass.Pages
         private void ViewAllButton_Click(object sender, RoutedEventArgs e)
         {          
             loadAll();
+            TMSv2_Logging.Logger.LogToFile("Loaded all reports");
         }
 
         private void ViewTwoButton_Click(object sender, RoutedEventArgs e)
         {
             loadTwoWeeks();
+            TMSv2_Logging.Logger.LogToFile("Loaded last two weeks of reports");
         }
 
         private void loadAll()

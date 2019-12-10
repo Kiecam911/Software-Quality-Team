@@ -12,6 +12,7 @@ namespace TMSv2_UIClass
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            TMSv2_Logging.Logger.LogToFile("Program loaded");
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

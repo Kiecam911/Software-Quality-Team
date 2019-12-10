@@ -197,6 +197,7 @@ namespace TMSv2_UIClass.Pages
                     int contractID = dal.InsertNewContract(clientName, jobType, quantity, origin, destination, vanType);
 
                     dal.InsertNewOrder(contractID);
+                    TMSv2_Logging.Logger.LogToFile("Contract accepted"+ clientName);
                 }
             }
             catch (Exception ex)
@@ -218,6 +219,7 @@ namespace TMSv2_UIClass.Pages
 
             /// pass to buyer to generate invoice
             CurrentBuyer.GenerateInvoice(contractInfo, orderInfo);
+            TMSv2_Logging.Logger.LogToFile("Invoice generated for "+ contractID.ToString());
         }
     }
 }
