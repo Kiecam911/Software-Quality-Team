@@ -533,6 +533,19 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn UpdateRatesTable(double FTLRate, double LTLRate)
+        /// 
+        /// \brief Updates the Rates Table based on information inputed via the parameters
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to update the Rates table with new values
+        ///
+        /// \param FTLRate <b>double</b> - The OSHT's new additional FTL markup rate
+        /// \param LTLRate <b>double</b> - The OSHT's new additional LTL markup rate
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         public bool UpdateRatesTable(double FTLRate, double LTLRate)
         {
             //Connect to variabled database
@@ -564,7 +577,18 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn FullDatabaseBackup()
+        /// 
+        /// \brief Gets all data from the database and saves them into xml files
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get all current data and save it to xml files for later restoration
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         public bool FullDatabaseBackup()
         {
             //Create a file stream for each table in the database
@@ -660,6 +684,18 @@ namespace TMSv2_DAL
             return true;
         }
 
+        ///
+        /// \fn FullDatabaseRestore()
+        /// 
+        /// \brief Gets all data from the stored xml files and inserts them into the database (Database must be empty)
+        /// \details <b>Details</b>
+        ///
+        /// This method takes all data from the saved database xml files and restores them to the empty database
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         public bool FullDatabaseRestore()
         {
             //Create a file stream for each table in the database
@@ -778,7 +814,19 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn GetUsersTable()
+        /// 
+        /// \brief Gets the user table information and returns it in a dataset
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get user information and returns it in a dataset for
+        /// further data extraction in the calling function
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the stored data from the Users Table in the database
+        ///
         private DataSet GetUsersTable()
         {
             //Variables
@@ -804,6 +852,18 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn RestoreUsersTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreUsersTable(DataSet data)
         {
             //Variables
@@ -844,6 +904,19 @@ namespace TMSv2_DAL
             return true;
         }
 
+        ///
+        /// \fn GetOrdersTable()
+        /// 
+        /// \brief Gets all data in the Database's Orders table and saves it to the xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get Orders information and returns it in a dataset for
+        /// further data extraction in the calling function
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the stored data from the Trips Table in the database
+        ///
         private DataSet GetOrdersTable()
         {
             //Variables
@@ -869,6 +942,18 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn RestoreOrdersTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreOrdersTable(DataSet data)
         {
             //Variables
@@ -918,7 +1003,18 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn RestoreOrdersTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreTripsTable(DataSet data)
         {
             //Variables
@@ -964,6 +1060,18 @@ namespace TMSv2_DAL
             return true;
         }
 
+        ///
+        /// \fn RestoreRoutesTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreRoutesTable(DataSet data)
         {
             //Variables
@@ -1006,8 +1114,18 @@ namespace TMSv2_DAL
             return true;
         }
 
-
-
+        ///
+        /// \fn RestoreRatesTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreRatesTable(DataSet data)
         {
             //Variables
@@ -1046,8 +1164,18 @@ namespace TMSv2_DAL
             return true;
         }
 
-
-
+        ///
+        /// \fn RestoreCarrierTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreCarrierTable(DataSet data)
         {
             //Variables
@@ -1086,7 +1214,18 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn RestoreCarrierInfoTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreCarrierInfoTable(DataSet data)
         {
             //Variables
@@ -1131,7 +1270,18 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn RestoreCarrierLineTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreCarrierLineTable(DataSet data)
         {
             //Variables
@@ -1170,7 +1320,18 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn RestoreContractTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreContractTable(DataSet data)
         {
             //Variables
@@ -1214,7 +1375,18 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn RestoreInvoiceTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreInvoiceTable(DataSet data)
         {
             //Variables
@@ -1254,7 +1426,18 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn RestoreCustomerTable(DataSet data)
+        /// 
+        /// \brief Meant to store all data from the saved xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method extracts all data from the saved database xml file and inserts that data into the database
+        ///
+        /// \param data <b>Dataset</b> - The dataset that will be restored to the database
+        ///
+        /// \return Bool - Returns the success or failure result
+        ///
         private bool RestoreCustomerTable(DataSet data)
         {
             //Variables
@@ -1294,7 +1477,19 @@ namespace TMSv2_DAL
             return true;
         }
 
-
+        ///
+        /// \fn GetTripsTable()
+        /// 
+        /// \brief Gets all data in the Database's Trips table and saves it to the xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get Trips information and returns it in a dataset for
+        /// further data extraction in the calling function
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the stored data from the Trips Table in the database
+        ///
         private DataSet GetTripsTable()
         {
             //Variables
@@ -1320,6 +1515,19 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn GetCarriersTable()
+        /// 
+        /// \brief Gets all data in the Database's Carriers table and saves it to the xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get Carriers information and returns it in a dataset for
+        /// further data extraction in the calling function
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the stored data from the Carriers Table in the database
+        ///
         private DataSet GetCarriersTable()
         {
             //Variables
@@ -1345,6 +1553,19 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn GetCarrierInfoTable()
+        /// 
+        /// \brief Gets all data in the Database's CarrierInfo table and saves it to the xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get CarrierInfo information and returns it in a dataset for
+        /// further data extraction in the calling function
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the stored data from the CarrierInfo Table in the database
+        ///
         private DataSet GetCarrierInfoTable()
         {
             //Variables
@@ -1370,6 +1591,19 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn GetCarrierLineTable()
+        /// 
+        /// \brief Gets all data in the Database's CarrierLine table and saves it to the xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get CarrierLine information and returns it in a dataset for
+        /// further data extraction in the calling function
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the stored data from the CarrierLine Table in the database
+        ///
         private DataSet GetCarrierLineTable()
         {
             //Variables
@@ -1395,6 +1629,19 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn GetContractsTable()
+        /// 
+        /// \brief Gets all data in the Database's Contracts table and saves it to the xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get Contracts information and returns it in a dataset for
+        /// further data extraction in the calling function
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the stored data from the Contracts Table in the database
+        ///
         private DataSet GetContractsTable()
         {
             //Variables
@@ -1420,6 +1667,19 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn GetInvoicesTable()
+        /// 
+        /// \brief Gets all data in the Database's Invoices table and saves it to the xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get Invoices information and returns it in a dataset for
+        /// further data extraction in the calling function
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the stored data from the Invoices Table in the database
+        ///
         private DataSet GetInvoicesTable()
         {
             //Variables
@@ -1445,6 +1705,19 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn GetCustomersTable()
+        /// 
+        /// \brief Gets all data in the Database's Customers table and saves it to the xml file
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get Customers information and returns it in a dataset for
+        /// further data extraction in the calling function
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the stored data from the Customers Table in the database
+        ///
         private DataSet GetCustomersTable()
         {
             //Variables
@@ -1470,6 +1743,19 @@ namespace TMSv2_DAL
             return data;
         }
 
+        ///
+        /// \fn GetActiveOrders()
+        /// 
+        /// \brief Gets all active orders from the database
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get all orders in the database with the IsActive boolean
+        /// set to true
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the dataset of all active orders
+        ///
         public static DataSet GetActiveOrders()
         {
             try
@@ -1494,6 +1780,18 @@ namespace TMSv2_DAL
             }
         }
 
+        ///
+        /// \fn GetUnassignedTripOrders()
+        /// 
+        /// \brief Gets all Trips that do not have an order
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get all Trips that do not have an order
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return DataSet - Returns the dataset of all Trips that do not have an order
+        ///
         public static DataSet GetUnassignedTripOrders()
         {
             try
@@ -1518,7 +1816,23 @@ namespace TMSv2_DAL
             }
         }
 
-
+        ///
+        /// \fn InsertNewContract(string clientName, int jobType, int quantity, string origin, string destination, int vanType)
+        /// 
+        /// \brief Inserts a new trip into the database based on function parameters
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to insert a new contract with the function's parameters
+        ///
+        /// \param clientname <b>string</b> - The Client's name
+        /// \param jobType <b>string</b> - The Contract's jobType
+        /// \param quantity <b>string</b> - The Contract's order quantity
+        /// \param origin <b>string</b> - The Contract's origin city
+        /// \param destination <b>string</b> - The Contract's destination city
+        /// \param vanType <b>string</b> - The Contract's vanType (reefer or no)
+        ///
+        /// \return int - Returns the contractID of the newly inserted Contract
+        ///
         public int InsertNewContract(string clientName, int jobType, int quantity, string origin, string destination, int vanType)
         {
             MySqlDataAdapter adapter = new MySqlDataAdapter();
@@ -1546,6 +1860,18 @@ namespace TMSv2_DAL
             return contractID;
         }
 
+        ///
+        /// \fn InsertNewOrder(int contractID)
+        /// 
+        /// \brief Inserts a new Order based on the ContractID
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to insert a new order with the associated ContractID
+        ///
+        /// \param contractID <b>int</b> - The Client's ID
+        ///
+        /// \return void - Returns nothing
+        ///
         public void InsertNewOrder(int contractID)
         {
             MySqlDataAdapter adapter = new MySqlDataAdapter();
@@ -1563,6 +1889,23 @@ namespace TMSv2_DAL
             CloseConnection();
         }
 
+        ///
+        /// \fn UpdateOrderTotals(int orderID, int daysRequired, int totalKM, double totalIncome, double totalExpense)
+        /// 
+        /// \brief Updates the Order (based on orderID) with the function's parameters
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to update the specified order (based on the functin parameter OrderID) with the
+        /// associated function's parameters
+        ///
+        /// \param orderID <b>int</b> - The Order's ID
+        /// \param daysRequired <b>int</b> - The Order's new daysRequired
+        /// \param totalKM <b>int</b> - The Order's new totalKM
+        /// \param totalIncome <b>int</b> - The Order's new totalIncome
+        /// \param totalExpense <b>int</b> - The Order's totalExpense
+        ///
+        /// \return void - Returns nothing
+        ///
         public void UpdateOrderTotals(int orderID, int daysRequired, int totalKM, double totalIncome, double totalExpense)
         {
             string cmdText = String.Format(@"UPDATE Orders SET DaysRequired = {0}, TotalKm = {1}, TotalIncome = {2}, TotalExpense = {3},  hasTrip = true WHERE OrderID = {4};", daysRequired, totalKM, totalIncome, totalExpense, orderID);
@@ -1577,6 +1920,18 @@ namespace TMSv2_DAL
             CloseConnection();
         }
 
+        ///
+        /// \fn GetOrderByID(int orderID)
+        /// 
+        /// \brief Gets the order from the database based on the OrderID
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get the requrested Order based on the OrderID in the function's parameters
+        ///
+        /// \param orderID <b>int</b> - The Order's ID
+        ///
+        /// \return DataRow - Returns data for the requested Order
+        ///
         public DataRow GetOrderByID(int orderID)
         {
             try
@@ -1600,6 +1955,18 @@ namespace TMSv2_DAL
             }
         }
 
+        ///
+        /// \fn GetTripByID(int tripID)
+        /// 
+        /// \brief Gets the Trip based on the TripID in the function's parameters
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get the Trip from the Trip ID based on the function's parameter
+        ///
+        /// \param tripID <b>int</b> - The Trip's ID
+        ///
+        /// \return DataRow - Returns data for the requested Trip
+        ///
         public DataRow GetTripByID(int tripID)
         {
             try
@@ -1623,6 +1990,18 @@ namespace TMSv2_DAL
             }
         }
 
+        ///
+        /// \fn GetCarrierInfoByID(int carrierID)
+        /// 
+        /// \brief Gets the Carrier based on the CarrierID in the function's parameters
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get the Carrier from the Carrier ID based on the function's parameter
+        ///
+        /// \param carrierID <b>int</b> - The Carrier's ID
+        ///
+        /// \return DataRow - Returns data for the requested Carrier
+        ///
         public DataRow GetCarrierInfoByID(int carrierID)
         {
             try
@@ -1646,6 +2025,18 @@ namespace TMSv2_DAL
             }
         }
 
+        ///
+        /// \fn GetContractByID(int contractID)
+        /// 
+        /// \brief Gets the Contracts based on the ContractID in the function's parameters
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to get the Contracts from the Contracts ID based on the function's parameter
+        ///
+        /// \param contractID <b>int</b> - The Contracts's ID
+        ///
+        /// \return DataRow - Returns data for the requested Contract
+        ///
         public DataRow GetContractByID(int contractID)
         {
             try
@@ -1669,6 +2060,18 @@ namespace TMSv2_DAL
             }
         }
 
+        ///
+        /// \fn DayPassed()
+        /// 
+        /// \brief Increments the DaysPassed in the Orders data based
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the Team-made database to increment the DaysPassed in the Orders table by one day
+        ///
+        /// \param none <b>nothing</b> - none
+        ///
+        /// \return Void - Returns nothing
+        ///
         public void DayPassed()
         {
             string cmdText = @"UPDATE Orders SET DaysRequired = DaysRequired - 1 WHERE Orders.hasTrip = 1 AND Orders.Completed = 0;";
