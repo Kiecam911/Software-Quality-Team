@@ -47,7 +47,7 @@ namespace TMSv2_UIClass.Pages
             newContractGrid.Visibility = Visibility.Visible;
             Timer timer = new Timer();
             timer.Tick += new EventHandler(timerTick);
-            timer.Interval = 5000;
+            timer.Interval = 10000;
             timer.Start();
         }
 
@@ -203,6 +203,18 @@ namespace TMSv2_UIClass.Pages
             {
                 Logger.LogToFile("Error accepting contract - " + ex.Message);
             }
+        }
+
+        private void invoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataAccess dal = new DataAccess();
+
+            DataRowView rows = (DataRowView)currentContractsDataGrid.SelectedItems[0];
+            int contractID = (int)rows.Row.ItemArray[0];
+            int orderID = (int)rows.Row.ItemArray[1];
+
+            DataRow contractInfo = dal.GetContractByID(contractID);
+            DataRow orderInfo = dal.GetOrderByID(orderID);
         }
     }
 }

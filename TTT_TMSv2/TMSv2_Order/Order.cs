@@ -180,7 +180,8 @@ namespace TMSv2_Order
             if (isReefer != 0)
             {
                 //if truck is reefer, apply reefer multipler
-                carrierRatePerKM *= 1 + currentTrip.DepotRates.ReefCharge;
+                carrierRatePerKM *= (1 + currentTrip.DepotRates.ReefCharge);
+                customerRatePerKM *= (1 + currentTrip.DepotRates.ReefCharge);
             }
 
             //use fomrula to calculate costs

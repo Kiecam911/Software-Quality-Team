@@ -7,6 +7,7 @@ using TMSv2_Carriers;
 using TMSv2_Contracts;
 using TMSv2_Order;
 using TMSv2_TripPlanner;
+using System.Data;
 
 namespace TMSv2_Users
 {
@@ -85,9 +86,9 @@ namespace TMSv2_Users
         /// 
         /// \see Order
         ///
-        public void GenerateInvoice(Order order)
+        public void GenerateInvoice(DataRow contractInfo, DataRow orderInfo)
         {
-            throw new Exception("Invalid Order");
+
         }
     }
 }
