@@ -34,6 +34,10 @@ namespace TMSv2_Order
     ///
     public class Order
     {
+        // constants
+        private const double kFTLMarkup = 1.08;
+        private const double kLTLMarkup = 1.05;
+
         // Private Data members
         private int _OrderID;                               /// Order's Identification number
         public int OrderID                                  /// Public reference to _OrderID for safety
@@ -145,6 +149,18 @@ namespace TMSv2_Order
 
 
 
+        ///
+        /// \fn Order()
+        /// 
+        /// \brief To instantiate a new Order object
+        /// \details <b>Details</b>
+        ///
+        /// Instantiates the Order's data members to -1, null, or false as default placeholders for data
+        ///
+        /// \param nothing <b>void</b> - Nothing is passed into this constructor
+        ///
+        /// \return As this is a <i>constructor</i> for the Order class, nothing is returned
+        ///
         public Order(Contract c)
         {
             _OrderID = 0;
@@ -158,6 +174,21 @@ namespace TMSv2_Order
             Trips = new List<Trip>();
         }
 
+
+
+        ///
+        /// \fn CalculateTotalCost()
+        /// 
+        /// \brief Calculates the profit and expense of an entire order
+        /// \details <b>Details</b>
+        ///
+        /// Given job type, van type, and quantity, this method calculates how much money
+        /// a order costs to carry out for the company, as well as how much the customer should be charged.
+        ///
+        /// \param int isLTL - 0 for FTL, LTL otherwise
+        /// \param int isLTL - 0 for FTL, LTL otherwise
+        /// \param int quantity - quantity of pallets being transported for LTL
+        ///
         public void CalculateTotalCost(int isLTL, int isReefer, int quantity)
         {
             double carrierRatePerKM = 0;
@@ -169,13 +200,13 @@ namespace TMSv2_Order
             {
                 // if not LTL, assign FTL rates
                 carrierRatePerKM = currentDepotRates.FTLRate;
-                customerRatePerKM = carrierRatePerKM * 1.08;
+                customerRatePerKM = carrierRatePerKM * kFTLMarkup;
             }
             else
             {
                 // if LTL, assign LTL rates
                 carrierRatePerKM = currentDepotRates.LTLRate * quantity;
-                customerRatePerKM = carrierRatePerKM * 1.05;
+                customerRatePerKM = carrierRatePerKM * kLTLMarkup;
             }
             if (isReefer != 0)
             {
@@ -191,15 +222,27 @@ namespace TMSv2_Order
             int extraDays = GetTripDaysFromHours(totalDriveHours, totalWorkHours);
             DaysRequired = extraDays + 1;
 
+            // assign final costs to data members
             FinalCustomerPrice = customerRatePerKM * TotalKm + 150 * extraDays;
             FinalCarrierPrice = carrierRatePerKM * TotalKm + 150 * extraDays;
 
+            // update order in DB
             DataAccess dal = new DataAccess();
             dal.UpdateOrderTotals(OrderID, DaysRequired, TotalKm, FinalCustomerPrice, FinalCarrierPrice);
         }
 
 
 
+        ///
+        /// \fn GetTripDaysFromHours()
+        /// 
+        /// \brief Calculates the amount of extra days taken by a trip
+        /// \details <b>Details</b>
+        ///
+        /// Returns the amount of extra days a trip needs to complete over 1
+        ///
+        /// \return int - integer representing the amount of extra days needed
+        ///
         private int GetTripDaysFromHours(double drivingHours, double workingHours)
         {
            // get amount of days taken as an integer rounded down (since only days after day 1 cost extra)
@@ -215,37 +258,32 @@ namespace TMSv2_Order
         }
 
 
-
         ///
-        /// \fn CreateOrderFromContract()
+        /// \fn AddCitiesToOrder()
         /// 
-        /// \brief To instantiate an order based on a contract
+        /// \brief To add a list of cities to an order
         /// \details <b>Details</b>
         ///
-        /// Instantiates the Order's data members related to contracts to create a new order
-        /// from the  corresponding contract to be carried out.
+        /// Assigns the newCities parameter to the Cities data member
         ///
-        /// \param contract <b>Contract</b> - The contract that the order is based on
+        /// \param List<string> newCities - the list of cities
         ///
-        /// \return nothing <i>void</i> this method returns void
-        ///
-        public void CreateOrderFromContract(Contract contract)
-        {
-            //Order newOrder = new Order();
-            //newOrder.OrderID = contract.ContractID;
-            //newOrder.IsCompleted = false;
-            //newOrder.IsActive = false;
-        }
-
-
-
         public void AddCitiesToOrder(List<string> newCities)
         {
             Cities = newCities;
         }
 
 
-
+        ///
+        /// \fn AddTripsToOrder()
+        /// 
+        /// \brief To add a list of trips to an order
+        /// \details <b>Details</b>
+        ///
+        /// Assigns the newTrips parameter to the Trips data member
+        ///
+        /// \param List<string> newCities - the list of cities
+        ///
         public void AddTripsToOrder(List<Trip> newTrips)
         {
             Trips = newTrips;
@@ -253,6 +291,16 @@ namespace TMSv2_Order
 
 
 
+        ///
+        /// \fn GetActiveOrders()
+        /// 
+        /// \brief Gets the list of active orders
+        /// \details <b>Details</b>
+        ///
+        /// Returns the last of active orders obtained from the DAL
+        ///
+        /// \return List<Order> - the last of active orders
+        ///
         public List<Order> GetActiveOrders()
         {
             // create objects to hold information from DAL
@@ -281,6 +329,17 @@ namespace TMSv2_Order
             return routesList;
         }
 
+
+        ///
+        /// \fn GetUnassignedTripOrders()
+        /// 
+        /// \brief Gets the list of unassigned orders
+        /// \details <b>Details</b>
+        ///
+        /// Returns the last of unassigned orders obtained from the DAL
+        ///
+        /// \return List<Order> - the last of unassigned orders
+        ///
         public List<Order> GetUnassignedTripOrders()
         {
             // create objects to hold information from DAL

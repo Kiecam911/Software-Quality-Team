@@ -81,7 +81,8 @@ namespace TMSv2_Users
         /// Generates an invoice based on the details contained within the order passed
         /// as a parameter.
         ///
-        /// \param Order order - The order the invoice is based off of
+        /// \param DataRow contractInfo - The contract the invoice is based off of
+        /// \param DataRow orderInfo - The order the invoice is based off of
         ///
         /// \return None
         /// 
@@ -89,6 +90,7 @@ namespace TMSv2_Users
         ///
         public void GenerateInvoice(DataRow contractInfo, DataRow orderInfo)
         {
+            // get data from rows to use in invoice
             int orderID = orderInfo.Field<int>("OrderID");
             double price = orderInfo.Field<double>("TotalIncome");
             int days = orderInfo.Field<int>("DaysRequired");
@@ -97,8 +99,11 @@ namespace TMSv2_Users
             string origin = contractInfo.Field<string>("Origin");
             string destination = contractInfo.Field<string>("Destination");
 
+            // create invoice text
             string fileText = String.Format("Sales Invoice for {0}:\nOrder Number: {1}\nFinal Price: ${2}\nDays to completion: {3}\nMoving cargo from {4} to {5}",
                                             clientName, orderID, price, days, origin, destination);
+
+            // write file
             StreamWriter fileWriter = File.CreateText(orderID + "_" + clientName + ".txt");
             fileWriter.WriteLine(fileText);
             fileWriter.Close();
