@@ -52,7 +52,7 @@
 
         <Grid x:Name="CurrentContractGrid" Visibility="Hidden">
             <Label Content="Select a contract and click the button to generate Invoice:" HorizontalAlignment="Left" Margin="188,64,0,0" VerticalAlignment="Top" Foreground="#FF0074FF"/>
-            <Button x:Name="invoiceButton" Content="Generate Invoice" HorizontalAlignment="Left" Margin="549,64,0,0" VerticalAlignment="Top" Width="99" Height="26" Background="#FF047FD4" Foreground="White"/>
+            <Button x:Name="invoiceButton" Content="Generate Invoice" HorizontalAlignment="Left" Margin="549,64,0,0" VerticalAlignment="Top" Width="99" Height="26" Background="#FF047FD4" Foreground="White" Click="invoiceButton_Click"/>
             <DataGrid x:Name="currentContractsDataGrid" HorizontalAlignment="Left" Height="266" Margin="188,105,0,0" VerticalAlignment="Top" Width="596" Background="LightGray" BorderBrush="{x:Null}" Foreground="Black" HeadersVisibility="Column" GridLinesVisibility="Horizontal" RowBackground="#FF047FD4" AlternatingRowBackground="LightGray"/>
 
         </Grid>
