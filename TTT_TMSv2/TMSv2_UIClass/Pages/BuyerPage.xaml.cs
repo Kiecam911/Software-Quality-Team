@@ -87,6 +87,8 @@ namespace TMSv2_UIClass.Pages
         {
             resetView();
             CompletedContractGrid.Visibility = Visibility.Visible;
+
+            LoadCompleteContracts();
         }
 
         private void loadNewContracts()
@@ -118,7 +120,7 @@ namespace TMSv2_UIClass.Pages
             {
                 
                 MySqlConnection connection = new MySqlConnection(connectionString);
-                string sqlCommand = "SELECT * FROM Contracts";
+                string sqlCommand = "SELECT Contracts.ContractID, OrderID, Client_Name, Quantity, Origin, Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.OrderID WHERE IsActive = 1";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
 
@@ -129,9 +131,9 @@ namespace TMSv2_UIClass.Pages
                 currentContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new System.Windows.Data.Binding { Source = ds.Tables["*"] });
                 connection.Close();
             }
-            catch
+            catch (Exception e)
             {
-                System.Windows.MessageBox.Show("Database failed to load, please check your connection");
+                System.Windows.MessageBox.Show(e.ToString());
             }
         }
 
@@ -141,15 +143,15 @@ namespace TMSv2_UIClass.Pages
             {
 
                 MySqlConnection connection = new MySqlConnection(connectionString);
-                string sqlCommand = "SELECT * FROM Orders WHERE Completed=1";
+                string sqlCommand = "SELECT Contracts.ContractID, OrderID, Client_Name, Quantity, Origin, Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.OrderID WHERE Completed = 1";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
 
                 connection.Open();
 
                 DataSet ds = new DataSet();
-                adapter.Fill(ds, "*");
-                currentContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new System.Windows.Data.Binding { Source = ds.Tables["*"] });
+                adapter.Fill(ds, "Orders");
+                completedContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new System.Windows.Data.Binding { Source = ds.Tables["Orders"] });
                 connection.Close();
             }
             catch
