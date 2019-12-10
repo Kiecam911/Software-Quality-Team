@@ -100,6 +100,17 @@ namespace TMSv2_Users
 
 
 
+        ///
+        /// \brief Loads data from a DataRow into an Order object
+        /// \details <b>Details</b>
+        ///
+        /// This method creates an Order object, populates it with data from the given row,
+        /// and returns it.
+        ///
+        /// \param DataRow orderInfo - row containing the data relevant for the Order object
+        ///
+        /// \return Order - the created Order
+        ///
         public Order LoadOrderRow(DataRow orderInfo)
         {
             Order order = new Order();
@@ -109,6 +120,17 @@ namespace TMSv2_Users
 
 
 
+        ///
+        /// \brief Loads data from a DataRow into a Trip object
+        /// \details <b>Details</b>
+        ///
+        /// This method creates an Trip object, populates it with data from the given row,
+        /// and returns it.
+        ///
+        /// \param DataRow tripInfo - row containing the data relevant for the Trip object
+        ///
+        /// \return Trip - the created Trip
+        ///
         public Trip LoadTripRow(DataRow tripInfo)
         {
             Trip trip = new Trip();
@@ -120,6 +142,17 @@ namespace TMSv2_Users
 
 
 
+        ///
+        /// \brief Loads data from a DataRow into a Depot object
+        /// \details <b>Details</b>
+        ///
+        /// This method creates a Depot object, populates it with data from the given row,
+        /// and returns it.
+        ///
+        /// \param DataRow depotInfo - row containing the data relevant for the Depot object
+        ///
+        /// \return Depot - the created Order
+        ///
         public Depot LoadDepotRatesRow(DataRow depotInfo)
         {
             Depot depot = new Depot();
