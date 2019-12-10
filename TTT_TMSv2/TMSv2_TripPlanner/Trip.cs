@@ -121,8 +121,19 @@ namespace TMSv2_TripPlanner
             DestinationPointer = null;
         }
 
-
-
+        ///
+        /// \fn Trip(string origin, string destination)
+        /// 
+        /// \brief Constructor with the origin and destination values
+        /// \details <b>Details</b>
+        ///
+        /// This method sets all the default values upon creation of a new object
+        ///
+        /// \param origin <b>string</b> - The origin city name
+        /// \param destination <b>string</b> - The destination city name
+        ///
+        /// \return none - Returns nothing
+        ///
         public Trip(string origin, string destination)
         {
             _TripID = 0;
@@ -134,9 +145,19 @@ namespace TMSv2_TripPlanner
             DestinationPointer = DestinationInfo.GetDestinationByName(destination);
         }
 
-
-
-
+        ///
+        /// \fn SetOriginDestination(string origin, string destination)
+        /// 
+        /// \brief Method to set the destination and origin city Route Pointers
+        /// \details <b>Details</b>
+        ///
+        /// This method sets the origin and destination city pointers to the parameter
+        ///
+        /// \param origin <b>string</b> - The origin city name
+        /// \param destination <b>string</b> - The destination city name
+        ///
+        /// \return none - Returns nothing
+        ///
         public void SetOriginDestination(string origin, string destination)
         {
             //Variables
@@ -158,7 +179,18 @@ namespace TMSv2_TripPlanner
         }
 
 
-
+        ///
+        /// \fn CalculateTotals(int isLTL)
+        /// 
+        /// \brief Method to calculates and sets the totals based on the route that must be taken
+        /// \details <b>Details</b>
+        ///
+        /// This method calculates and sets the totals based on the route that must be taken
+        ///
+        /// \param isLTL <b>int</b> - whether or not the contract is an Ltl
+        ///
+        /// \return none - Returns nothing
+        ///
         public void CalculateTotals(int isLTL)
         {
             // start at the origin

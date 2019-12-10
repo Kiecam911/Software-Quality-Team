@@ -142,6 +142,18 @@ namespace TMSv2_Carriers
             return carrierList;
         }
 
+        ///
+        /// \fn UpdateCarriers(List<Carrier> carrierList)
+        /// 
+        /// \brief Updates the Carriers table with the new list of carriers
+        /// \details <b>Details</b>
+        ///
+        /// This method interfaces with the DataAccess class to update the Carriers table with the list of the new carriers
+        ///
+        /// \param carrierList <b>List Carrier</b> - The list of new carriers
+        ///
+        /// \return bool - Returns the success or failure result
+        ///
         public bool UpdateCarriers(List<Carrier> carrierList)
         {
             //Variables
