@@ -73,7 +73,8 @@ namespace TMSv2_UIClass.Pages
 
         private void generateReportButton_Click(object sender, RoutedEventArgs e)
         {
-
+            resetView();
+            GenerateReportsScreen.Visibility = Visibility.Visible;
         }
 
         private void increaseTimeButton_Click(object sender, RoutedEventArgs e)
@@ -88,6 +89,7 @@ namespace TMSv2_UIClass.Pages
             ActiveOrders.Visibility = Visibility.Hidden;
             AssignCarrierScreen.Visibility = Visibility.Hidden;
             CompleteOrderScreen.Visibility = Visibility.Hidden;
+            GenerateReportsScreen.Visibility = Visibility.Hidden;
         }
 
         private void AssignCarrierButton_Click_1(object sender, RoutedEventArgs e)
@@ -319,5 +321,61 @@ namespace TMSv2_UIClass.Pages
                 // destination = row_selected["DestinationCity"].ToString();
             }
         }
+
+        private void ViewAllButton_Click(object sender, RoutedEventArgs e)
+        {          
+            loadAll();
+        }
+
+        private void ViewTwoButton_Click(object sender, RoutedEventArgs e)
+        {
+            loadTwoWeeks();
+        }
+
+        private void loadAll()
+        {
+            try
+            {
+                string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
+                MySqlConnection connection = new MySqlConnection(ConnectionString);
+                string sqlCommand = "SELECT Contracts.ContractID, Orders.OrderID, client_name, Quantity, Origin, Destination, Carriers.CarrierName, TotalExpense, TotalIncome FROM Contracts INNER JOIN Orders ON OrderID = Contracts.ContractID INNER JOIN Carriers ON CarrierID = Contracts.ContractID WHERE Orders.Completed = 1;";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+
+                connection.Open();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "Report");
+                reportOut.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["Report"] });
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        private void loadTwoWeeks()
+        {
+            try
+            {
+                string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
+                MySqlConnection connection = new MySqlConnection(ConnectionString);
+                string sqlCommand = "SELECT Contracts.ContractID, Orders.OrderID, client_name, Quantity, Origin, Destination, Carriers.CarrierName, TotalExpense, TotalIncome FROM Contracts INNER JOIN Orders ON OrderID = Contracts.ContractID INNER JOIN Carriers ON CarrierID = Contracts.ContractID WHERE Orders.Completed = 1 AND DaysRequired > -14;";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
+
+                connection.Open();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "Report");
+                reportOut.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = ds.Tables["Report"] });
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        
     }
 }
