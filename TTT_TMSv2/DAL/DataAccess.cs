@@ -1621,11 +1621,34 @@ namespace TMSv2_DAL
             }
         }
 
-        public DataRow GetCarrierByID(int carrierID)
+        public DataRow GetCarrierInfoByID(int carrierID)
         {
             try
             {
-                string sqlCommand = String.Format(@"SELECT * FROM Carriers WHERE CarrierID = {0};", carrierID);
+                string sqlCommand = String.Format(@"SELECT * FROM CarrierInfo WHERE CarrierID = {0};", carrierID);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, _Connection);
+
+
+                ConnectToDatabase();
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
+
+                CloseConnection();
+                return ds.Tables[0].Rows[0];
+            }
+            catch (Exception ex)
+            {
+                Logger.LogToFile(ex.Message);
+                return null;
+            }
+        }
+
+        public DataRow GetContractByID(int contractID)
+        {
+            try
+            {
+                string sqlCommand = String.Format(@"SELECT * FROM Contracts WHERE ContractID = {0};", contractID);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, _Connection);
 
 

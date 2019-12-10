@@ -19,6 +19,8 @@ using TMSv2_DAL;
 using TMSv2_Order;
 using TMSv2_Users;
 using TMSv2_TripPlanner;
+using TMSv2_Carriers;
+using TMSv2_Contracts;
 
 namespace TMSv2_UIClass.Pages
 {
@@ -119,15 +121,35 @@ namespace TMSv2_UIClass.Pages
 
             // get rows from dal
             DataAccess dal = new DataAccess();
+
+            // get data from db
             DataRow orderRow = dal.GetOrderByID(orderIDAssignCarrier);
             DataRow tripRow = dal.GetTripByID(newTripID);
+            DataRow carrierRow = dal.GetCarrierInfoByID(carrierID);
 
             // create objects from rows
             Order currentOrder = currentPlanner.LoadOrderRow(orderRow);
             Trip currentTrip = currentPlanner.LoadTripRow(tripRow);
+            Depot currentDepotRates = currentPlanner.LoadDepotRatesRow(carrierRow);
+
+            // get more data from db as parameters
+            DataRow contractRow = dal.GetContractByID(orderRow.Field<int>("OrderID"));
+            int jobType = contractRow.Field<int>("Job_Type");
+            int vanType = contractRow.Field<int>("Van_Type");
+            int quantity = contractRow.Field<int>("Quantity");
+
+            string cOrigin = contractRow.Field<string>("Origin");
+            string cDestination = contractRow.Field<string>("Destination");
+
+
 
             currentOrder.Trips.Add(currentTrip);
-            currentOrder.CalculateTotalCost(false);
+            currentOrder.Trips[0].DepotRates = currentDepotRates;
+
+            currentOrder.Trips[0].SetOriginDestination(cOrigin, cDestination);
+            currentOrder.Trips[0].CalculateTotals(jobType);
+
+            currentOrder.CalculateTotalCost(jobType, vanType, quantity);
 
             loadCarrierAssignmentTable(AssignCarrierDatagrid);
 

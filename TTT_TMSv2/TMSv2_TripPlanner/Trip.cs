@@ -50,6 +50,7 @@ namespace TMSv2_TripPlanner
             }
         }
         public Carrier TripCarrier { get; set; }            /// The Carrier that will carryout the trip
+        public Depot DepotRates { get; set; }                   /// depot containing the carrier's pricing rates
         public Routes OriginPointer { get; set; }                  /// The city of origin of the Contract
         public Routes DestinationPointer { get; set; }             /// The destination city of the Contract
         public string Origin { get; set; }                  /// The city of origin of the Contract
@@ -158,7 +159,7 @@ namespace TMSv2_TripPlanner
 
 
 
-        public void CalculateTotals(bool isFTL)
+        public void CalculateTotals(int isLTL)
         {
             // start at the origin
             Routes currentCity = OriginPointer;
@@ -169,7 +170,7 @@ namespace TMSv2_TripPlanner
             {
                 direction = kGoingWest;
             }
-            else if (DestinationPointer.RouteID < OriginPointer.RouteID)
+            else if (DestinationPointer.RouteID > OriginPointer.RouteID)
             {
                 direction = kGoingEast;
             }
@@ -180,7 +181,7 @@ namespace TMSv2_TripPlanner
 
             // loop from origin to destination to determine totals
 
-            if (isFTL)
+            if (isLTL == 0)
             {
                 // add 2 hours for each origin and destination for FTL
                 TotalDistanceHours = TimeSpan.FromHours(4);
@@ -194,12 +195,12 @@ namespace TMSv2_TripPlanner
                 TotalDistanceHours += currentCity.DistanceHours;
 
                 // add 2 hours per intermediary city for LTL
-                if (!isFTL)
+                if (isLTL == 1)
                 {
                     TotalDistanceHours += TimeSpan.FromHours(2);
                 }
 
-                if (currentCity == DestinationPointer)
+                if (currentCity.City == DestinationPointer.City)
                 {
                     // stop looping once destination is found
                     break;
@@ -212,6 +213,7 @@ namespace TMSv2_TripPlanner
                         if(currentCity.WestDestinationName == r.City)
                         {
                             currentCity = r;
+                            break;
                         }
                     }
                 }
@@ -223,6 +225,7 @@ namespace TMSv2_TripPlanner
                         if (currentCity.EastDestinationName == r.City)
                         {
                             currentCity = r;
+                            break;
                         }
                     }
                 }

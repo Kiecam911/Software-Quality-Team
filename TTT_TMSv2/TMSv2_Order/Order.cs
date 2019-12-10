@@ -7,6 +7,7 @@ using TMSv2_Contracts;
 using TMSv2_TripPlanner;
 using System.Data;
 using TMSv2_DAL;
+using TMSv2_Carriers;
 
 namespace TMSv2_Order
 {
@@ -157,20 +158,29 @@ namespace TMSv2_Order
             Trips = new List<Trip>();
         }
 
-        public void CalculateTotalCost(bool isLTL)
+        public void CalculateTotalCost(int isLTL, int isReefer, int quantity)
         {
             double carrierRatePerKM = 0;
             double customerRatePerKM = 0;
-            if (!isLTL)
+            Trip currentTrip = Trips[0];
+            Depot currentDepotRates = currentTrip.DepotRates;
+
+            if (isLTL == 0)
             {
-                // to do: get rate of selected carrier from planner
-                carrierRatePerKM = 4.985;
+                // if not LTL, assign FTL rates
+                carrierRatePerKM = currentDepotRates.FTLRate;
                 customerRatePerKM = carrierRatePerKM * 1.08;
             }
             else
             {
-                carrierRatePerKM = 0.2995 * OrderContract.Quantity;
+                // if LTL, assign LTL rates
+                carrierRatePerKM = currentDepotRates.LTLRate * quantity;
                 customerRatePerKM = carrierRatePerKM * 1.05;
+            }
+            if (isReefer != 0)
+            {
+                //if truck is reefer, apply reefer multipler
+                carrierRatePerKM *= 1 + currentTrip.DepotRates.ReefCharge;
             }
 
             //use fomrula to calculate costs

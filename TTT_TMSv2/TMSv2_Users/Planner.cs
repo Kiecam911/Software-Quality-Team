@@ -117,5 +117,16 @@ namespace TMSv2_Users
             trip.Destination = tripInfo.Field<string>("Destination");
             return trip;
         }
+
+
+
+        public Depot LoadDepotRatesRow(DataRow depotInfo)
+        {
+            Depot depot = new Depot();
+            depot.FTLRate = depotInfo.Field<double>("FTLRate");
+            depot.LTLRate = depotInfo.Field<double>("LTLRate");
+            depot.ReefCharge = depotInfo.Field<double>("ReefCharge");
+            return depot;
+        }
     }
 }
