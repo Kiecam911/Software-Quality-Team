@@ -97,9 +97,9 @@ namespace TMSv2_Users
             string origin = contractInfo.Field<string>("Origin");
             string destination = contractInfo.Field<string>("Destination");
 
-            string fileText = String.Format("Sales Invoice for {0}:\nOrder Number: {1}\nFinal Price: {2}\nDays to completion: {3}\nMoving cargo from {4} to {5}",
+            string fileText = String.Format("Sales Invoice for {0}:\nOrder Number: {1}\nFinal Price: ${2}\nDays to completion: {3}\nMoving cargo from {4} to {5}",
                                             clientName, orderID, price, days, origin, destination);
-            StreamWriter fileWriter = File.AppendText(orderID + "_" + clientName + ".txt");
+            StreamWriter fileWriter = File.CreateText(orderID + "_" + clientName + ".txt");
             fileWriter.WriteLine(fileText);
             fileWriter.Close();
         }
