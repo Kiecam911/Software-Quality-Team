@@ -108,9 +108,9 @@ namespace TMSv2_UIClass.Pages
                 NewContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new System.Windows.Data.Binding { Source = ds.Tables["*"] });
                 connection.Close();
             }
-            catch
+            catch (Exception e)
             {
-                System.Windows.MessageBox.Show("Database failed to load, please check your connection");
+                Logger.LogToFile(e.Message);
             }
         }
 
@@ -154,9 +154,9 @@ namespace TMSv2_UIClass.Pages
                 completedContractsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new System.Windows.Data.Binding { Source = ds.Tables["Orders"] });
                 connection.Close();
             }
-            catch
+            catch (Exception e)
             {
-                System.Windows.MessageBox.Show("Database failed to load, please check your connection");
+                Logger.LogToFile(e.Message);
             }
         }
 
@@ -218,6 +218,7 @@ namespace TMSv2_UIClass.Pages
 
             /// pass to buyer to generate invoice
             CurrentBuyer.GenerateInvoice(contractInfo, orderInfo);
+            System.Windows.MessageBox.Show("Invoice Created!");
         }
     }
 }
