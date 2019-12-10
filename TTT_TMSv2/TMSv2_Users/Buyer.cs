@@ -8,6 +8,7 @@ using TMSv2_Contracts;
 using TMSv2_Order;
 using TMSv2_TripPlanner;
 using System.Data;
+using System.IO;
 
 namespace TMSv2_Users
 {
@@ -88,7 +89,19 @@ namespace TMSv2_Users
         ///
         public void GenerateInvoice(DataRow contractInfo, DataRow orderInfo)
         {
+            int orderID = orderInfo.Field<int>("OrderID");
+            double price = orderInfo.Field<double>("TotalIncome");
+            int days = orderInfo.Field<int>("DaysRequired");
 
+            string clientName = contractInfo.Field<string>("Client_Name");
+            string origin = contractInfo.Field<string>("Origin");
+            string destination = contractInfo.Field<string>("Destination");
+
+            string fileText = String.Format("Sales Invoice for {0}:\nOrder Number: {1}\nFinal Price: {2}\nDays to completion: {3}\nMoving cargo from {4} to {5}",
+                                            clientName, orderID, price, days, origin, destination);
+            StreamWriter fileWriter = File.AppendText(orderID + "_" + clientName + ".txt");
+            fileWriter.WriteLine(fileText);
+            fileWriter.Close();
         }
     }
 }

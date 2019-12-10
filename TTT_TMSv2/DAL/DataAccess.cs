@@ -1651,10 +1651,10 @@ namespace TMSv2_DAL
             try
             {
                 string sqlCommand = String.Format(@"SELECT * FROM Contracts WHERE ContractID = {0};", contractID);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, _Connection);
 
 
                 ConnectToDatabase();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, _Connection);
 
                 DataSet ds = new DataSet();
                 adapter.Fill(ds);

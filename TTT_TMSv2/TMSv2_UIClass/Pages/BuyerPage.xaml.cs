@@ -120,7 +120,7 @@ namespace TMSv2_UIClass.Pages
             {
                 
                 MySqlConnection connection = new MySqlConnection(connectionString);
-                string sqlCommand = "SELECT Contracts.ContractID, OrderID, Client_Name, Quantity, Origin, Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.OrderID WHERE IsActive = 1";
+                string sqlCommand = "SELECT Contracts.ContractID, OrderID, Client_Name, Quantity, Origin, Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.OrderID WHERE IsActive = 1 AND hasTrip = 1;";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
 
@@ -133,7 +133,7 @@ namespace TMSv2_UIClass.Pages
             }
             catch (Exception e)
             {
-                System.Windows.MessageBox.Show(e.ToString());
+                Logger.LogToFile(e.Message);
             }
         }
 
@@ -215,6 +215,9 @@ namespace TMSv2_UIClass.Pages
 
             DataRow contractInfo = dal.GetContractByID(contractID);
             DataRow orderInfo = dal.GetOrderByID(orderID);
+
+            /// pass to buyer to generate invoice
+            CurrentBuyer.GenerateInvoice(contractInfo, orderInfo);
         }
     }
 }
