@@ -81,7 +81,7 @@
             <Button x:Name="CompleteOrderButton" Content="Complete Order" HorizontalAlignment="Left" Margin="644,340,0,0" VerticalAlignment="Top" Width="121" Height="40" Background="#FF047FD4" Foreground="White" BorderBrush="{x:Null}" Click="CompleteOrderButton_Click_1"/>
         </Grid>
 
-        <Grid x:Name="GenerateReportsScreen" Visibility="Hidden">
+        <Grid x:Name="GenerateReportsScreen" Visibility="Visible">
             <Button x:Name="ViewAllButton" Content="View All" HorizontalAlignment="Left" Margin="174,58,0,0" VerticalAlignment="Top" Width="103" Height="27" Foreground="White" Background="#FF047FD4" Click="ViewAllButton_Click"/>
             <Button x:Name="ViewTwoButton" Content="View Two Weeks" HorizontalAlignment="Left" Margin="295,58,0,0" VerticalAlignment="Top" Width="103" Height="27" Background="#FF047FD4" Foreground="White" Click="ViewTwoButton_Click"/>
             <DataGrid x:Name="reportOut" HorizontalAlignment="Left" Height="272" Margin="174,101,0,0" VerticalAlignment="Top" Width="594" Background="{x:Null}" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" AlternatingRowBackground="#FF047FD4"/>

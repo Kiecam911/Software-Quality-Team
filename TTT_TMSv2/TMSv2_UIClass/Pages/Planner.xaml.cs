@@ -34,11 +34,12 @@ namespace TMSv2_UIClass.Pages
         public int carrierID;
         public string origin;
         public string destination;
+        public int jobType;
 
         private TMSv2_Users.Planner currentPlanner;
 
         private List<int> DaysRequiredList;
-
+        
 
         public Planner()
         {
@@ -167,6 +168,7 @@ namespace TMSv2_UIClass.Pages
                 orderIDAssignCarrier = Convert.ToInt32(row_selected["OrderID"]);
                 origin = row_selected["Origin"].ToString();
                 destination = row_selected["Destination"].ToString();
+                jobType = Convert.ToInt32(row_selected["Job_Type"]);
             }
             loadPotentialCarriers(PricesForCarriers);
         }
@@ -223,7 +225,7 @@ namespace TMSv2_UIClass.Pages
             {
                 string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
                 MySqlConnection connection = new MySqlConnection(ConnectionString);
-                string sqlCommand = "SELECT OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.OrderID WHERE Orders.IsActive = 1";
+                string sqlCommand = "SELECT DaysRequired as 'Days Required', OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.OrderID WHERE Orders.IsActive = 1";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
                 connection.Open();
@@ -272,7 +274,7 @@ namespace TMSv2_UIClass.Pages
             {
                 string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
                 MySqlConnection connection = new MySqlConnection(ConnectionString);
-                string sqlCommand = "SELECT Orders.OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.ContractID WHERE hasTrip = 0";
+                string sqlCommand = "SELECT Orders.OrderID, Contracts.ContractID, Contracts.Client_Name, Contracts.Origin, Contracts.Destination, Job_Type FROM Orders INNER JOIN Contracts ON Contracts.ContractID = Orders.ContractID WHERE hasTrip = 0";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
                 connection.Open();
@@ -294,7 +296,7 @@ namespace TMSv2_UIClass.Pages
             {
                 string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
                 MySqlConnection connection = new MySqlConnection(ConnectionString);
-                string sqlCommand = "SELECT *, CarrierName FROM CarrierInfo INNER JOIN Carriers ON Carriers.CarrierID = CarrierInfo.CarrierID WHERE CarrierInfo.DestinationCity = '" + origin + "';";
+                string sqlCommand = "SELECT *, CarrierName FROM CarrierInfo INNER JOIN Carriers ON Carriers.CarrierID = CarrierInfo.CarrierID INNER JOIN Contracts ON Contracts.ContractID = CarrierInfo.CarrierInfoID WHERE CarrierInfo.DestinationCity = '" + origin + "' AND job_type = "+ jobType + ";";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
                 connection.Open();
@@ -338,7 +340,7 @@ namespace TMSv2_UIClass.Pages
             {
                 string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
                 MySqlConnection connection = new MySqlConnection(ConnectionString);
-                string sqlCommand = "SELECT Contracts.ContractID, Orders.OrderID, client_name, Quantity, Origin, Destination, Carriers.CarrierName, TotalExpense, TotalIncome FROM Contracts INNER JOIN Orders ON OrderID = Contracts.ContractID INNER JOIN Carriers ON CarrierID = Contracts.ContractID WHERE Orders.Completed = 1;";
+                string sqlCommand = "SELECT DaysRequired, Contracts.ContractID, Orders.OrderID, client_name, Quantity, Trips.Origin, Trips.Destination, Carriers.CarrierName, TotalExpense, TotalIncome FROM Contracts INNER JOIN Orders ON OrderID = Contracts.ContractID INNER JOIN Trips ON TripID = Orders.OrderID INNER JOIN Carriers ON Carriers.CarrierID = Trips.CarrierID WHERE Orders.Completed = 1;";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
                 connection.Open();
@@ -360,7 +362,7 @@ namespace TMSv2_UIClass.Pages
             {
                 string ConnectionString = ("Server=" + ConfigurationManager.AppSettings["DatabaseIP"] + "; database=" + ConfigurationManager.AppSettings["DatabaseName"] + "; UID=" + ConfigurationManager.AppSettings["DatabaseUsername"] + "; password=" + ConfigurationManager.AppSettings["DatabasePassword"]);
                 MySqlConnection connection = new MySqlConnection(ConnectionString);
-                string sqlCommand = "SELECT Contracts.ContractID, Orders.OrderID, client_name, Quantity, Origin, Destination, Carriers.CarrierName, TotalExpense, TotalIncome FROM Contracts INNER JOIN Orders ON OrderID = Contracts.ContractID INNER JOIN Carriers ON CarrierID = Contracts.ContractID WHERE Orders.Completed = 1 AND DaysRequired > -14;";
+                string sqlCommand = "SELECT DaysRequired, Contracts.ContractID, Orders.OrderID, client_name, Quantity, Trips.Origin, Trips.Destination, Carriers.CarrierName, TotalExpense, TotalIncome FROM Contracts INNER JOIN Orders ON OrderID = Contracts.ContractID INNER JOIN Trips ON TripID = Orders.OrderID INNER JOIN Carriers ON Carriers.CarrierID = Trips.CarrierID WHERE Orders.Completed = 1 AND DaysRequired > -14;";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCommand, connection);
 
                 connection.Open();
