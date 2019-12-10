@@ -1671,7 +1671,7 @@ namespace TMSv2_DAL
 
         public void DayPassed()
         {
-            string cmdText = @"UPDATE Orders SET DaysRequired = DaysRequired - 1 WHERE Orders.hasTrip = 1 AND Orders.Completed = 0;";
+            string cmdText = @"UPDATE Orders SET DaysRequired = DaysRequired - 1 WHERE Orders.hasTrip = 1;";
 
             //Connect to variabled database
             ConnectToDatabase();
