@@ -148,6 +148,20 @@ namespace TMSv2_TripPlanner
             return routesList;
         }
 
+
+
+        ///
+        /// \fn UpdateRoutesTable()
+        /// 
+        /// \brief To Update the route table
+        /// \details <b>Details</b>
+        ///
+        /// Updates the route table to match the destList parameter
+        ///
+        /// \param List<Routes> destList
+        ///
+        /// \return <b>void</b> - None
+        ///
         public static bool UpdateRoutesTable(List<Routes> destList)
         {
             //Variables
